@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <nine-patch android:src="@android:drawable/dialog_holo_light_frame"
+            android:tint="#00000000"/>
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/dark_slate_gray" />
+
+            <corners android:radius="25dp" />
+        </shape>
+    </item>
+
+</layer-list>

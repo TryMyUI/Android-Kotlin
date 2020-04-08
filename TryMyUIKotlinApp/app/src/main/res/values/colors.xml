@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="try_my_ui_green">#6FA530</color>
+    <color name="trymyui_color_blackshade">#354f17</color>
+    <color name="background_blue">#34D3D6</color>
+    <color name="dark_blue">#2db5b7</color>
+    <color name="white">#FFFFFF</color>
+    <color name="text_grey">#797979</color>
+    <color name="text_list_text_color">#777777</color>
+    <color name="darker_grey">#E7E6E7</color>
+    <color name="background_orange">#F78C25</color>
+    <color name="green_light">#97C95B</color>
+    <color name="try_my_ui_green_transparent">#906FA530</color>
+    <color name="light_grey">#f7f7f7</color>
+    <color name="textcolor_grey">#808080</color>
+    <!-- 5 colors shades of radio button-->
+    <color name="orange">#EA8F11</color>
+    <color name="red">#F04124</color>
+    <color name="yellow">#F2FF06</color>
+    <color name="light_green">#AAD522</color>
+    <color name="green">#79AE37</color>
+    <color name="textcolor_darkgrey">#6c6c6c</color>
+    <color name="black">#000000</color>
+
+    <color name="edittext_background">#c8c8c8</color>
+
+    <!-- Compelte task -->
+    <color name="yes_click">#006400</color>
+    <color name="no_click">#851a07</color>
+
+    <!-- SEQ rating color-->
+    <color name="rate1">#BB3B27</color>
+    <color name="rate2">#F48012</color>
+    <color name="rate3">#F5B000</color>
+    <color name="rate4">#F4F400</color>
+    <color name="rate5">#B0E200</color>
+    <color name="rate6">#8CD028</color>
+    <color name="rate7">#85c340</color>
+
+
+    <color name="blue_tranparent">#8034D3D6</color>
+    <color name="green_tranparent">#006400</color>
+    <color name="try_my_ui_red_transparent">#90F04124</color>
+
+
+    <color name="dark_slate_gray">#444444</color>
+    <color name="dim_gray">#545454</color>
+    <color name="dark_gray">#a5a5a5</color>
+    <color name="d3d3d3">#d3d3d3</color>
+    <color name="snow">#fbfbfb</color>
+
+    <color name="transparent">#00000080</color>
+
+    <color name="colorPrimary">#a5a5a5</color>
+    <color name="colorPrimaryDark">#444444</color>
+    <color name="colorAccent">#d3d3d3</color>
+
+
+
+</resources>

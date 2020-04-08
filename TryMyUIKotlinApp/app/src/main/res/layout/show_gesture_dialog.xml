@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff">
+
+    <TextView
+        android:id="@+id/tv_ask_enabled"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20dp"
+        android:layout_marginBottom="0dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/assist_gesture_touch"
+        android:textColor="@color/dim_gray"
+        android:textSize="@dimen/_16sp"
+        android:layout_alignParentTop="true"/>
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_16sp"
+        android:text="@string/need_help_gesture_recording"
+        android:layout_marginTop="@dimen/_20dp"
+        android:fontFamily="sans-serif"
+        android:gravity="center"
+        android:textColor="@color/dark_slate_gray"
+        android:layout_marginLeft="@dimen/_25dp"
+        android:layout_below="@+id/tv_ask_enabled"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/tv_need_help_lbl"/>
+
+    <TextView
+        android:id="@+id/tv_yes_link"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_35dp"
+        android:layout_marginTop="@dimen/_3dp"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/yes_take_to_link"
+        android:textColor="@color/green"
+        android:layout_marginLeft="@dimen/_25dp"
+        android:layout_below="@+id/tv_need_help_lbl"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="@dimen/_15dp"
+        android:paddingRight="@dimen/_15dp"
+        android:textSize="@dimen/_14sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/dark_slate_gray"
+        android:id="@+id/vw"
+        android:layout_below="@+id/tv_yes_link"
+        android:layout_marginLeft="@dimen/_20dp"
+        android:layout_marginRight="@dimen/_20dp"
+        android:layout_marginTop="@dimen/_10dp"/>
+
+
+
+    <TextView
+        android:id="@+id/tv_no_already_enabled"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35dp"
+        android:layout_marginBottom="@dimen/_10dp"
+        android:textSize="@dimen/_14sp"
+        android:layout_marginTop="@dimen/_5dp"
+        android:background="@color/white"
+        android:fontFamily="sans-serif-medium"
+        android:gravity="center"
+        android:text="@string/no_already_enabled"
+        android:textColor="@color/dark_slate_gray"
+        android:layout_marginRight="@dimen/_25dp"
+        android:layout_below="@+id/vw"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="top"/>
+
+</RelativeLayout>

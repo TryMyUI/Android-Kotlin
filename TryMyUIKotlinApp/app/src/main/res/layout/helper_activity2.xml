@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hr_gl_btn_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.825" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/hr_gl_btn_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.91" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vr_gl_btn_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/vr_gl_btn_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.75" />
+
+    <Button
+        app:layout_constraintBottom_toBottomOf="@+id/hr_gl_btn_2"
+        app:layout_constraintEnd_toEndOf="@+id/vr_gl_btn_2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/vr_gl_btn_1"
+        app:layout_constraintTop_toTopOf="@+id/hr_gl_btn_1"
+        app:layout_constraintVertical_bias="0.9"
+        android:id="@+id/btn_next"
+        android:text="@string/nextwitharrow"
+        style="@style/instruction_page_button"/>
+
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        layout="@layout/buildnumber"
+        android:layout_marginLeft="@dimen/_30dp"
+        android:layout_marginRight="@dimen/_30dp"
+        android:id="@+id/include_buildnumber"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/developer_option_desc1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/include_buildnumber"
+        android:layout_marginBottom="@dimen/_25dp"
+        android:layout_marginTop="@dimen/_25dp"
+        style="@style/instruction_page_textview"
+        android:id="@+id/tv_developer_option_desc1"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_1_developer_option"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_developer_option_desc1"
+        android:layout_marginBottom="@dimen/_30dp"
+        style="@style/instruction_page_textview_heading"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/developer_option_desc2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include_buildnumber"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_25dp"
+        style="@style/instruction_page_textview"
+        android:id="@+id/tv_developer_option_desc2"/>
+
+    <TextView
+        android:id="@+id/tv_circle_1"
+        style="@style/step_indicator"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_next"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        android:layout_marginHorizontal="@dimen/_5dp"
+        app:layout_constraintRight_toLeftOf="@id/tv_circle_2"/>
+
+    <TextView
+        android:id="@+id/tv_circle_2"
+        style="@style/step_indicator_active"
+        app:layout_constraintLeft_toRightOf="@+id/tv_circle_1"
+        app:layout_constraintRight_toLeftOf="@+id/tv_circle_3"
+        app:layout_constraintTop_toBottomOf="@+id/btn_next"
+        android:layout_marginHorizontal="@dimen/_5dp"/>
+
+    <TextView
+        android:id="@+id/tv_circle_3"
+        style="@style/step_indicator"
+        app:layout_constraintLeft_toRightOf="@+id/tv_circle_2"
+        app:layout_constraintRight_toLeftOf="@id/tv_circle_4"
+        app:layout_constraintTop_toBottomOf="@+id/btn_next"
+        android:layout_marginHorizontal="@dimen/_5dp"/>
+
+    <TextView
+        android:id="@+id/tv_circle_4"
+        style="@style/step_indicator"
+        app:layout_constraintLeft_toRightOf="@+id/tv_circle_3"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_next"
+        android:layout_marginHorizontal="@dimen/_5dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,299 @@
+<resources>
+
+    <string name="current_app_server_version_release">3.9</string>
+    <string name="device">android</string>
+
+    <string name="app_name">TMULoginModule</string>
+
+    <string name="loading_progress_dialog">Loading...</string>
+    <string name="internet_check">Please check your internet connection and try again</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="email_blank">Please enter your email Id</string>
+    <string name="password_blank">Please enter password</string>
+    <string name="test_id_blank">Please enter Test Id</string>
+    <string name="something_went_wrong">Something went wrong. \nPlease try again later.</string>
+
+    <!--OK_ALERT_WINDOW-->
+    <string name="ok_alert">OK</string>
+    <string name="alert">Alert!</string>
+
+    <string name="example_video">Example video:</string>
+    <string name="how_to_test"><u>How to test</u></string>
+    <string name="checkUpdates">Checking update.</string>
+    <string name="are_you_sure_update_app">New version available.</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="later">Later</string>
+    <string name="rating">Rate</string>
+    <string name="update">Update</string>
+    <string name="pleasewait">Please wait.</string>
+    <string name="whatsnew">What’s new: \n </string>
+    <string name="no_internet_connection">Please check your internet connectivity.</string>
+    <string name="email">Email: </string>
+    <string name="typer_here"><i>Type here</i></string>
+    <string name="auth_progress_msg">Authenticatication is in progress.</string>
+    <string name="email_validation_msg">Email address is not valid.</string>
+    <string name="pswd_validation_msg">Password should be at least 4 characters.</string>
+    <string name="testid_validation_msg">Test ID is not valid.</string>
+    <string name="username_validation_msg">Username is not valid.</string>
+    <string name="no_tests_available_message">There are no usability tests that meet your demographics available at this time. We will notify you by email when one comes up that meets your demographics. You can also check back here anytime.</string>
+    <string name="no_tests_completed_message">You  haven\'t performed tests yet.</string>
+    <string name="no_test_performed_toshow_in_pending_test">Please complete your pending tests to view this data. </string>
+    <string name="ok">OK</string>
+    <string name="send">Send</string>
+    <string name="my_status">My status:</string>
+    <string name="special_qualification_text1">The customer has required the following additional requirements:</string>
+    <string name="technical_qualification_text1">The customer has required the following additional technical requirements:</string>
+    <string name="face_recording_permission_text">This test requires you to record your face in addition to your screen while testing.\n If you are willing to do so, please click YES below.</string>
+    <string name="your_first_task">Your first task:</string>
+    <string name="start_test_dialog_msg">When you hit "Start Test", we will show you a website or app for about 15 seconds and then
+        	we will ask you about your impressions of this website. </string>
+    <string name="start_test_dialog_msg_one">Please say out loud what you are looking at and what you notice.</string>
+    <string name="start_test">Start Test</string>
+    <string name="special_qualification_requirement">Do you meet these requirements?</string>
+    <string name="face_recording_permission_question">Do you want to proceed?</string>
+    <string name="logout_successful">Logout successful</string>
+    <string name="leave_msg_to_post">Please leave a message to post.</string>
+    <string name="feedback_posted_success">Feedback posted successfully.</string>
+    <string name="app_basic_instruction">If you haven\'t already, please install the app now. When you are done, move on to the next task.</string>
+    <string name="preliminary_instructions">When you hit Start Recording, TryMyUI will start capturing everything that\'s displayed on screen.\n\nDuring your test, tap the UI bubble to view or hide the current task.
+    </string>
+    <string name="finish_recording">If you have completed this test, hit the Finish Recording button below.\n\nYour Recording will be auto-saved to your device, and you will be asked to confirm it for upload.
+    </string>
+
+    <string name="link_to_open_app"><u>Install app</u></string>
+    <string name="link_to_open_web"><u>Open test website</u></string>
+
+    <string name="gotoframeofmind"><u>Go to Frame of Mind </u></string>
+
+    <string name="returntotask"><u>Back to tasks</u></string>
+    <string name="gotofirsttask">Go to first task &gt;</string>
+    <string name="recordingtimeup">Your recording time limit has been reached. Do you want to upload video?</string>
+    <string name="upload">Upload</string>
+    <string name="do_you_want_to_upload">Do you want to upload this video?</string>
+    <string name="no_special_qualification">If you do not meet the requirements, we will remove this test from your dashboard. Are you sure you wish to reject this test?</string>
+    <string name="no_video_in_path">There is no recorded video in your path</string>
+    <string name="uploading_message">The video is uploading.\nPlease Wait.</string>
+    <string name="special_criteria">Please <b>say out loud</b> how you meet the following special criteria asked for by the customer:</string>
+    <string name="contiune_with_frame_of_mind">Continue to Frame of Mind</string>
+    <string name="continue_with_impression_test">Continue to Impression test</string>
+    <string name="continue_with_technical_qualification">Continue to Technical qualification</string>
+    <string name="wireframe_button_text">Yes, I Understood!</string>
+    <string name="scenario">Please read the frame of mind aloud.</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="upload_video_again">Failed to upload video.</string>
+    <string name="upload_video_again_cancel_test">Failed to upload video, canceling your test.</string>
+    <string name="are_you_sure_to_cancel_test">Are you sure to cancel the test?</string>
+    <string name="done">Done</string>
+    <string name="submit_caps"> SUBMIT </string>
+    <string name="next_caps">NEXT  &gt;</string>
+    <string name="no_survey_que">There are no survey questions available for this test.</string>
+    <string name="no_ux_corwd_que">There are no UX Crowd questions available for this test.</string>
+    <string name="name">Name:</string>
+    <string name="test_id">Test ID:</string>
+    <string name="continu">Continue</string>
+    <string name="special_criteria_title">Special Criteria</string>
+    <string name="technical_criteria_title">Technical Criteria</string>
+    <string name="please_note">Please Note:</string>
+    <string name="back_caps"> &lt;  BACK</string>
+    <string name="feedback_text">Please be specific to help us address your feedback. For example, if feedback concerns a test, please add the test ID. Thank you.</string>
+    <string name="feedback_hint">Please include a Test ID if relevant.</string>
+    <!-- Notification -->
+    <string name="seq_rating_text">How easy or difficult did you find this task?</string>
+    <!--Rating not submited alert message-->
+    <string name="seq_rate_and_task_complete_not_done">Please rate and indicate task completion before moving to next task.</string>
+    <string name="seq_not_done">Please rate this task before moving to next task.</string>
+    <string name="task_complete_not_done">Please indicate task completion before moving to next task.</string>
+    <string name="video_upload_successfully">Video uploaded successfully.</string>
+    <string name="impressiontest">Impression Test</string>
+    <string name="impressiontest_message">
+        When you hit "Start the Test" we will show you a website for 15 secounds.
+        Then, we will ask you some questions about your first impression.
+        \n\n
+        Please say what you are looking at and describe what you are seeing and thinking.
+
+    </string>
+
+    <string name="impressiontest_message_landscape">
+        When you hit "Start the Test" we will show you a website for 15 secounds.
+        Then, we will ask you some questions about your first impression.
+        \n
+        Please say what you are looking at and describe what you are seeing and thinking.
+
+    </string>
+
+    <string name="impression_test_que">  Q1: Say 3 words you remember from the site, or would use to describe the site.
+
+\n\n Q2: What is this site about?
+
+\n\n Q3: What services and/or products are offered on this site? For whom?
+
+\n\n Q4. What is the feel of the site? (e.g. professional, fun, small-company, corporate?)</string>
+
+    <string name="done_with_impression_test">I’M DONE WITH THE IMPRESSION TEST</string>
+    <string name="forgot_password_message">Please enter your email address.\nYou will be send a link which you can use to change your password.</string>
+    <string name="resetpassword">RESET PASSWORD</string>
+    <string name="return_to_sign_in">Return to Sign In</string>
+    <string name="guest_login_button_message">Or, enter your test code to begin</string>
+
+    <string name="display_alert_for_service_is_running">Your Test is Running.\n
+                Please click on bubble if you want to continue with the running test.\n
+                Also you can terminate the test by long press and drag the bubble to close sign.
+    </string>
+    <string name="singup">SIGN IN</string>
+
+    <string name="dnd_message">Testing sessions interrupted by texts, calls, or background noises may get rejected. Consider turning on Do Not Disturb mode.
+       </string>
+
+    <string name="dnd_permission_message">You can find this in
+    Settings -> Sound &amp; Notification -> Do Not Disturb Access.</string>
+
+
+    <string name="bubble_permission_message_setting">You can find this in
+    Settings -> Installed apps -> Permission -> Other Permission -> TryMyUI -> Display pop-up window ->Accept</string>
+
+    <string name="title_for_bubble_permission">Turn on UI bubble permissions</string>
+    <string name="message_for_bubble_permission">You must permit drawing over other apps in order to start this test.</string>
+    <string name="update_app_message">Please update to latest version of the Android Mobile App. For any help using the Android app, please send an email to support@trymyui.com.</string>
+
+    <!--  <string-array name="permission_list">
+        <item>Manifest.permission.RECORD_AUDIO</item>
+        <item>Manifest.permission.READ_CONTACTS</item>
+        <item>Manifest.permission.READ_EXTERNAL_STORAGE</item>
+        <item>Manifest.permission.READ_PHONE_STATE</item>
+    </string-array>-->
+
+    <string name="default_notification_channel_id">default</string>
+
+    <string name="permission_dialog_description">Hello Folks, Due to upgradation in google playstore policies few permissions are must to accomplish certain task in our App.Without allowing those permissions we cant allow our users to go ahead to take test.</string>
+
+    <string name="go_to_settings">Go to Settings</string>
+    <string name="cancel">Cancel</string>
+    <string name="get_started">Get started!</string>
+    <string name="get_know_testing">Get to know</string>
+
+
+    <string name="mobile_testing">mobile testing</string>
+    <string name="assistance_screen1">How to get your Android \n device set up for testing with \n TryMyUI</string>
+    <string name="got_it">Got it ></string>
+    <string name="android_onboarding_gesture2_desc1">The TryMyUI app is already set up to\n record your screen and your voice.</string>
+    <string name="android_onboarding_gesture2_desc2">We\'re going to show you how to turn on a \n special setting so that we can record your\n </string>
+    <string name="android_onboarding_gesture2_desc2_boldpart">taps, swipes, and gestures </string>
+    <string name="android_onboarding_gesture2_desc2_1"> too.</string>
+    <string name="nextwitharrow">Next ></string>
+    <string name="_1_developer_option">1. \nTurn on Developer Options</string>
+    <string name="developer_option_desc1">In your phone\'s Settings, find the \n \"Build number\" - try looking in System,\nAbout Phone, or Software Info.</string>
+    <string name="developer_option_desc2">in a row \n to turn on your Developer Options.</string>
+    <string name="developer_option_desc2_boldpart">Tap on \"Build number\" 7 times </string>
+
+    <string name="show_tap">Show taps</string>
+    <string name="show_taps_below">Show visual feedback for taps</string>
+
+
+    <string name="_2_enable_show_taps">2. \n Enable \"Show taps\" setting</string>
+    <string name="developer_option_desc3">The Developer Options menu will now be \n available in your Settings. (Look for it in \n System, it may be under \"Advanced\").</string>
+    <string name="developer_option_desc4">Scroll down until you see a setting called \n  </string>
+    <string name="developer_option_desc4_boldpart">\"Show taps\" or \"Show touches\" </string>
+    <string name="developer_option_desc4_1">and \n switch it on.</string>
+    <string name="developer_option_desc5">You can turn your \"Show taps\" setting off\n in between tests. Just  make sure it\'s ON \n before starting a TryMyUI test!</string>
+    <string name="ready_to_test">Ready to test!</string>
+    <string name="finish">Finish</string>
+    <string name="enabled_gesture">Have you enabled \"Show touches\" Gesture?</string>
+    <string name="assist_gesture_touch"><b>Turn on \"Show taps\" before you start!</b></string>
+    <string name="yes_take_to_link"><u>Yes, show me again</u></string>
+    <string name="no_already_enabled"><u>It\'s already enabled</u></string>
+    <string name="need_help_gesture_recording">Need help turning on gesture recording?</string>
+    <string name="permission_denied_text">You must allow this permission in order to perform TryMyUI tests, or we will not be able to collect and share your complete feedback with the customer.</string>
+    <string name="exit">Exit</string>
+
+    <string name="turn_on_in_settings">Turn on in settings</string>
+    <string name="mp4_test_Video_link">https://beta.trymyui.com/android_app_demo_video.mp4</string>
+    <string name="went_wrong">Something went wrong. Please try again later.</string>
+
+    <string name="watch_video_text_body">Everything you need to know to successfully take a usability test on the TryMyUI app (3 min).</string>
+    <string name="btn_continue">Continue</string>
+    <string name="error">Error.</string>
+
+
+    <string name="information">Information</string>
+    <string name="caution"><b>Caution</b></string>
+    <string name="screener_back_warning">Are you sure?\n\nYou are currently eligible to take this test.However, if you navigate away now you will lose the chance to perform it.</string>
+    <string name="yes_i_leave_test">Yes, I want to exit this test.</string>
+    <string name="no_will_continue_test">No, I will continue the test.</string>
+
+    <string name="no_thanks">No Thanks</string>
+    <string name="rate_now">Rate now</string>
+    <string name="rate_us_line">Hey,You have succesfully completed the test.How about rating us 5-star</string>
+    <string name="rate_us_statement"><b>Enjoying TryMyUI?</b> \n Tap a star to leave us a rating.</string>
+    <string name="post_bad_rating">Thank you for your feedback\nLet us know how we can improve using feeback section in your app\'s menu.</string>
+    <string name="not_now">Not Now</string>
+    <string name="add_a_comment"><u>Add a comment</u></string>
+    <string name="please_vote">Please use all 3 of your votes</string>
+    <string name="votes_disabled_msg">*Submitted votes cannot be revised</string>
+    <string name="cancel_comment"><u>Cancel</u></string>
+    <string name="save_comment"><u>Save</u></string>
+    <string name="vote_works"><i>*You have 3 votes to spend on one or more answers.</i></string>
+    <string name="radio_button_validation">Please select an answer to proceed</string>
+
+    <string name="multiple_choice_button_validation">Please check one or more boxes to proceed</string>
+
+
+    <string name="rating_validation">Please select a rating</string>
+    <string name="free_response_validation">Please answer the question</string>
+    <string name="likeliness_recommend">Likeliness to recommend</string>
+    <string-array name="permission_list">
+        <item>android.permission.RECORD_AUDIO</item>
+        <item>android.permission.READ_CONTACTS</item>
+        <item>android.permission.READ_EXTERNAL_STORAGE</item>
+        <item>android.permission.WRITE_EXTERNAL_STORAGE</item>
+        <item>android.permission.READ_PHONE_STATE</item>
+        <item>android.permission.CAMERA</item>
+    </string-array>
+
+    <string-array name="browser_list">
+        <item>chrome</item>
+        <item>opera</item>
+        <item>operamini</item>
+        <item>ucbrowser</item>
+        <item>firefox</item>
+        <item>samsungbrowser</item>
+        <item>microsoftedge</item>
+        <item>iemobile</item>
+        <item>mintbrowser</item>
+        <item>microsoft</item>
+        <!--   <item>ucmobile</item>-->
+        <item>sbrowser</item>
+    </string-array>
+
+    <string-array name="radio_buttons">
+        <item>button_1</item>
+        <item>button_2</item>
+        <item>button_3</item>
+        <item>button_4</item>
+        <item>button_5</item>
+    </string-array>
+
+    <string name="not_at_all_likely">Not at all likely</string>
+    <string name="extremely_likely">Extremely likely</string>
+    <string name="retry">Retry</string>
+    <string name="uploading_task_video">Uploading Task recording video. \n Please wait</string>
+    <string name="uploading_face_video">Uploading Face recording video. \n Please wait</string>
+    <string name="instruction_face_recording">Instruction for Face Recording</string>
+
+
+    <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s
+        standard dummy text ever since the 1500s,
+        when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+        It has survived not only five centuries, but also the leap into electronic typesetting,
+        remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset
+        sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
+        like Aldus PageMaker including versions of Lorem Ipsum.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="pcmac_test">This test is not available for android. You can perform this test on Desktop.</string>
+    <string name="ios_test">This test is not available for android. You can perform this test on iPhone/iPad.</string>
+</resources>

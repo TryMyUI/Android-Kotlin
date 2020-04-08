@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content">
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/rl_main">
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_120dp"
+        android:adjustViewBounds="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/try_my_ui_logo"
+        android:layout_marginTop="@dimen/_50dp"
+        android:layout_marginBottom="@dimen/_30dp"
+        android:layout_marginLeft="@dimen/_20dp"
+        android:layout_marginRight="@dimen/_20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_below="@+id/imageView1"
+        android:background="@color/background_blue"
+        android:layout_marginTop="@dimen/_50dp">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30dp"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginRight="@dimen/_10dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:gravity="right"
+                android:text="@string/name"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/_20dp"
+                android:id="@+id/tv_lbl_name" />
+
+
+            <EditText
+                android:id="@+id/et_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/guest_login_et_bg"
+                android:ems="10"
+                android:inputType="textCapSentences"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/tv_lbl_name"
+                android:layout_marginLeft="@dimen/_10dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginRight="@dimen/_10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/email"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:layout_marginLeft="@dimen/_30dp"
+                android:id="@+id/tv_lbl_email"/>
+
+
+
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textEmailAddress"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white"
+                android:background="@drawable/guest_login_et_bg"
+                android:layout_toRightOf="@+id/tv_lbl_email"
+                android:layout_marginLeft="@dimen/_10dp"/>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_30dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginRight="@dimen/_10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="@string/test_id"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:id="@+id/tv_lbl_testid"
+                android:layout_marginLeft="@dimen/_20dp"/>
+
+
+            <EditText
+                android:id="@+id/et_test_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white"
+                android:background="@drawable/guest_login_et_bg"
+                android:layout_toRightOf="@+id/tv_lbl_testid"
+                android:layout_marginLeft="@dimen/_10dp"/>
+
+
+        </RelativeLayout>
+
+
+        <Button
+            android:id="@+id/btn_guest_signin"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_60dp"
+            android:background="@drawable/login_button"
+            android:text="@string/continu"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:layout_margin="@dimen/_20dp"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+
+
+
+</ScrollView>

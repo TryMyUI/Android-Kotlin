@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/light_grey"
+    android:orientation="vertical">
+
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/card_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_5dp"
+            android:layout_marginTop="@dimen/_5dp"
+            android:scrollbars="vertical" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativelayout_with_refresh_button"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/textview_no_test_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_50dp"
+            android:gravity="center"
+            android:textColor="@color/text_grey"
+            android:textSize="@dimen/test_title_text_size" />
+
+        <ImageView
+            android:id="@+id/refresh_button"
+            android:layout_width="@dimen/_60dp"
+            android:layout_height="@dimen/_60dp"
+            android:layout_below="@+id/textview_no_test_message"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_20dp"
+            android:background="@drawable/rounded_gray_filled"
+            android:src="@drawable/quantum_ic_refresh_white_24" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rl_for_video"
+        android:visibility="visible"
+        android:layout_margin="@dimen/_20dp"
+        android:background="@drawable/rect_grey_round_border_grey_fill"
+        android:padding="@dimen/_10dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_lbl_example_video"
+            android:text="@string/example_video"
+            android:textSize="@dimen/_16sp"
+            android:textColor="@color/dark_slate_gray"
+            android:fontFamily="sans-serif-light"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/how_to_test"
+            android:id="@+id/tv_lbl_how_test"
+            android:layout_below="@+id/tv_lbl_example_video"
+            android:textSize="@dimen/_16sp"
+            android:textColor="@color/dark_blue"
+            android:fontFamily="sans-serif-light"
+            android:layout_marginTop="@dimen/_7dp"
+            android:textStyle="italic"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_3min"
+            android:text="   (3 min)"
+            android:layout_toRightOf="@+id/tv_lbl_how_test"
+            android:layout_below="@+id/tv_lbl_example_video"
+            android:layout_marginTop="@dimen/_7dp"
+            android:fontFamily="sans-serif-light"
+            android:textSize="@dimen/_16sp"
+            android:textColor="@color/dim_gray"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:multi_line_radio_group="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/orange"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/_10dp">
+
+    <LinearLayout
+        android:layout_margin="@dimen/_10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/likeliness_recommend"
+            android:id="@+id/tv_lbl_likeliness_recommend"
+            android:layout_alignParentTop="true"
+            android:textColor="@color/dark_slate_gray"
+            android:textSize="@dimen/_18sp"
+            android:layout_marginTop="@dimen/_20dp"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginRight="@dimen/_10dp"
+            android:fontFamily="sans-serif-condensed-medium"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_nps_question"
+            android:layout_below="@+id/tv_lbl_likeliness_recommend"
+            android:textSize="@dimen/_18sp"
+            android:text="How likely are you to recommend this website to a friend or colleague?"
+            android:textColor="@color/dark_slate_gray"
+            android:layout_margin="@dimen/_10dp"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="@dimen/_3dp"/>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_min_label"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tv_nps_question"
+            android:text="@string/not_at_all_likely"
+            android:textSize="@dimen/_14sp"
+            android:layout_marginLeft="@dimen/_25dp"
+            android:layout_marginTop="@dimen/_50dp"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/dark_slate_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_below="@+id/tv_min_label"
+            android:layout_marginLeft="@dimen/_10dp"
+            android:layout_marginRight="@dimen/_30dp"
+            android:id="@+id/ll_nps_view">
+
+
+
+        </LinearLayout>
+
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_max_label"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/ll_nps_view"
+            android:text="@string/extremely_likely"
+            android:textSize="@dimen/_14sp"
+            android:layout_marginRight="@dimen/_25dp"
+            android:layout_marginTop="@dimen/_3dp"
+            android:gravity="right"
+            android:fontFamily="sans-serif"
+            android:textColor="@color/dark_slate_gray"/>
+
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_submit"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_50dp"
+        android:background="@color/darker_grey"
+        android:gravity="center|center_vertical"
+        android:text="@string/submit_caps"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sp"
+        android:textStyle="bold"
+        android:layout_margin="@dimen/_10dp"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
