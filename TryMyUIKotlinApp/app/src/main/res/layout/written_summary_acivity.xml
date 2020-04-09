@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/orange"
+    android:padding="@dimen/_3dp"
+    android:fillViewport="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:id="@+id/nestedScrollView">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange"
+        android:padding="@dimen/_3dp"
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/rl_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_alignParentTop="true"
+            android:background="@color/white"
+            android:layout_marginBottom="@dimen/_50dp"
+            android:id="@+id/rl_3">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_ws_question"
+                android:textColor="@color/dark_slate_gray"
+                android:textSize="@dimen/_18sp"
+                android:layout_marginTop="@dimen/_30dp"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:padding="@dimen/_10dp"
+                android:fontFamily="sans-serif"
+                android:layout_alignParentTop="true"/>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_4dp"
+                android:background="@color/light_grey"
+                android:layout_below="@id/tv_ws_question"
+                android:layout_marginTop="@dimen/_20dp"
+                android:id="@+id/vw"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_free_response"
+                android:orientation="vertical"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:visibility="gone"
+                android:background="@color/white"
+                android:padding="@dimen/_20dp"
+                android:layout_below="@+id/vw"
+                android:layout_above="@+id/ll_back_next">
+
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150dp"
+                    android:id="@+id/et_response"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:maxHeight="@dimen/_150dp"
+                    android:hint="@string/typer_here"
+                    android:text=""
+                    android:gravity="top|left"
+                    android:minHeight="@dimen/_40dp"
+                    android:scrollbars="vertical"
+                    android:fadeScrollbars="false"
+                    android:paddingLeft="@dimen/_5dp"
+                    android:paddingTop="@dimen/_5dp"
+                    android:paddingRight="@dimen/_5dp"
+                    android:fontFamily="sans-serif"
+                    android:background="@drawable/edittext_border"
+                    android:overScrollMode="always"
+                    android:scrollbarStyle="insideInset"
+                    android:inputType="textCapSentences|textMultiLine"
+                    android:textColor="@color/dark_slate_gray"
+                    android:textSize="@dimen/_14sp"/>
+
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_single_select"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_10dp"
+                android:visibility="gone"
+                android:padding="@dimen/_20dp"
+                android:layout_below="@+id/vw"
+                android:layout_above="@+id/ll_back_next">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ll_multi_select"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_10dp"
+                android:visibility="gone"
+                android:padding="@dimen/_20dp"
+                android:layout_below="@+id/vw"
+                android:layout_above="@+id/ll_back_next">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_600dp"
+                android:id="@+id/ll_silder_rating"
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/_10dp"
+                android:visibility="visible"
+                android:padding="@dimen/_20dp"
+                android:layout_below="@+id/vw"
+                android:layout_above="@+id/ll_back_next">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_200dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_centerInParent="true"
+                        android:id="@+id/ll_add_slider">
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_min_label"
+                        android:layout_below="@+id/ll_add_slider"
+                        android:layout_alignParentLeft="true"
+                        android:text="Min Label"
+                        android:layout_marginTop="@dimen/_3dp"
+                        android:textSize="@dimen/_16sp"
+                        android:paddingLeft="@dimen/_10dp"
+                        android:fontFamily="sans-serif-light"/>
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_max_label"
+                        android:layout_below="@+id/ll_add_slider"
+                        android:layout_alignParentRight="true"
+                        android:text="Max Label"
+                        android:layout_marginTop="@dimen/_3dp"
+                        android:fontFamily="sans-serif-light"
+                        android:textSize="@dimen/_16sp"
+                        android:paddingRight="@dimen/_10dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_min_value"
+                        android:layout_alignParentLeft="true"
+                        android:layout_above="@+id/ll_add_slider"
+                        android:text="0"
+                        android:layout_marginBottom="@dimen/_3dp"
+                        android:layout_marginLeft="@dimen/_12dp"
+                        android:fontFamily="sans-serif"
+                        android:textSize="@dimen/_16sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tv_max_value"
+                        android:layout_alignParentRight="true"
+                        android:layout_above="@+id/ll_add_slider"
+                        android:text="10"
+                        android:layout_marginBottom="@dimen/_3dp"
+                        android:layout_marginRight="@dimen/_12dp"
+                        android:fontFamily="sans-serif"
+                        android:textSize="@dimen/_16sp"/>
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50dp"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal"
+                android:weightSum="100"
+                android:id="@+id/ll_back_next"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp">
+
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:id="@+id/btn_ws_back"
+                    android:text="Back"
+                    android:background="@color/orange"
+                    android:textColor="@color/white"
+                    android:layout_margin="@dimen/_5dp"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_14sp"
+                    android:padding="@dimen/_3dp"/>
+
+                <Button
+                    android:layout_width="0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="50"
+                    android:id="@+id/btn_ws_next"
+                    android:text="Next"
+                    android:background="@color/green_light"
+                    android:textColor="@color/white"
+                    android:layout_margin="@dimen/_5dp"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/_14sp"
+                    android:padding="@dimen/_3dp"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayoutCircleView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50dp"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_below="@+id/rl_3"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_3dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingTop="0dp"
+            android:paddingBottom="0dp"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/tv_current_question"
+                android:textColor="@color/dark_slate_gray"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="(0/0)"
+                android:fontFamily="sans-serif"
+                android:textSize="@dimen/_16sp"/>
+
+
+        </LinearLayout>
+
+
+
+    </RelativeLayout>
+
+
+
+</androidx.core.widget.NestedScrollView>

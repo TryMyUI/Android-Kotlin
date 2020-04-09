@@ -8,7 +8,6 @@ import com.mahesch.trymyui.model.SpecialTechnicalModel
 import com.seattleapplab.trymyui.models.TestAvailabilityModel
 import com.seattleapplab.trymyui.models.Tests
 import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.http.*
 
 class ApiService{
@@ -59,10 +58,14 @@ class ApiService{
             @Query("device") device: String?) : Call<Tests>
 
 
-        //@Headers("Content-Type: application/json; charset=utf-8")
-      //  @Headers("Content-Type: application/x-www-form-urlencoded")
+
         @POST("/api/v2/worker/save_net_promoter_score")
         fun submitNpsValue(@Body body:JsonObject) : Call<CommonModel>
+
+
+        @Headers("Content-Type: application/json; charset=utf-8")
+        @POST("/api/v2/enterprise/save_written_summary_responses")
+        fun postWrittenSummaryAnswers(@Body body: JsonObject): Call<CommonModel>
 
         @Headers("Content-Type: application/json; charset=utf-8")
         @POST("/api/v2/enterprise/save_sus_responses")

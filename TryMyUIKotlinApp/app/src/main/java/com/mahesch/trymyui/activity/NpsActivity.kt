@@ -1,6 +1,7 @@
 package com.mahesch.trymyui.activity
 
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -54,14 +55,14 @@ class NpsActivity : AppCompatActivity() {
             availableTestModel = intent.extras.getSerializable("availableTestConstants") as AvailableTestModel
 
             if(npsQuestion == null || availableTestModel == null){
-              //  moveToHome()
+                moveToHome()
             }
 
             manageFlowAfterTest = ManageFlowAfterTest(availableTestModel,this)
         }
         else
         {
-           // Utils.moveToHome(this)
+            moveToHome()
         }
 
         if(availableTestModel.ux_crowd_questions.equals("[]",true))
@@ -1180,6 +1181,12 @@ addRadioButton_10()
         dismissProgressDialog()
 
         dismissErrorDialog()
+    }
+
+    private fun moveToHome(){
+        var intent = Intent(NpsActivity@this,TabActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
 }

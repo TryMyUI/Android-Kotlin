@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SeekBar xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:progressDrawable="@drawable/seekbar_line"
+    android:minHeight="6dip"
+    android:maxHeight="6dip"
+    android:layout_height="wrap_content"
+    android:layout_centerVertical="true"/>

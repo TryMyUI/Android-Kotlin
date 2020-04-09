@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity android:name=".activity.ScreenerEligibilityAcitivity"></activity>
+        <activity android:name=".activity.WrittenSummaryActivity"></activity>
+        <activity android:name=".activity.ScreenerEligibilityAcitivity" />
         <activity android:name=".activity.HelperActivity4" />
         <activity android:name=".activity.HelperActivity3" />
         <activity android:name=".activity.HelperActivity2" />

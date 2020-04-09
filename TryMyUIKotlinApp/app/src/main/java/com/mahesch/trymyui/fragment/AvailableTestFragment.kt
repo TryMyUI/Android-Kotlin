@@ -18,12 +18,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mahesch.trymyui.R
-import com.mahesch.trymyui.activity.NpsActivity
-import com.mahesch.trymyui.activity.PerformTestActivity
-import com.mahesch.trymyui.activity.TabActivity
+import com.mahesch.trymyui.activity.*
 import com.mahesch.trymyui.activity.TabActivity.Companion.isQualified
 import com.mahesch.trymyui.activity.TabActivity.Companion.qualification_message
-import com.mahesch.trymyui.activity.VideoPlayerActivity
 import com.mahesch.trymyui.adapter.AvailableTestListAdapter
 import com.mahesch.trymyui.helpers.ManageFlowBeforeRecording
 import com.mahesch.trymyui.helpers.SharedPrefHelper
@@ -194,8 +191,8 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
 
         SharedPrefHelper(activity).saveTestResultId("309459")
 
-        var intent = Intent(activity,NpsActivity::class.java)
-        intent.putExtra("npsQuestion",availableTestModel?.npsQuestion)
+        var intent = Intent(activity,WrittenSummaryActivity::class.java)
+        intent.putExtra("surveyQuestions",availableTestModel?.surveyQuestions)
         intent.putExtra("availableTestConstants",availableTestModel)
         startActivity(intent)
         activity.finish()
