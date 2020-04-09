@@ -175,11 +175,28 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
 
         Log.e(TAG,"takeTestClicked")
 
-        ManageFlowBeforeRecording(availableTestModel,activity).moveToWhichActivity(0)
+       // ManageFlowBeforeRecording(availableTestModel,activity).moveToWhichActivity(0)
+        temporaryFlow(availableTestModel)
+
     }
 
     private fun moveToNextActivityAndFinishCurrent(){
         var intent = Intent(activity, PerformTestActivity::class.java)
+        startActivity(intent)
+        activity.finish()
+    }
+
+     fun temporaryFlow(availableTestModel: AvailableTestModel?){
+
+        Log.e(TAG, "availableTestModel $availableTestModel")
+
+        Log.e(TAG,"title "+availableTestModel?.title)
+
+        SharedPrefHelper(activity).saveTestResultId("309459")
+
+        var intent = Intent(activity,NpsActivity::class.java)
+        intent.putExtra("npsQuestion",availableTestModel?.npsQuestion)
+        intent.putExtra("availableTestConstants",availableTestModel)
         startActivity(intent)
         activity.finish()
     }

@@ -327,6 +327,7 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
             else
             {
                 Log.e(TAG,"customer doesn't check for useTestAvailability")
+                availableTestFragment?.temporaryFlow(availableTestModel)
             }
 
 

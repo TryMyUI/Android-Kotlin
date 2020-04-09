@@ -274,6 +274,8 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
         }
 
         viewPager.adapter = adapter
+
+
     }
 
 
@@ -685,10 +687,10 @@ showErrorDialog(null)
 
         Log.e(TAG,"title "+availableTestModel?.title)
 
-        SharedPrefHelper(this).saveTestResultId("309376")
+        SharedPrefHelper(this).saveTestResultId("309459")
 
-        var intent = Intent(this@TabActivity,SusQuestionActivity::class.java)
-        intent.putExtra("npsQuestion",availableTestModel?.susQuestion)
+        var intent = Intent(this@TabActivity,NpsActivity::class.java)
+        intent.putExtra("npsQuestion",availableTestModel?.npsQuestion)
         intent.putExtra("availableTestConstants",availableTestModel)
         startActivity(intent)
         finish()

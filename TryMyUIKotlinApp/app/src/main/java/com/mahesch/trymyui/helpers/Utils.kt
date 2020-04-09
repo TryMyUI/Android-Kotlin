@@ -5,13 +5,13 @@ import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.startActivity
 import androidx.fragment.app.FragmentActivity
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
@@ -182,6 +182,36 @@ class Utils {
                 actionbar?.setDisplayHomeAsUpEnabled(true)
                 actionbar?.show()
             }
+        }
+
+
+        fun getScreenSizeType(context: Context): Int {
+            val screenSize = context.resources.configuration.screenLayout and
+                    Configuration.SCREENLAYOUT_SIZE_MASK
+            val screen_size_value: Int
+            screen_size_value = when (screenSize) {
+                Configuration.SCREENLAYOUT_SIZE_LARGE -> {
+                    Log.e(TAG, "screenSize large $screenSize")
+                    1
+                }
+                Configuration.SCREENLAYOUT_SIZE_NORMAL -> {
+                    Log.e(TAG, "screenSize normal $screenSize")
+                    2
+                }
+                Configuration.SCREENLAYOUT_SIZE_SMALL -> {
+                    Log.e(TAG, "screenSize small $screenSize")
+                    3
+                }
+                Configuration.SCREENLAYOUT_SIZE_XLARGE -> {
+                    Log.e(TAG, "scrrensize xlarge $screenSize")
+                    4
+                }
+                else -> {
+                    Log.e(TAG, "screenSize $screenSize")
+                    0
+                }
+            }
+            return screen_size_value
         }
 
     }
