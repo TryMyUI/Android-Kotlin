@@ -1,11 +1,14 @@
 package com.seattleapplab.trymyui.models
 
 import android.os.Parcel
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 import java.util.*
+import kotlin.collections.ArrayList
 
 class Tests {
     var message: String? = null

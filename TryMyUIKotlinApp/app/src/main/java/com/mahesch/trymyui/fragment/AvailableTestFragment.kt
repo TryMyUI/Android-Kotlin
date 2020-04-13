@@ -191,8 +191,8 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
 
         SharedPrefHelper(activity).saveTestResultId("309459")
 
-        var intent = Intent(activity,WrittenSummaryActivity::class.java)
-        intent.putExtra("surveyQuestions",availableTestModel?.surveyQuestions)
+        var intent = Intent(activity,SusQuestionActivity::class.java)
+        intent.putExtra("susQuestion",availableTestModel?.susQuestion)
         intent.putExtra("availableTestConstants",availableTestModel)
         startActivity(intent)
         activity.finish()
