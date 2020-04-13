@@ -58,7 +58,7 @@
         <activity android:name=".activity.TechnicalQualificationActivity" />
         <activity android:name=".activity.SpecialQualificationActivity" />
         <activity android:name=".activity.UxCrowdVotingActivity" />
-        <activity android:name=".activity.UxCrowdAcitivity" />
+        <activity android:name=".activity.UxCrowdActivity" />
         <activity android:name=".activity.SusQuestionActivity" />
         <activity android:name=".activity.SurveyQuestionWithChoicesActivity" />
         <activity android:name=".activity.GetToKnowTestingActivity" />

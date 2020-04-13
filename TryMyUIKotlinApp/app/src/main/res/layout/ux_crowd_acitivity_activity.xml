@@ -1,9 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mahesch.trymyui.activity.UxCrowdAcitivity">
+    android:fillViewport="true">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/linearlayout_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:id="@+id/uxcrowd_main_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:background="@drawable/shadow_layout_green"
+            android:orientation="vertical"
+            android:layout_weight="80">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/light_grey"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textViewQuestion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|top"
+                    android:inputType="textMultiLine"
+                    android:padding="@dimen/_10dp"
+                    android:text="@string/value_from"
+                    android:textColor="@color/textcolor_grey"
+                    android:textSize="@dimen/_14sp"
+                    android:layout_margin="@dimen/_15dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/_5dp"
+                    android:paddingLeft="@dimen/_10dp"
+                    android:paddingRight="@dimen/_10dp"
+                    android:paddingTop="@dimen/_5dp">
+
+                    <EditText
+                        android:id="@+id/editTextAnswerOne"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_150dp"
+                        android:background="@drawable/edittext_border"
+                        android:cursorVisible="true"
+                        android:digits="qwertyuiopasdfghjklzxcvbnm 1234567890 QWERTYUIOPASDFGHJKLZXCVBNM !@#$%^&amp;*()_-+=`~,.?/':;"
+                        android:gravity="top"
+                        android:inputType="textMultiLine"
+                        android:maxLines="8"
+                        android:paddingLeft="@dimen/_10dp"
+                        android:paddingRight="@dimen/_10dp"
+                        android:scrollbars="vertical"
+                        android:selectAllOnFocus="true"
+                        android:textColor="@color/textcolor_grey"
+                        android:textSize="@dimen/_14sp">
+
+                        <requestFocus />
+                    </EditText>
+
+                    <EditText
+                        android:id="@+id/editTextAnswerTwo"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_150dp"
+                        android:layout_marginTop="@dimen/_10dp"
+                        android:background="@drawable/edittext_border"
+                        android:cursorVisible="true"
+                        android:digits="qwertyuiopasdfghjklzxcvbnm 1234567890 QWERTYUIOPASDFGHJKLZXCVBNM !@#$%^&amp;*()_-+=`~,.?/':;"
+                        android:gravity="top"
+                        android:inputType="textMultiLine"
+                        android:maxLines="8"
+                        android:paddingLeft="@dimen/_10dp"
+                        android:paddingRight="@dimen/_10dp"
+                        android:scrollbars="vertical"
+                        android:selectAllOnFocus="true"
+                        android:textColor="@color/textcolor_grey"
+                        android:textSize="@dimen/_14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottom_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:background="@color/green"
+            android:orientation="vertical"
+            android:layout_weight="20"
+            android:weightSum="100">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:padding="@dimen/_10dp"
+                android:layout_weight="50">
+
+                <ImageView
+                    android:id="@+id/buttonBack"
+                    android:layout_width="@dimen/_60dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_keyboard_arrow_left_white"
+                    android:textStyle="bold"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerHorizontal="true" />
+
+
+
+                <ImageView
+                    android:id="@+id/uxcrowd_image"
+                    android:layout_width="@dimen/_60dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_thumb_up_white"
+                    android:textStyle="bold"
+                    android:layout_centerInParent="true"/>
+
+
+                <ImageView
+                    android:id="@+id/buttonNext"
+                    android:layout_width="@dimen/_60dp"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_keyboard_arrow_right_white"
+                    android:textStyle="bold"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayoutCircleView"
+                android:layout_width="match_parent"
+                android:layout_height="0dip"
+                android:background="@color/white"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:layout_weight="50">
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

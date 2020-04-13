@@ -142,7 +142,7 @@ class GuestLoginActivity : AppCompatActivity() {
 
                     val surveyQuestions: String? = gson.toJson(availableTest?.surveyQuestions)
                     val susQuestion: String? = gson.toJson(availableTest?.sus_questions)
-                    var uxCrowdSurvey: String? = gson.toJson(availableTest?.uxCrowdSurveys)
+                    var uxCrowdSurvey: String? = gson.toJson(availableTest?.ux_crowd_questions)
                     val npsQuestion: String? = gson.toJson(availableTest?.npsQuestion_list)
                     val sus_scales: String? = gson.toJson(availableTest?.susScales)
 

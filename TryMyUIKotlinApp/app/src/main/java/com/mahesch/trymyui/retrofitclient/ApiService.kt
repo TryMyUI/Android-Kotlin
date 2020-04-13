@@ -71,6 +71,10 @@ class ApiService{
         @POST("/api/v2/enterprise/save_sus_responses")
         fun submitSUSAnswers(@Body body: JsonObject): Call<CommonModel>
 
+        @Headers("Content-Type: application/json; charset=utf-8")
+        @POST("/api/v2/enterprise/save_ux_crowd_responses")
+        fun postUXCrowdUserAnswers(@Body body: JsonObject): Call<CommonModel>
+
         @FormUrlEncoded
         @POST("/api/v2/mobile_events/mobile_rating")
         fun submitRatingForGuest(

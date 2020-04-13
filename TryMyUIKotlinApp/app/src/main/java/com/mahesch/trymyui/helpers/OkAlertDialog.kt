@@ -36,7 +36,7 @@ class OkAlertDialog {
 
         fun dismissOkAlert(){
             if(alertDialog1 != null){
-                if(alertDialog1!!.isShowing()){
+                if(alertDialog1!!.isShowing){
                    alertDialog1?.dismiss()
                 }
             }

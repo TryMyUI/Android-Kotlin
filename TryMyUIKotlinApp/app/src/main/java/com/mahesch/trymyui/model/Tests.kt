@@ -65,7 +65,7 @@ class Tests {
             @Expose
             var susScales: SusScales? = null
             var tasks: List<Tasks>? = null
-            var uxCrowdSurveys: List<UXCrowdSurvey>? = null
+            var ux_crowd_questions: List<UXCrowdSurvey>? = null
 
             fun setopt_for_seq(seq: Boolean) {
                 opt_for_seq = seq
@@ -120,7 +120,7 @@ class Tests {
             @SerializedName("sus_questions")
             var sus_questions: List<SusQuestions>? = null
             var tasks: List<Tasks>? = null
-            var uxCrowdSurveys: List<UXCrowdSurvey>? = null
+            var ux_crowd_questions: List<UXCrowdSurvey>? = null
             @SerializedName("voting")
             @Expose
             var isVoting = false
@@ -231,7 +231,9 @@ class Tests {
             @SerializedName("sus_questions")
             var sus_questions: List<SusQuestions>? = null
             var tasks: List<Tasks>? = null
-            var uxCrowdSurveys: List<UXCrowdSurvey>? = null
+
+            var ux_crowd_questions: List<UXCrowdSurvey>? = null
+
             @SerializedName("nps_question")
             @Expose
             var npsQuestion: ArrayList<NpsQuestion>? = null
