@@ -37,7 +37,12 @@ class NpsQuestionRepository(application: Application) {
 
                 Log.e(TAG, "ONFAILURE")
 
-                mutableLiveData?.value = CommonModel()
+                var commonModel = CommonModel()
+                commonModel.error = t
+
+                Log.e(TAG,"t stackTrace "+t.stackTrace)
+
+                mutableLiveData?.value = commonModel
             }
 
             override fun onResponse(call: Call<CommonModel>, response: Response<CommonModel>) {

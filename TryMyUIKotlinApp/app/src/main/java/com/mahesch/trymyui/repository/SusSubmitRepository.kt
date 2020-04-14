@@ -34,7 +34,10 @@ class SusSubmitRepository (application: Application){
 
                 Log.e(TAG, "ONFAILURE")
 
-                mutableLiveData?.value = CommonModel()
+                var commonModel = CommonModel()
+                commonModel.error = t
+
+                mutableLiveData?.value = commonModel
             }
 
             override fun onResponse(call: Call<CommonModel>, response: Response<CommonModel>) {
