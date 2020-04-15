@@ -95,4 +95,9 @@ class SpecialQualificationActivity : AppCompatActivity() {
         OkAlertDialog.dismissOkAlert()
         ProgressDialog.dismissProgressDialog()
     }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        ManageFlowBeforeRecording(availableTestModel,this).manageBackFlow(0)
+    }
 }

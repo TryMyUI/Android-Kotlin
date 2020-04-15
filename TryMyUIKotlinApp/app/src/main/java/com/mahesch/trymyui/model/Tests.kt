@@ -35,7 +35,7 @@ class Tests {
             var recording_timeout_minutes = 0
             var special_qual: String? = null
             var interface_type: String? = null
-            var isIs_kind_partial_site = false
+            var is_kind_partial_site = false
                 private set
             var is_kind_partial_site_text: String? = null
             var opt_for_task_completion = false
@@ -47,9 +47,9 @@ class Tests {
             var title_with_id: String? = null
             var native_app_url: String? = null
             var technical_qual: String? = null
-            var isScreener_test_avaialable = false
+            var screener_test_available = false
 
-            var isOpt_for_face_recording = false
+            var opt_for_face_recording = false
 
             var recorder_orientation: String? = null
             @SerializedName("survey_questions")
@@ -76,7 +76,7 @@ class Tests {
             }
 
             fun setIs_kind_partial_site(is_kind_partial_site: Boolean) {
-                isIs_kind_partial_site = is_kind_partial_site
+                this@MyTest.is_kind_partial_site = is_kind_partial_site
             }
 
         }
@@ -100,7 +100,7 @@ class Tests {
             var recording_timeout_minutes = 0
             var special_qual: String? = null
             var interface_type: String? = null
-            var isIs_kind_partial_site = false
+            var is_kind_partial_site = false
                 private set
             var is_kind_partial_site_text: String? = null
             var opt_for_task_completion = false
@@ -111,7 +111,7 @@ class Tests {
             var native_app_url: String? = null
             var isScreener_test_avaialble = false
 
-            var isOpt_for_face_recording = false
+            var opt_for_face_recording = false
 
             var recorder_orientation: String? = null
             var technical_qual: String? = null
@@ -175,7 +175,7 @@ class Tests {
             }
 
             fun setIs_kind_partial_site(is_kind_partial_site: Boolean) {
-                isIs_kind_partial_site = is_kind_partial_site
+                this@AvailableTest.is_kind_partial_site = is_kind_partial_site
             }
 
         }

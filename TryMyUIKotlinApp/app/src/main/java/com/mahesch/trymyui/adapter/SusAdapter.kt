@@ -23,7 +23,7 @@ import kotlin.collections.HashMap
 class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayList<Tests.SusQuestions>,availableTestModel: AvailableTestModel) : BaseAdapter() {
 
      var checkvalues: HashMap<String, String> = HashMap()
-    private var context: Context = susQuestionActivity.baseContext
+    private var context: Context = susQuestionActivity
     private var susTestList: ArrayList<Tests.SusQuestions> = susTestsList
     private var sharedPrefHelper: SharedPrefHelper = SharedPrefHelper(context)
     private var availableTestModel: AvailableTestModel = availableTestModel
@@ -32,7 +32,7 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
 
 
     private val TAG: String = SusAdapter::class.java.simpleName.toUpperCase()
-    private val inflater: LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private lateinit var inflater: LayoutInflater
 
 
 
@@ -40,9 +40,8 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
 
 
         var holder: Holder? = null
-        var rowView = convertView
 
-        if(rowView == null){
+            inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
             var rowView = inflater.inflate(R.layout.sus_list_row,null)
 
             holder = SusAdapter(susQuestionActivity,susTestList,availableTestModel).Holder()
@@ -70,11 +69,7 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
             }
 
             rowView.tag = holder
-        }
-        else
-        {
-            holder = rowView.tag as Holder
-        }
+
 
         holder?.radioGroup?.setOnCheckedChangeListener { group, checkedId ->
 
@@ -95,6 +90,10 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
                     mOnDataChangeListener?.onDataChanged(checkvalues.size)
                 }
 
+                Log.e(TAG,"radioButton id "+radioButton?.id)
+                Log.e(TAG,"checked id "+checkedId)
+
+
             }
         }
 
@@ -106,6 +105,7 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
 
         for (i in susScales.min_scale..susScales.max_scale) {
             var radioButton = RadioButton(context)
+            holder?.radioGroup.addView(radioButton)
 
             Log.e(TAG,"selected vale "+ checkvalues[susQuestions.id.toString()])
 
@@ -121,12 +121,12 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
                 radioButton.setPadding(7, 5, 6, 5)
             }
 
-         //   radioButton.isChecked = checkvalues[susQuestions.id.toString()]?.toInt() == i
+            radioButton.isChecked = checkvalues[susQuestions.id.toString()]?.toInt() == i
 
-          /*  if(radioButton.isChecked)
+            if(radioButton.isChecked)
                 radioButton.setTextColor(context.resources.getColor(R.color.white))
             else
-                radioButton.setTextColor(context.resources.getColor(R.color.black))*/
+                radioButton.setTextColor(context.resources.getColor(R.color.black))
 
             radioButton.gravity = Gravity.CENTER
             radioButton.layoutParams = params
@@ -144,7 +144,6 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
                 }
             }
 
-            holder?.radioGroup.addView(radioButton)
 
         }
     }

@@ -134,7 +134,7 @@ class GuestLoginActivity : AppCompatActivity() {
                     val recording_timeout_minutes: Int? = availableTest?.recording_timeout_minutes
                     val special_qual: String? = availableTest?.special_qual
                     val interface_type: String? = availableTest?.interface_type
-                    val is_kind_partial_site: Boolean? = availableTest?.isIs_kind_partial_site
+                    val is_kind_partial_site: Boolean? = availableTest?.is_kind_partial_site
                     val is_kind_partial_site_text: String? = availableTest?.is_kind_partial_site_text
                     val tasks: String? = gson.toJson(availableTest?.tasks)
                     val title_with_id: String? = availableTest?.title_with_id
@@ -178,7 +178,7 @@ class GuestLoginActivity : AppCompatActivity() {
 
                     val screener_test_avaialable: Boolean? = availableTest?.isScreener_test_avaialble
 
-                    val opt_for_face_recording: Boolean? = availableTest?.isOpt_for_face_recording
+                    val opt_for_face_recording: Boolean? = availableTest?.opt_for_face_recording
                     val recorder_orientation: String? = availableTest?.recorder_orientation
                     val technical_qualification: String? = availableTest?.technical_qual
 

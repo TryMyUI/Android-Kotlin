@@ -172,8 +172,8 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
 
         Log.e(TAG,"takeTestClicked")
 
-       // ManageFlowBeforeRecording(availableTestModel,activity).moveToWhichActivity(0)
-        temporaryFlow(availableTestModel)
+        ManageFlowBeforeRecording(availableTestModel,activity).moveToWhichActivity(0)
+    //    temporaryFlow(availableTestModel)
 
     }
 
@@ -189,10 +189,11 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
 
         Log.e(TAG,"title "+availableTestModel?.title)
 
-        SharedPrefHelper(activity).saveTestResultId("309490")
+        SharedPrefHelper(activity).saveTestResultId("309485")
 
-        var intent = Intent(activity,UxCrowdVotingActivity::class.java)
+        var intent = Intent(activity,SusQuestionActivity::class.java)
         intent.putExtra("availableTestConstants",availableTestModel)
+         intent.putExtra("susQuestion",availableTestModel?.susQuestion)
         startActivity(intent)
         activity.finish()
     }

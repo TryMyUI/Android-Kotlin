@@ -8,7 +8,6 @@ class CommonModel {
     @SerializedName("status_code")
      var statusCode = 0
      var message: String? = null
-     var data: JsonObject? = null
     var error: Throwable? = null
 
 

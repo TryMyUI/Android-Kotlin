@@ -19,10 +19,7 @@ import com.mahesch.trymyui.R
 import com.mahesch.trymyui.activity.TabActivity
 import com.mahesch.trymyui.activity.VideoPlayerActivity
 import com.mahesch.trymyui.fragment.AvailableTestFragment
-import com.mahesch.trymyui.helpers.OkAlertDialog
-import com.mahesch.trymyui.helpers.ProgressDialog
-import com.mahesch.trymyui.helpers.SharedPrefHelper
-import com.mahesch.trymyui.helpers.Utils
+import com.mahesch.trymyui.helpers.*
 import com.mahesch.trymyui.model.AvailableTestModel
 import com.mahesch.trymyui.repository.CheckUseTestAvailabilityRepository
 import com.mahesch.trymyui.retrofitclient.ApiService
@@ -327,7 +324,8 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
             else
             {
                 Log.e(TAG,"customer doesn't check for useTestAvailability")
-                availableTestFragment?.temporaryFlow(availableTestModel)
+               // availableTestFragment?.temporaryFlow(availableTestModel)
+                ManageFlowBeforeRecording(availableTestModel,availableTestFragment?.context!!).moveToWhichActivity(0)
             }
 
 
