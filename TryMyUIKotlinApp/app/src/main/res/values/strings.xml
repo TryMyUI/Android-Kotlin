@@ -13,6 +13,8 @@
     <string name="password_blank">Please enter password</string>
     <string name="test_id_blank">Please enter Test Id</string>
     <string name="something_went_wrong">Something went wrong. \nPlease try again later.</string>
+    <string name="download_apk">Download APK</string>
+    <string name="download_apk_msg">You will be downloading client\'s native application. \nOnce download completes, install apk on to your device.</string>
 
     <!--OK_ALERT_WINDOW-->
     <string name="ok_alert">OK</string>

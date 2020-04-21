@@ -116,25 +116,29 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
         else
         {
             setVideoContainerGone(viewHolder)
+
+            commonParametersForGuestWorkerCustomers(viewHolder,availableTestList?.get(i))
+
+            // FOR PENDING TEST (MEANS ONLY WORKER COZ GUEST AND CUSTOMER DOESN'T HAS PENDING STATE)
+            if(TabActivity.isPendingTest && userType.equals(mSharedPrefHelper?.UserTypeWorker)){
+
+                displayPendingRow(viewHolder,availableTestList?.get(i))
+            }
+            else if(mSharedPrefHelper!!.getGuestTester()){
+                displayGuestRows(viewHolder,availableTestList?.get(i))
+            }
+            else if(userType.equals(mSharedPrefHelper?.UserTypeWorker,true)){
+
+                Log.e(TAG,"model in adapter "+availableTestList?.get(i))
+                displayWorkerRows(viewHolder,availableTestList?.get(i))
+            }
+            else //USER IS CUSTOMER
+            {
+                displayCustomerRows(viewHolder,availableTestList?.get(i))
+            }
         }
 
-        commonParametersForGuestWorkerCustomers(viewHolder,availableTestList?.get(i))
 
-        // FOR PENDING TEST (MEANS ONLY WORKER COZ GUEST AND CUSTOMER DOESN'T HAS PENDING STATE)
-        if(TabActivity.isPendingTest && userType.equals(mSharedPrefHelper?.UserTypeWorker)){
-
-            displayPendingRow(viewHolder,availableTestList?.get(i))
-        }
-        else if(mSharedPrefHelper!!.getGuestTester()){
-            displayGuestRows(viewHolder,availableTestList?.get(i))
-        }
-        else if(userType.equals(mSharedPrefHelper?.UserTypeWorker,true)){
-            displayWorkerRows(viewHolder,availableTestList?.get(i))
-        }
-        else //USER IS CUSTOMER
-        {
-            displayCustomerRows(viewHolder,availableTestList?.get(i))
-        }
 
 
 
@@ -155,7 +159,7 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
 
             availableTestFragment!!.activity!!.startActivity(Intent(availableTestFragment!!.activity, VideoPlayerActivity::class.java))
 
-            availableTestFragment!!.activity!!.finish()
+            //availableTestFragment!!.activity!!.finish()
         })
     }
 
@@ -233,7 +237,6 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
     private fun displayWorkerRows(viewHolder: ViewHolder,availableTestModel: AvailableTestModel?){
 
         viewHolder.button_take_test?.isClickable = true
-        viewHolder.button_take_test!!.setBackgroundResource(R.drawable.rounded_text_box_with_border)
 
         viewHolder.button_take_test?.setOnClickListener{
             showGestureDialog(availableTestModel)
@@ -243,6 +246,7 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
     private fun displayCustomerRows(viewHolder: ViewHolder,availableTestModel: AvailableTestModel?){
 
         viewHolder.button_take_test?.isClickable = true
+        viewHolder.button_take_test?.text = "Preview test"
 
         var testerPlatform = availableTestModel?.tester_platform
 
@@ -293,7 +297,7 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
         lp.copyFrom(dialog.window.attributes)
 
         lp.width = WindowManager.LayoutParams.MATCH_PARENT
-        lp.height = WindowManager.LayoutParams.MATCH_PARENT
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
 
         dialog.window.attributes = lp
         dialog.setCancelable(false)
@@ -389,6 +393,8 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
     }
 
     override fun onSuccessCheckUseTestAvailability(testAvailabilityModel: TestAvailabilityModel?,availableTestModel: AvailableTestModel?) {
+
+        Log.e(TAG,"onSuccessCheckUseTestAvailability model "+availableTestModel)
         responseHandlingOfCheckUseTestAvailability(testAvailabilityModel,availableTestModel)
     }
 

@@ -37,6 +37,7 @@ import com.mahesch.trymyui.viewmodelfactory.TabActivityViewModelFactory
 import com.mahesch.trymyui.viewmodels.TabActivityViewModel
 import com.seattleapplab.trymyui.models.Tests
 import com.seattleapplab.trymyui.models.Tests.*
+import com.seattleapplab.trymyui.models.Tests.PerformedTests.PerformedTest
 import kotlinx.android.synthetic.main.force_update_dialog.*
 import kotlinx.android.synthetic.main.tab_activity.view.*
 
@@ -63,7 +64,8 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
     private lateinit var toolbar: Toolbar
     private lateinit var viewPager: ViewPager
     private lateinit var tabs: TabLayout
-    private lateinit var popupWindow: PopupWindow
+    private var popupWindow: PopupWindow? = null
+    var performed_tests_pages = 0
 
     override fun onStart() {
         super.onStart()
@@ -75,9 +77,9 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
         initializeProgressDialog()
 
-         toolbar = findViewById<Toolbar>(R.id.toolbar_tabactivity)
-         viewPager = findViewById<ViewPager>(R.id.viewpager)
-       tabs = findViewById<TabLayout>(R.id.tabs)
+        toolbar = findViewById<Toolbar>(R.id.toolbar_tabactivity)
+        viewPager = findViewById<ViewPager>(R.id.viewpager)
+        tabs = findViewById<TabLayout>(R.id.tabs)
 
         sharedPrefHelper = SharedPrefHelper(this@TabActivity)
 
@@ -149,6 +151,12 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
     override fun onPause() {
         super.onPause()
+
+        dismissProgressDialog()
+
+        dismissErrorDialog()
+
+        dismissPopupWindow()
     }
 
     override fun onStop() {
@@ -158,14 +166,15 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
         dismissErrorDialog()
 
-  //      dismissPopupWindow()
+        dismissPopupWindow()
+
     }
 
 
     private fun dismissPopupWindow(){
         if(popupWindow != null){
-            if(popupWindow.isShowing)
-                popupWindow.dismiss()
+            if(popupWindow?.isShowing!!)
+                popupWindow?.dismiss()
         }
     }
 
@@ -180,7 +189,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
         dismissErrorDialog()
 
-//        dismissPopupWindow()
+        dismissPopupWindow()
     }
 
     override fun onNetworkConnectionChanged(isConnected: Boolean) {
@@ -237,7 +246,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
 
     private fun displayGuestData(){
-dismissProgressDialog()
+        dismissProgressDialog()
         var availableTestModel = intent.getSerializableExtra("availableTestConstant") as AvailableTestModel
 
         if(availableTestModel == null){
@@ -246,7 +255,12 @@ dismissProgressDialog()
         }
         else{
 
-            availableTestModelList.add(availableTestModel)
+            availableTestModelList.add(0,availableTestModel)
+
+            //TO ADD VIDEO ROW
+            var availableTestModel_video = AvailableTestModel()
+            availableTestModelList.add(1,availableTestModel_video)
+
         }
 
         setUpViewPager(viewPager)
@@ -481,7 +495,7 @@ dismissProgressDialog()
     }
 
     fun callWorkerErrorHandling(error: Throwable?){
-showErrorDialog(null)
+        showErrorDialog(null)
     }
 
     private fun addWorkerAvailableTestModelToList(tests: Tests?){
@@ -489,90 +503,177 @@ showErrorDialog(null)
         val gson = Gson()
         val json = gson.toJson(tests)
 
-        if(tests?.data?.availableTests?.size!! > 0){
+        isQualified = tests?.data?.is_Qulified!!
+        qualification_message = tests?.data?.qualification_message
 
-            for (i in 0..(tests?.data?.availableTests?.size!! -1)!!) {
+        if(isQualified){
+            if(tests?.data != null){
 
-                val availableTest = tests?.data?.availableTests?.get(i) ?.availableTest
+                performed_tests_pages = tests?.data?.resultPage!!
 
-                val  pos = i
-                val id: Int? = availableTest?.id
-                val url: String? = availableTest?.url
-                val title: String? = availableTest?.title
-                val scenario: String? = availableTest?.scenario
-                val recording_timeout_minutes: Int? = availableTest?.recording_timeout_minutes
-                val special_qual: String? = availableTest?.special_qual
-                val interface_type: String? = availableTest?.interface_type
-                val is_kind_partial_site: Boolean? = availableTest?.is_kind_partial_site
-                val is_kind_partial_site_text: String? = availableTest?.is_kind_partial_site_text
-                val tasks: String? = gson.toJson(availableTest?.tasks)
-                val title_with_id: String? = availableTest?.title_with_id
-                val native_app_test: String? = availableTest?.native_app_url
+                val Identity_id: String = tests?.data?.identity_id!!
+                sharedPrefHelper?.setIdentityId(Identity_id)
 
-                val surveyQuestions: String? = gson.toJson(availableTest?.surveyQuestions)
-                val susQuestion: String? = gson.toJson(availableTest?.sus_questions)
-                var uxCrowdSurvey: String? = gson.toJson(availableTest?.ux_crowd_questions)
-                val npsQuestion: String? = gson.toJson(availableTest?.npsQuestion_list)
-                val sus_scales: String? = gson.toJson(availableTest?.susScales)
+                val s3_bucket_name: String = tests?.data?.s3_bucket_name!!
+                sharedPrefHelper?.setS3Bucket(s3_bucket_name)
+                val size_pendingtest: Int = tests?.data?.pendingTests?.size!!
 
-                val tester_platform: String? = availableTest?.tester_platform
+                isPendingTest = size_pendingtest > 0
 
-                val isVoting: Boolean? = availableTest?.isVoting
-                val response_type_list: java.util.ArrayList<String>? = availableTest?.response_type
-                val good_question: String? = availableTest?.good_question
-                val bad_question: String? = availableTest?.bad_question
-                val suggestion_question: String? = availableTest?.suggestion_question
+                if(tests?.data?.availableTests?.size!! > 0){
 
-                val good_response_question_id: Int? = availableTest?.good_response_question_id
-                val bad_response_question_id: Int? = availableTest?.bad_response_question_id
-                val suggestion_response_question_id: Int? = availableTest?.suggestion_response_question_id
-                val max_voting_limit: Int? = availableTest?.max_voting_limit
+                    for (i in 0..(tests?.data?.availableTests?.size!! -1)!!) {
 
-                val goodResponsesArrayList: java.util.ArrayList<GoodResponses>? =
-                    availableTest?.goodResponsesArrayList
-                val badResponsesArrayList: java.util.ArrayList<BadResponses>? =
-                    availableTest?.badResponsesArrayList
-                val suggestionResponsesArrayList: java.util.ArrayList<SuggestionResponses>? =
-                    availableTest?.suggestionResponsesArrayList
+                        val availableTest = tests?.data?.availableTests?.get(i) ?.availableTest
+
+                        val  pos = i
+                        val id: Int? = availableTest?.id
+                        val url: String? = availableTest?.url
+                        val title: String? = availableTest?.title
+                        val scenario: String? = availableTest?.scenario
+                        val recording_timeout_minutes: Int? = availableTest?.recording_timeout_minutes
+                        val special_qual: String? = availableTest?.special_qual
+                        val interface_type: String? = availableTest?.interface_type
+                        val is_kind_partial_site: Boolean? = availableTest?.is_kind_partial_site
+                        val is_kind_partial_site_text: String? = availableTest?.is_kind_partial_site_text
+                        val tasks: String? = gson.toJson(availableTest?.tasks)
+                        val title_with_id: String? = availableTest?.title_with_id
+                        val native_app_test: String? = availableTest?.native_app_url
+
+                        val surveyQuestions: String? = gson.toJson(availableTest?.surveyQuestions)
+                        val susQuestion: String? = gson.toJson(availableTest?.sus_questions)
+                        var uxCrowdSurvey: String? = gson.toJson(availableTest?.ux_crowd_questions)
+                        val npsQuestion: String? = gson.toJson(availableTest?.npsQuestion_list)
+                        val sus_scales: String? = gson.toJson(availableTest?.susScales)
+
+                        val tester_platform: String? = availableTest?.tester_platform
+
+                        val isVoting: Boolean? = availableTest?.isVoting
+                        val response_type_list: java.util.ArrayList<String>? = availableTest?.response_type
+                        val good_question: String? = availableTest?.good_question
+                        val bad_question: String? = availableTest?.bad_question
+                        val suggestion_question: String? = availableTest?.suggestion_question
+
+                        val good_response_question_id: Int? = availableTest?.good_response_question_id
+                        val bad_response_question_id: Int? = availableTest?.bad_response_question_id
+                        val suggestion_response_question_id: Int? = availableTest?.suggestion_response_question_id
+                        val max_voting_limit: Int? = availableTest?.max_voting_limit
+
+                        val goodResponsesArrayList: java.util.ArrayList<GoodResponses>? =
+                            availableTest?.goodResponsesArrayList
+                        val badResponsesArrayList: java.util.ArrayList<BadResponses>? =
+                            availableTest?.badResponsesArrayList
+                        val suggestionResponsesArrayList: java.util.ArrayList<SuggestionResponses>? =
+                            availableTest?.suggestionResponsesArrayList
 
 
-                if (uxCrowdSurvey.equals("[]", ignoreCase = true)) {
-                    uxCrowdSurvey = "[]"
+                        if (uxCrowdSurvey.equals("[]", ignoreCase = true)) {
+                            uxCrowdSurvey = "[]"
+                        }
+
+                        val do_impression_test: Boolean? = availableTest?.do_impression_test
+                        val seq_task: Boolean? = availableTest?.getopt_for_seq()
+                        val task_complete: Boolean? = availableTest?.opt_for_task_completion
+
+                        val screener_test_avaialable: Boolean? = availableTest?.screener_test_available
+
+                        val opt_for_face_recording: Boolean? = availableTest?.opt_for_face_recording
+                        val recorder_orientation: String? = availableTest?.recorder_orientation
+                        val technical_qualification: String? = availableTest?.technical_qual
+
+                        var availableTestModel = AvailableTestModel(id, pos, title, url, tasks, scenario, surveyQuestions, special_qual,
+                            interface_type, susQuestion, tester_platform, uxCrowdSurvey, is_kind_partial_site_text, title_with_id,
+                            native_app_test, recording_timeout_minutes, seq_task , task_complete, do_impression_test,
+                            is_kind_partial_site, screener_test_avaialable, isVoting, response_type_list, good_question,
+                            bad_question, suggestion_question, good_response_question_id, bad_response_question_id,
+                            suggestion_response_question_id, max_voting_limit, goodResponsesArrayList, badResponsesArrayList,
+                            suggestionResponsesArrayList, npsQuestion, sus_scales, opt_for_face_recording, recorder_orientation, technical_qualification)
+
+                        availableTestModelList?.add(availableTestModel)
+
+                    }
+
+                    //TO ADD VIDEO ROW
+                    var availableTestModel_video = AvailableTestModel()
+                    availableTestModelList?.add(availableTestModel_video)
+
+                    Log.e(TAG,"availableTestModelList size "+availableTestModelList.size)
+
+
+                    SharedPrefHelper(this).saveTestResultId("309545")
+
+                    //ADD PERFORM TEST LIST
+
+
+                    // Performed test fragment data
+                    val length: Int = tests?.data?.performedTests?.size!!
+
+                    if (length > 0) {
+                        for (i in 0 until length) {
+                            val t: PerformedTest = tests?.data?.performedTests?.get(i)?.performedTest!!
+                            val id = t.id
+                            val status = t.status
+                            val date = t.date
+                            val test1 = t.test
+                            val url = t.url
+                 //           val video_url = t.videoUrl
+                            val scenario = t.scenario
+                            val title_with_id = t.title_with_id
+                            if (t.rating != null) {
+                                val score = t.rating!!.score
+                                val Comment = t.rating!!.comment
+                                val performTestConstant = PerformedTestModel(
+                                    id,
+                                    status!!,
+                                    date!!,
+                                    test1!!,
+                                    url!!,
+                                    "",
+                                    scenario!!,
+                                    scenario!!,
+                                    score,
+                                    Comment,
+                                    title_with_id!!
+                                )
+                                performTestList.add(i, performTestConstant)
+                            } else {
+                                val performTestConstant = PerformedTestModel(
+                                    id,
+                                    status!!,
+                                    date!!,
+                                    test1!!,
+                                    url!!,
+                                    "",
+                                    scenario!!,
+                                    scenario!!,
+                                    title_with_id!!
+                                )
+                                performTestList.add(i, performTestConstant)
+                            }
+                        }
+                    }
+
+                    setUpViewPager(viewPager)
+                    tabs.setupWithViewPager(viewPager)
+
                 }
-
-                val do_impression_test: Boolean? = availableTest?.do_impression_test
-                val seq_task: Boolean? = availableTest?.getopt_for_seq()
-                val task_complete: Boolean? = availableTest?.opt_for_task_completion
-
-                val screener_test_avaialable: Boolean? = availableTest?.isScreener_test_avaialble
-
-                val opt_for_face_recording: Boolean? = availableTest?.opt_for_face_recording
-                val recorder_orientation: String? = availableTest?.recorder_orientation
-                val technical_qualification: String? = availableTest?.technical_qual
-
-                var availableTestModel = AvailableTestModel(id, pos, title, url, tasks, scenario, surveyQuestions, special_qual,
-                    interface_type, susQuestion, tester_platform, uxCrowdSurvey, is_kind_partial_site_text, title_with_id,
-                    native_app_test, recording_timeout_minutes, seq_task , task_complete, do_impression_test,
-                    is_kind_partial_site, screener_test_avaialable, isVoting, response_type_list, good_question,
-                    bad_question, suggestion_question, good_response_question_id, bad_response_question_id,
-                    suggestion_response_question_id, max_voting_limit, goodResponsesArrayList, badResponsesArrayList,
-                    suggestionResponsesArrayList, npsQuestion, sus_scales, opt_for_face_recording, recorder_orientation, technical_qualification)
-
-                availableTestModelList?.add(availableTestModel)
-
+                else
+                {
+                    showErrorDialog(tests)
+                }
             }
-
-            Log.e(TAG,"availableTestModelList size "+availableTestModelList.size)
-
-
-            setUpViewPager(viewPager)
-            tabs.setupWithViewPager(viewPager)
-
+            else{
+                showErrorDialog(tests)
+            }
         }
-        else
-        {
-            showErrorDialog(tests)
+        else{
+            OkAlertDialog.initOkAlert(this)?.setOnClickListener { OkAlertDialog.dismissOkAlert() }
+            OkAlertDialog.showOkAlert("Sorry you are not qualified for tests")
         }
+
+
+
+
 
     }
 
@@ -590,7 +691,7 @@ showErrorDialog(null)
     }
 
     fun callCustomerErrorHandling(error: Throwable?){
-            showErrorDialog(null)
+        showErrorDialog(null)
     }
 
     private fun addCustomerAvailableTestModelToList(tests: Tests?){
@@ -670,8 +771,16 @@ showErrorDialog(null)
                 customerTestList?.add(availableTestModel)
 
             }
+
+            //TO ADD VIDEO ROW
+            var availableTestModel_video = AvailableTestModel()
+            customerTestList?.add(availableTestModel_video)
+
+
             setUpViewPager(viewPager)
             tabs.setupWithViewPager(viewPager)
+
+            SharedPrefHelper(this).saveTestResultId("309545")
         }
         else
         {
@@ -716,11 +825,11 @@ showErrorDialog(null)
 
         var layoutInflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-       var view1 = layoutInflater.inflate(R.layout.popupwindow,null)
+        var view1 = layoutInflater.inflate(R.layout.popupwindow,null)
 
-        popupWindow.isFocusable = true
-        popupWindow.contentView = view1
-        popupWindow.showAtLocation(view1,Gravity.TOP or Gravity.RIGHT,0,toolbar.height+42)
+        popupWindow?.isFocusable = true
+        popupWindow?.contentView = view1
+        popupWindow?.showAtLocation(view1,Gravity.TOP or Gravity.RIGHT,0,toolbar.height+42)
 
         val tvFeedback = view1.findViewById<View>(R.id.tv_menu_feedback) as TextView
         val tvHowToTest = view1.findViewById<View>(R.id.tv_menu_how_to_test) as TextView

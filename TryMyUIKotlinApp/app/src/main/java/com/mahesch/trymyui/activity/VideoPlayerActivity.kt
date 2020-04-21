@@ -123,8 +123,9 @@ class VideoPlayerActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        //super.onBackPressed();
-        startActivity(Intent(this@VideoPlayerActivity, TabActivity::class.java))
+        super.onBackPressed();
         finish()
+      //  startActivity(Intent(this@VideoPlayerActivity, TabActivity::class.java))
+      //  finish()
     }
 }

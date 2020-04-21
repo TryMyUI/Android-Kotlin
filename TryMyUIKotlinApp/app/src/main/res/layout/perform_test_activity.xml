@@ -1,9 +1,154 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.mahesch.trymyui.activity.PerformTestActivity">
+    tools:context="com.mahesch.trymyui.activity.PerformTestActivity"
+    android:background="@color/orange">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/linearlayout_starttest"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/_10dp"
+        android:layout_marginRight="@dimen/_10dp"
+        android:layout_marginTop="@dimen/_10dp"
+        android:background="@color/white"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:weightSum="2">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/_10dp"
+            android:paddingRight="@dimen/_10dp">
+
+            <TextView
+                android:id="@+id/textViewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="@dimen/_5dp"
+                android:text=""
+                android:textColor="@color/text_grey"
+                android:textStyle="bold"
+                android:textSize="@dimen/_13sp"/>
+
+            <TextView
+                android:id="@+id/textViewURL"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/special_qualification_text1"
+                android:textColor="@color/text_grey"
+                android:textSize="@dimen/_13sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_above="@+id/buttonStartTest"
+            android:layout_weight="1.1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/_10dp"
+                android:paddingRight="@dimen/_10dp">
+
+
+                <TextView
+                    android:id="@+id/textViewScenario"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_5dp"
+                    android:text="TextView"
+                    android:textSize="@dimen/_14sp"
+                    android:textColor="@color/text_grey"/>
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_10dp"
+                    android:text="@string/your_first_task"
+                    android:textSize="@dimen/_14sp"
+                    android:textColor="@color/text_grey"
+                    android:textStyle="bold"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/_2dp"
+                    android:paddingTop="@dimen/_5dp"
+                    android:text="@string/start_test_dialog_msg"
+                    android:textColor="@color/text_grey"
+                    android:visibility="gone"
+                    android:textSize="@dimen/_14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/_8dp"
+                    android:paddingTop="@dimen/_5dp"
+                    android:text="@string/start_test_dialog_msg_one"
+                    android:textSize="@dimen/_14sp"
+                    android:textColor="@color/text_grey"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </ScrollView>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textviewrecording_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/buttonStartTest"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="@dimen/_14sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3"
+            android:background="@color/background_orange"
+            android:gravity="center"
+            android:orientation="vertical">
+
+
+            <Button
+                android:id="@+id/buttonStartTest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/green_light"
+                android:padding="@dimen/_10dp"
+                android:text="@string/start_test"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_13sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+
+</FrameLayout>

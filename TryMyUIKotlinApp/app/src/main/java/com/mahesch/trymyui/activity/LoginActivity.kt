@@ -13,10 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.mahesch.trymyui.R
-import com.mahesch.trymyui.helpers.OkAlertDialog
-import com.mahesch.trymyui.helpers.ProgressDialog
-import com.mahesch.trymyui.helpers.SharedPrefHelper
-import com.mahesch.trymyui.helpers.Utils
+import com.mahesch.trymyui.helpers.*
 import com.mahesch.trymyui.model.LoginResponseModel
 import com.mahesch.trymyui.repository.SendGcmToServer
 import com.mahesch.trymyui.retrofitclient.RetrofitInstance
@@ -59,6 +56,7 @@ class LoginActivity : AppCompatActivity(){
 
         loginActivityViewModel = ViewModelProvider(this,factory).get(LoginActivityViewModel ::class.java)
 
+
     }
 
     private fun initializeProgressDialog(){
@@ -98,8 +96,7 @@ class LoginActivity : AppCompatActivity(){
             val isValidPassword = Utils.isValidPassword(et_password.text.toString())
 
             if(isValidEmail && isValidPassword){
-                //SERVER CALL
-                // LoginPresenter(et_email_username.text.toString(),et_password.text.toString(),this).login()
+
                 showProgressDialog()
                 login()
             }
@@ -149,6 +146,12 @@ class LoginActivity : AppCompatActivity(){
 
     override fun onPause() {
         super.onPause()
+
+        dismissErrorDialog()
+
+        dismissProgressDialog()
+
+
     }
 
     override fun onStop() {
@@ -250,6 +253,8 @@ class LoginActivity : AppCompatActivity(){
 
     private fun dismissErrorDialog(){
         OkAlertDialog.dismissOkAlert()
+
+        YesNoAlertDialog.dismissYesNoDialogue()
     }
 
 
@@ -313,6 +318,10 @@ class LoginActivity : AppCompatActivity(){
 
 
     }
+
+
+
+
 
 
 }

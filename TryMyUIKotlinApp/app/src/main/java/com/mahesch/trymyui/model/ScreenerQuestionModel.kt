@@ -17,6 +17,8 @@ class ScreenerQuestionModel {
     @Expose
     var message: String? = null
 
+    var error: Throwable? = null
+
     inner class Data {
         @SerializedName("screener_test_page_heading")
         @Expose

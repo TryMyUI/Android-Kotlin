@@ -171,7 +171,7 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
     override fun takeTestClicked(availableTestModel: AvailableTestModel?) {
 
         Log.e(TAG,"takeTestClicked")
-
+Log.e(TAG,"model in fragment "+availableTestModel)
         ManageFlowBeforeRecording(availableTestModel,activity).moveToWhichActivity(0)
     //    temporaryFlow(availableTestModel)
 

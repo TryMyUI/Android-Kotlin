@@ -1,5 +1,6 @@
 package com.mahesch.trymyui.activity
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -37,6 +38,8 @@ class UxCrowdActivity : AppCompatActivity() {
     private lateinit var id : ArrayList<Int>
     private lateinit var question: ArrayList<String>
     private lateinit var sharedPrefHelper: SharedPrefHelper
+
+    private var back_alert : AlertDialog? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -80,9 +83,6 @@ class UxCrowdActivity : AppCompatActivity() {
         buttonBack.setOnClickListener { onBackClick() }
     }
 
-    override fun onBackPressed() {
-        //SHOW BACK ALERT
-    }
 
     private fun onBackClick(){
         uxCrowdStringList = java.util.ArrayList<String>()
@@ -133,7 +133,16 @@ class UxCrowdActivity : AppCompatActivity() {
 
                 setIndicators(questionIndex)
 
-                submitUxCrowdSurvey(makeJsonObjectForSubmitRequest(questAnsMap))
+                if(Utils.isInternetAvailable(this)){
+
+                    ProgressDialog.initializeProgressDialogue(this)
+                    ProgressDialog.showProgressDialog()
+                    submitUxCrowdSurvey(makeJsonObjectForSubmitRequest(questAnsMap))
+
+                }
+                else{
+                    Utils.showInternetCheckToast(this)
+                }
             }
             else
             {
@@ -197,12 +206,18 @@ class UxCrowdActivity : AppCompatActivity() {
 
         uxCrowdActivityViewModel.submitUxCrowd(jsonObject).observe(this,
             Observer<CommonModel> { commonModel ->
+
+                ProgressDialog.dismissProgressDialog()
+
                 if(commonModel == null){
                     showWentWrongDialog()
                 } else{
                     if(commonModel.error == null){
                         if(commonModel.statusCode == 200){
                             var manageFlowAfterTest = ManageFlowAfterTest(availableTestModel,this@UxCrowdActivity)
+                            manageFlowAfterTest.isSurveyQuestionsSubmitted = true
+                            manageFlowAfterTest.isSusQuestionsSubmitted = true
+                            manageFlowAfterTest.isNpsQuestionSubmitted = true
                             manageFlowAfterTest.isUXCrowdSurveySubmitted = true
                             manageFlowAfterTest.moveToWhichActivity(this@UxCrowdActivity)
                         } else{
@@ -357,5 +372,26 @@ class UxCrowdActivity : AppCompatActivity() {
 
 
 
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        showBackWarning()
+    }
+
+    private fun showBackWarning() {
+        val builder =
+            AlertDialog.Builder(this, R.style.AppTheme_MaterialDialogTheme)
+        builder.setMessage("Are you sure you want leave this test?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, id ->
+                dialog.dismiss()
+                moveToHome()
+            }
+            .setNegativeButton(
+                "No"
+            ) { dialog, id -> dialog.dismiss() }
+        back_alert = builder.create()
+        back_alert?.show()
     }
 }

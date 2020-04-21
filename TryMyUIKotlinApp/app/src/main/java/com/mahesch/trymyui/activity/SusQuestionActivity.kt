@@ -1,5 +1,6 @@
 package com.mahesch.trymyui.activity
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -34,6 +35,9 @@ class SusQuestionActivity : AppCompatActivity() {
     private lateinit var susAdapter: SusAdapter
     private lateinit var sharedPrefHelper: SharedPrefHelper
 
+    private var back_alert:android.app.AlertDialog? = null
+
+
     private var totalDataSize = 0
     private var size = -1
 
@@ -42,7 +46,7 @@ class SusQuestionActivity : AppCompatActivity() {
         setContentView(R.layout.sus_question_activity)
 
         if(intent != null){
-            susQuestion = intent.extras.getString("susQuestion","")
+            susQuestion = intent.extras.getString("susQuestions","")
             availableTestModel = intent.extras.getSerializable("availableTestConstants") as AvailableTestModel
 
             if(susQuestion == null || availableTestModel == null){
@@ -166,6 +170,7 @@ class SusQuestionActivity : AppCompatActivity() {
                     if(commonModel.error == null){
                         if(commonModel.statusCode == 200){
                             var manageFlowAfterTest = ManageFlowAfterTest(availableTestModel,this@SusQuestionActivity)
+                            manageFlowAfterTest.isSurveyQuestionsSubmitted = true
                             manageFlowAfterTest.isSusQuestionsSubmitted = true
                             manageFlowAfterTest.moveToWhichActivity(this@SusQuestionActivity)
 
@@ -181,6 +186,27 @@ class SusQuestionActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        showBackWarning()
+    }
+
+    private fun showBackWarning() {
+        val builder =
+            AlertDialog.Builder(this, R.style.AppTheme_MaterialDialogTheme)
+        builder.setMessage("Are you sure you want leave this test?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, id ->
+                dialog.dismiss()
+                moveToHome()
+            }
+            .setNegativeButton(
+                "No"
+            ) { dialog, id -> dialog.dismiss() }
+        back_alert = builder.create()
+        back_alert?.show()
     }
 
     private fun moveToHome(){

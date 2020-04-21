@@ -17,6 +17,11 @@ class LoginActivityViewModel(application: Application) : AndroidViewModel(applic
         return loginRepository?.loginMutableData(email,password)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+            loginRepository?.dispose()
+    }
+
 
 
 }

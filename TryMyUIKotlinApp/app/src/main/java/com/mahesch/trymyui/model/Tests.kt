@@ -1,13 +1,10 @@
 package com.seattleapplab.trymyui.models
 
 import android.os.Parcel
-import android.widget.RadioButton
-import android.widget.RadioGroup
 import android.widget.TextView
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import java.util.*
 import kotlin.collections.ArrayList
 
 class Tests {
@@ -109,7 +106,7 @@ class Tests {
             var tester_platform: String? = null
             var title_with_id: String? = null
             var native_app_url: String? = null
-            var isScreener_test_avaialble = false
+            var screener_test_available = false
 
             var opt_for_face_recording = false
 
@@ -382,22 +379,22 @@ class Tests {
     inner class SusScales {
         var min_scale = 0
         var max_scale = 0
-        var isNot_applicable = false
+        var not_applicable = false
 
     }
 
     inner class Tasks(`in`: Parcel) {
         @SerializedName("has_sub_tasks")
-        var isHasSubTask: Boolean
+        var has_sub_tasks: Boolean
         var task: String
         var sub_tasks: List<String>? = null
         var task_id = 0
 
-        var isOpt_for_task_completion = false
-        var isOpt_for_seq = false
+        var opt_for_task_completion = false
+        var opt_for_seq = false
 
         init {
-            isHasSubTask = `in`.readByte().toInt() != 0
+            has_sub_tasks = `in`.readByte().toInt() != 0
             task = `in`.readString()
         }
     }

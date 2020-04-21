@@ -176,7 +176,7 @@ class GuestLoginActivity : AppCompatActivity() {
                     val seq_task: Boolean? = availableTest?.getopt_for_seq()
                     val task_complete: Boolean? = availableTest?.opt_for_task_completion
 
-                    val screener_test_avaialable: Boolean? = availableTest?.isScreener_test_avaialble
+                    val screener_test_avaialable: Boolean? = availableTest?.screener_test_available
 
                     val opt_for_face_recording: Boolean? = availableTest?.opt_for_face_recording
                     val recorder_orientation: String? = availableTest?.recorder_orientation
@@ -278,6 +278,7 @@ class GuestLoginActivity : AppCompatActivity() {
         sharedPrefHelper.saveToken(tests?.data?.token)
         sharedPrefHelper.setIdentityId(tests?.data?.identity_id)
         sharedPrefHelper.setS3Bucket(tests?.data?.s3_bucket_name)
+        sharedPrefHelper.saveAvaliableTestId(tests?.data?.availableTests!![0]?.availableTest?.id.toString())
     }
 
 
@@ -296,6 +297,10 @@ class GuestLoginActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
+
+        dismissProgressDialog()
+
+        dismissErrorDialog()
     }
 
     override fun onStop() {

@@ -5,6 +5,7 @@ import com.mahesch.trymyui.model.CommonModel
 import com.mahesch.trymyui.model.FeedbackModel
 import com.mahesch.trymyui.model.LoginResponseModel
 import com.mahesch.trymyui.model.SpecialTechnicalModel
+import com.seattleapplab.trymyui.models.ScreenerQuestionModel
 import com.seattleapplab.trymyui.models.TestAvailabilityModel
 import com.seattleapplab.trymyui.models.Tests
 import retrofit2.Call
@@ -152,6 +153,36 @@ class ApiService{
         fun post_technical_criteria_response(
             @Field("at") accessToken: String,
             @Field("test_id") useTestId: String) : Call<SpecialTechnicalModel>
+
+        @GET("/api/v2/mobile_events/get_screener_question")
+        fun getScreenerQuestionForWorker(@Query("at") at: String?, @Query("use_test_id") use_test_id: Int)
+                :Call<ScreenerQuestionModel>
+
+
+        @GET("/api/v2/mobile_events/get_screener_question")
+        fun getScreenerQuestionForGuest(@Query("email") at: String?, @Query("name") name: String?,
+            @Query("use_test_id") use_test_id: Int) : Call<ScreenerQuestionModel>
+
+
+        @FormUrlEncoded
+        @POST("/api/v2/mobile_events/check_screening_eligibility")
+        fun checkScreeningEligibiltyForWorker(
+            @Field("at") at: String?,
+            @Field("use_test_id") use_test_id: Int,
+            @Field("sq_id") sq_id: Int,
+            @Field("screener_option_ids") screener_option_ids: String?
+        ): Call<ScreenerQuestionModel>
+
+
+        @FormUrlEncoded
+        @POST("/api/v2/mobile_events/check_screening_eligibility")
+        fun checkScreeningEligibiltyForGuest(
+            @Field("email") email: String?,
+            @Field("name") name: String?,
+            @Field("use_test_id") use_test_id: Int,
+            @Field("sq_id") sq_id: Int,
+            @Field("screener_option_ids") screener_option_ids: String?
+        ): Call<ScreenerQuestionModel>
 
     }
 

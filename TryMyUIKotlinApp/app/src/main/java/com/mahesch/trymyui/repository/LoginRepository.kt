@@ -15,7 +15,7 @@ class LoginRepository(application: Application) {
 
     var mutableLiveData = MutableLiveData<LoginResponseModel>()
     var application: Application? = null
-
+    private lateinit var call: Call<LoginResponseModel>
 
     init {
         this.application = application
@@ -23,7 +23,7 @@ class LoginRepository(application: Application) {
 
     fun loginMutableData(email: String,password: String): MutableLiveData<LoginResponseModel>? {
 
-        var call: Call<LoginResponseModel> = apiInterface.onLogin(email,password)
+        call = apiInterface.onLogin(email,password)
 
         call.enqueue(object : Callback<LoginResponseModel> {
 
@@ -52,4 +52,10 @@ class LoginRepository(application: Application) {
         return mutableLiveData
 
     }
+
+    fun dispose(){
+       // call.cancel()
+    }
+
+
 }

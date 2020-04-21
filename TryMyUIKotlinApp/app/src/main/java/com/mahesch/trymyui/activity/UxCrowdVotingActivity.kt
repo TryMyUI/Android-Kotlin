@@ -1,6 +1,7 @@
 package com.mahesch.trymyui.activity
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -63,6 +64,8 @@ class UxCrowdVotingActivity : AppCompatActivity() {
     private lateinit var uxCrowdActivityViewModel_good: UxCrowdGoodVotingViewModel
     private lateinit var uxCrowdActivityViewModel_bad: UxCrowdBadVotingViewModel
     private lateinit var uxCrowdActivityViewModel_suggestion: UxCrowdSuggestionVotingViewModel
+
+    private var back_alert: AlertDialog? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -173,6 +176,9 @@ class UxCrowdVotingActivity : AppCompatActivity() {
 
     private fun updateManageFlowAfterTest(){
         var manageFlowAfterTest = ManageFlowAfterTest(availableTestModel,this@UxCrowdVotingActivity)
+        manageFlowAfterTest.isSurveyQuestionsSubmitted = true
+        manageFlowAfterTest.isSusQuestionsSubmitted = true
+        manageFlowAfterTest.isNpsQuestionSubmitted = true
         manageFlowAfterTest.isUXCrowdSurveySubmitted = true
     }
 
@@ -341,10 +347,6 @@ class UxCrowdVotingActivity : AppCompatActivity() {
             "bad_responses" -> showBadQuestion()
             "suggestion_responses" -> showSuggestionQuestion()
         }
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
     }
 
     override fun onStop() {
@@ -1305,5 +1307,26 @@ class UxCrowdVotingActivity : AppCompatActivity() {
     private fun showErrorDialog(commonModel: CommonModel){
         OkAlertDialog.initOkAlert(this)?.setOnClickListener { OkAlertDialog.dismissOkAlert() }
         OkAlertDialog.showOkAlert(commonModel.message)
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        showBackWarning()
+    }
+
+    private fun showBackWarning() {
+        val builder =
+            AlertDialog.Builder(this, R.style.AppTheme_MaterialDialogTheme)
+        builder.setMessage("Are you sure you want leave this test?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, id ->
+                dialog.dismiss()
+                moveToHome()
+            }
+            .setNegativeButton(
+                "No"
+            ) { dialog, id -> dialog.dismiss() }
+        back_alert = builder.create()
+        back_alert?.show()
     }
 }

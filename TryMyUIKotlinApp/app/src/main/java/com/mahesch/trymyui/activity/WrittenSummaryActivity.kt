@@ -39,9 +39,9 @@ class WrittenSummaryActivity : AppCompatActivity(),View.OnClickListener {
 
     private var surveyQuestions : String? = null
     private var TAG = WrittenSummaryActivity::class.java.simpleName.toUpperCase()
-    private lateinit var availableTestModel: AvailableTestModel
+    private var availableTestModel: AvailableTestModel? = null
     private lateinit var sharedPrefHelper: SharedPrefHelper
-    private lateinit var back_alert:android.app.AlertDialog
+    private var back_alert:android.app.AlertDialog? = null
 
     private var surveyQuestionList = ArrayList<Tests.SurveyQuestions>()
     private var questionIndex = 0
@@ -66,9 +66,8 @@ class WrittenSummaryActivity : AppCompatActivity(),View.OnClickListener {
         sharedPrefHelper = SharedPrefHelper(this)
 
         ProgressDialog.initializeProgressDialogue(this)
-
         if(intent != null){
-            availableTestModel = intent.extras.getSerializable("availableTestConstants")  as AvailableTestModel
+            availableTestModel = intent.extras.getSerializable("availableTestConstants")  as? AvailableTestModel
             surveyQuestions = intent.extras.getString("surveyQuestions","")
         }
         else
@@ -76,9 +75,9 @@ class WrittenSummaryActivity : AppCompatActivity(),View.OnClickListener {
             moveToHome()
         }
 
-        if(availableTestModel.ux_crowd_questions.equals("[]",true)
-            && availableTestModel.susQuestion.equals("[]",true)
-            && availableTestModel.npsQuestion.equals("[]",true))
+        if(availableTestModel?.ux_crowd_questions.equals("[]",true)
+            && availableTestModel?.susQuestion.equals("[]",true)
+            && availableTestModel?.npsQuestion.equals("[]",true))
             isFinished = true
 
         addJsonStringToList()
@@ -501,7 +500,7 @@ class WrittenSummaryActivity : AppCompatActivity(),View.OnClickListener {
                 "No"
             ) { dialog, id -> dialog.dismiss() }
         back_alert = builder.create()
-        back_alert.show()
+        back_alert?.show()
     }
 
     private fun onNextButtonPressed(){
@@ -818,6 +817,13 @@ class WrittenSummaryActivity : AppCompatActivity(),View.OnClickListener {
         {
             if(commonModel.statusCode == 200){
                Utils.showToast(this,"Written Summary submitted successfully")
+
+                Log.e(TAG,"availableTestModel "+availableTestModel)
+                Log.e(TAG,"availableTestModel survey "+availableTestModel?.surveyQuestions)
+                Log.e(TAG,"availableTestModel sus "+availableTestModel?.susQuestion)
+                Log.e(TAG,"availableTestModel ux "+availableTestModel?.ux_crowd_questions)
+                Log.e(TAG,"availableTestModel nps "+availableTestModel?.npsQuestion)
+
                 var manageFlowAfterTest = ManageFlowAfterTest(availableTestModel,this)
                 manageFlowAfterTest.isSurveyQuestionsSubmitted = true
                 manageFlowAfterTest.moveToWhichActivity(this)
@@ -846,8 +852,8 @@ class WrittenSummaryActivity : AppCompatActivity(),View.OnClickListener {
 
     private fun dismissBackAlert(){
         if(back_alert != null){
-            if(back_alert.isShowing)
-                back_alert.dismiss()
+            if(back_alert!!.isShowing)
+                back_alert!!.dismiss()
         }
     }
 
@@ -870,6 +876,8 @@ class WrittenSummaryActivity : AppCompatActivity(),View.OnClickListener {
 
         dismissBackAlert()
     }
+
+
 
 
 }

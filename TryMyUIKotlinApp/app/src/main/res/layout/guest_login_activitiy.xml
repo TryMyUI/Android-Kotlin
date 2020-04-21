@@ -141,7 +141,8 @@ android:layout_height="wrap_content">
                 android:textColor="@color/white"
                 android:background="@drawable/guest_login_et_bg"
                 android:layout_toRightOf="@+id/tv_lbl_testid"
-                android:layout_marginLeft="@dimen/_10dp"/>
+                android:layout_marginLeft="@dimen/_10dp"
+                android:singleLine="true"/>
 
 
         </RelativeLayout>

@@ -35,6 +35,9 @@ class PerformedTestFragment(activity: Activity, performedTestList: ArrayList<Per
 
     private var performedTestList = performedTestList
 
+    var performed_tests_pages = 0
+    var linearLayout_loading_screen: LinearLayout? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
 
@@ -82,11 +85,29 @@ class PerformedTestFragment(activity: Activity, performedTestList: ArrayList<Per
                     var layoutManager = LinearLayoutManager(activity)
                     recyclerView.layoutManager = layoutManager
 
-/*
-                    performedTestListAdapter = PerformedTestListAdapter(activity,performedTestList,recyclerView)
 
-                    recyclerView.adapter =
-*/
+                    performedTestListAdapter = PerformedTestListAdapter(activity!!,performedTestList,recyclerView)
+
+                    recyclerView.adapter = performedTestListAdapter
+
+                    performedTestListAdapter.setOnLoadMoreListener(object : PerformedTestListAdapter.OnLoadMoreListener {
+                      override  fun onLoadMore() {
+
+
+                            //Log.e("hint", "Load More" + performed_tests_pages);
+                            val temp: Int = performed_tests_pages - 1
+                            if (page >= temp) {
+                                //Log.e("hint", "nothing to load ");
+                                performedTestListAdapter.setLoaded()
+                                linearLayout_loading_screen?.visibility = View.GONE
+                            } else {
+                                page++
+                                //Log.e("hint", "Load More " + page);
+                              //  GetDataFromWebServicePerformedTest()
+                            }
+                        }
+                    })
+
 
                 }
                 else{

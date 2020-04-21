@@ -1,6 +1,7 @@
 package com.mahesch.trymyui.activity
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -40,6 +41,8 @@ class NpsActivity : AppCompatActivity() {
     private lateinit var manageFlowAfterTest :ManageFlowAfterTest
 
     var radio_button_count = -1
+
+    private var back_alert:android.app.AlertDialog? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -1042,10 +1045,14 @@ addRadioButton_10()
 
     private fun onClickOfNpsSubmit(){
 
-        if(Utils.isInternetAvailable(this))
+        if(Utils.isInternetAvailable(this)) {
+            ProgressDialog.initializeProgressDialogue(this)
+            ProgressDialog.showProgressDialog()
             submitNpsValue(makeJsonDataRequestToSend())
-        else
+        }
+        else {
             Utils.showInternetCheckToast(this)
+        }
     }
 
 
@@ -1057,6 +1064,8 @@ addRadioButton_10()
             override fun onChanged(commonModel: CommonModel) {
                 Log.e(TAG,"statuscode "+commonModel.statusCode)
                 Log.e(TAG,"message "+commonModel.message)
+
+                ProgressDialog.dismissProgressDialog()
 
                 if(commonModel == null){
                     showErrorDialog(commonModel)
@@ -1101,7 +1110,8 @@ addRadioButton_10()
 
     private fun submitNPSResponseHandling(commonModel: CommonModel){
         if(commonModel.statusCode == 200){
-            //MANAGE FLOW
+            manageFlowAfterTest.isSurveyQuestionsSubmitted = true
+            manageFlowAfterTest.isSusQuestionsSubmitted = true
             manageFlowAfterTest.isNpsQuestionSubmitted = true
             manageFlowAfterTest.moveToWhichActivity(this)
         }
@@ -1135,9 +1145,7 @@ addRadioButton_10()
 
     }
 
-    private fun showProgressDialog(){
-        ProgressDialog.showProgressDialog()
-    }
+
 
     private fun dismissProgressDialog(){
         ProgressDialog.dismissProgressDialog()
@@ -1145,10 +1153,6 @@ addRadioButton_10()
 
     private fun dismissErrorDialog(){
         OkAlertDialog.dismissOkAlert()
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
     }
 
     override fun onStart() {
@@ -1187,6 +1191,27 @@ addRadioButton_10()
         var intent = Intent(NpsActivity@this,TabActivity::class.java)
         startActivity(intent)
         finish()
+    }
+
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        showBackWarning()
+    }
+
+    private fun showBackWarning() {
+        val builder =
+            AlertDialog.Builder(this, R.style.AppTheme_MaterialDialogTheme)
+        builder.setMessage("Are you sure you want leave this test?")
+            .setCancelable(false)
+            .setPositiveButton("Yes") { dialog, id ->
+                dialog.dismiss()
+                moveToHome()
+            }
+            .setNegativeButton(
+                "No"
+            ) { dialog, id -> dialog.dismiss() }
+        back_alert = builder.create()
+        back_alert?.show()
     }
 
 }

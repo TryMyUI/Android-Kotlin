@@ -3,9 +3,11 @@ package com.mahesch.trymyui.helpers
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
+import com.mahesch.trymyui.activity.*
 import com.mahesch.trymyui.model.AvailableTestModel
 
-class ManageFlowAfterTest(availableTestModel: AvailableTestModel,context: Context) {
+class ManageFlowAfterTest(availableTestModel: AvailableTestModel?,context: Context) {
 
     var surveyQuestions: String? = null
     var susQuestions: String? = null
@@ -17,13 +19,18 @@ class ManageFlowAfterTest(availableTestModel: AvailableTestModel,context: Contex
     var isNpsQuestionSubmitted : Boolean = false
     var isUXCrowdSurveySubmitted : Boolean = false
 
-    var availableTestModel : AvailableTestModel
-    var context : Context
+    var availableTestModel : AvailableTestModel? = availableTestModel
+    var context : Context = context
+
+    private var TAG  = ManageFlowAfterTest::class.simpleName?.toUpperCase()
 
     init {
-        this.availableTestModel = availableTestModel
-        this.context = context
+        surveyQuestions = availableTestModel?.surveyQuestions
+        susQuestions = availableTestModel?.susQuestion
+        npsQuestion = availableTestModel?.npsQuestion
+        uxCrowdSurvey = availableTestModel?.ux_crowd_questions
     }
+
 
     fun setSurveyQuestion(surveyQuestions: String?){
         this.surveyQuestions = surveyQuestions
@@ -95,35 +102,48 @@ class ManageFlowAfterTest(availableTestModel: AvailableTestModel,context: Contex
         var sharedPrefHelper = SharedPrefHelper(context)
 
         if(surveyQuestions != null && !surveyQuestions.equals("[]",true) && !isSurveyQuestionsSubmitted){
-            var intent = Intent()
+            var intent = Intent(context,WrittenSummaryActivity::class.java)
             intent.putExtra("surveyQuestions", surveyQuestions)
             otherIntentParams(intent,sharedPrefHelper,context)
         }
         else if(susQuestions != null && !susQuestions.equals("[]",true) && !isSusQuestionsSubmitted){
-            var intent = Intent()
+            var intent = Intent(context,SusQuestionActivity::class.java)
 
             intent.putExtra("susQuestions", susQuestions)
             otherIntentParams(intent,sharedPrefHelper,context)
 
         }
         else if(npsQuestion != null && !npsQuestion.equals("[]",true) && !isNpsQuestionSubmitted){
-            var intent = Intent()
+            var intent = Intent(context,NpsActivity::class.java)
             intent.putExtra("npsQuestion", npsQuestion)
             otherIntentParams(intent,sharedPrefHelper,context)
         }
         else if(uxCrowdSurvey != null && !uxCrowdSurvey.equals("[]",true) && !isUXCrowdSurveySubmitted){
-            var intent = Intent()
-            intent.putExtra("uxCrowdSurvey", uxCrowdSurvey)
-            otherIntentParams(intent,sharedPrefHelper,context)
+
+            if(availableTestModel?.isVoting!!){
+                var intent = Intent(context,UxCrowdVotingActivity::class.java)
+                intent.putExtra("uxCrowdSurvey", uxCrowdSurvey)
+                otherIntentParams(intent,sharedPrefHelper,context)
+            }
+            else{
+                var intent = Intent(context,UxCrowdActivity::class.java)
+                intent.putExtra("uxCrowdSurvey", uxCrowdSurvey)
+                otherIntentParams(intent,sharedPrefHelper,context)
+            }
+
+
         }
         else {
            //SHOW THUMBS UP DIALOG
+            Log.e(TAG,"THUMBS UP DIALOG")
+            ThumbsUpDialog.initThumbsUpDialogue(context)
+            ThumbsUpDialog.showThumbsUpDialogue()
         }
     }
 
     private fun otherIntentParams(intent: Intent, sharedPrefHelper: SharedPrefHelper, context: Context){
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        intent.putExtra("availableTestConstant", availableTestModel)
+        intent.putExtra("availableTestConstants", availableTestModel)
         intent.putExtra("post_id", sharedPrefHelper.getTestResultId())
         context.startActivity(intent)
     }

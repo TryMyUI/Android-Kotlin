@@ -44,6 +44,8 @@ class ForgotPasswordActivity : AppCompatActivity(), ConnectivityReceiver.Connect
     override fun onBackPressed() {
         super.onBackPressed()
 
+        dismissProgressDialog()
+
         dismissErrorDialog()
     }
 
@@ -57,6 +59,10 @@ class ForgotPasswordActivity : AppCompatActivity(), ConnectivityReceiver.Connect
 
     override fun onPause() {
         super.onPause()
+
+        dismissProgressDialog()
+
+        dismissErrorDialog()
     }
 
     override fun onStop() {

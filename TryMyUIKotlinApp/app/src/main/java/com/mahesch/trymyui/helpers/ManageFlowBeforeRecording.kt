@@ -3,6 +3,7 @@ package com.mahesch.trymyui.helpers
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.mahesch.trymyui.activity.*
 import com.mahesch.trymyui.model.AvailableTestModel
 
@@ -20,6 +21,8 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
     var context = context
     var availableTestModel = availableTestModel
 
+    private var TAG = ManageFlowBeforeRecording::class.java.simpleName.toUpperCase()
+
     //TAB = 0
     //SPECQUAL = 1
     //TECHQUAL = 2
@@ -35,6 +38,7 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
             3 -> postFaceWarn()
             4 -> postScreenEligibility()
             else -> {
+                Log.e(TAG,"else running")
                 callPerformTestActivity()
             }
         }
@@ -44,6 +48,8 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
 
 
     private fun callPerformTestActivity(){
+
+        Log.e(TAG,"model before perform test "+availableTestModel)
         context.startActivity(Intent(context,PerformTestActivity::class.java).putExtra("availableTestConstants",availableTestModel))
     }
 

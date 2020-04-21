@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10dp"
+        android:gravity="center|center_vertical"
+        android:paddingBottom="@dimen/_10dp"
+        android:paddingTop="@dimen/_10dp"
+        android:text="SUCCESS!"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/_14sp"
+        android:textStyle="bold"
+        android:id="@+id/tv_lbl_success"/>
+
+
+    <TextView
+        android:id="@+id/textview_success_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center|top"
+        android:paddingBottom="@dimen/_5dp"
+        android:paddingTop="@dimen/_5dp"
+        android:text="Your test has been successfully completed."
+        android:textColor="@color/try_my_ui_green"
+        android:textSize="@dimen/_14sp"
+        android:textStyle="normal"
+        android:layout_below="@+id/tv_lbl_success"
+        android:layout_marginBottom="@dimen/_10dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_150dp"
+        android:id="@+id/ll_upload_success_message_image"
+        android:layout_below="@+id/textview_success_message">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/upload_success_message_image" />
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/button_continue"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_75dp"
+        android:layout_marginBottom="@dimen/_10dp"
+        android:gravity="center|center_vertical"
+        android:layout_below="@+id/ll_upload_success_message_image">
+
+        <TextView
+            android:id="@+id/tv_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_background_green"
+            android:gravity="center|center_vertical|center_horizontal"
+            android:paddingBottom="@dimen/_10dp"
+            android:paddingLeft="@dimen/_20dp"
+            android:paddingRight="@dimen/_20dp"
+            android:paddingTop="@dimen/_10dp"
+            android:text="   OK   "
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_14sp"
+            android:textStyle="normal"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

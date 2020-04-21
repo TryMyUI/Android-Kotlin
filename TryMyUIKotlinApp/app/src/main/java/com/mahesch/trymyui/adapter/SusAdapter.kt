@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.size
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.mahesch.trymyui.R
@@ -57,7 +56,9 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
 
             val susScales: SusScales = Gson().fromJson(availableTestModel.sus_scales, object : TypeToken<SusScales?>() {}.type)
 
-            if(susScales.isNot_applicable){
+        Log.e(TAG,"susScales applicable "+susScales.not_applicable)
+
+            if(susScales.not_applicable){
                 if (holder != null) {
                     displayViewForNotApplicable(susScales,holder,context,susTestList[position])
                 }
