@@ -13,7 +13,6 @@ class GuestLoginRepository(application: Application) {
 
     private var apiInterface: ApiService.ApiInterface = RetrofitInstance.getService()
 
-    var mutableLiveData = MutableLiveData<Tests>()
     var application: Application? = null
 
     init {
@@ -21,7 +20,7 @@ class GuestLoginRepository(application: Application) {
     }
 
 
-    fun guestLoginMutableData(testId: String,name: String,email: String) : MutableLiveData<Tests>{
+    fun guestLoginMutableData(testId: String,name: String,email: String,mutableLiveData: MutableLiveData<Tests>?) : MutableLiveData<Tests>{
 
         var call: Call<Tests> = apiInterface.onGuestLogin(testId,name,email)
 
@@ -42,13 +41,13 @@ class GuestLoginRepository(application: Application) {
             override fun onFailure(call: Call<Tests>, t: Throwable) {
                 Log.e("GUESTLOGIN", "ONFAILURE")
 
-                mutableLiveData.value = Tests()
+                mutableLiveData?.value = Tests()
 
             }
 
         })
 
-        return mutableLiveData
+        return mutableLiveData!!
     }
 
 }

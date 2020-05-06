@@ -10,7 +10,7 @@ import com.mahesch.trymyui.R
 import com.mahesch.trymyui.helpers.OkAlertDialog
 import com.mahesch.trymyui.helpers.SharedPrefHelper
 import com.mahesch.trymyui.helpers.Utils
-import com.mahesch.trymyui.services.NativeAppReccordingServices
+import com.mahesch.trymyui.services.NativeAppRecordingService
 
 class SplashActivity : AppCompatActivity() {
 
@@ -28,7 +28,8 @@ class SplashActivity : AppCompatActivity() {
 
     private fun init(){
 
-        if(Utils.isRecordingServiceRunning(NativeAppReccordingServices::class.java,SplashActivity@this))
+
+        if(Utils.isRecordingServiceRunning(NativeAppRecordingService::class.java,SplashActivity@this))
         {
             displayAlertForServiceIsRunning()
         }

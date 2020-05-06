@@ -65,6 +65,32 @@ dependencies {
     //TEXT DRAWABLE
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
+    //JSOUP
+    implementation 'org.jsoup:jsoup:1.8.3'
+
+    //VIDEO PARSER
+    implementation 'com.googlecode.mp4parser:isoparser:1.1.22'
+
+    //CIRCLE IMAGEVIEW
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+
+    //GIF
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.1.+'
+
+    //SWITCH BUTTON
+    implementation 'com.kyleduo.switchbutton:library:2.0.0'
+
+    //FOR MARKET NAME
+    implementation 'com.jaredrummler:android-device-names:1.1.8'
+
+    implementation files('libs/aws-android-sdk-cognito-2.6.18.jar')
+    implementation files('libs/aws-android-sdk-cognitoidentityprovider-2.6.18.jar')
+    implementation files('libs/aws-android-sdk-core-2.6.18.jar')
+    implementation files('libs/aws-android-sdk-ddb-2.6.18.jar')
+    implementation files('libs/aws-android-sdk-s3-2.6.18.jar')
+    implementation files('libs/commons-logging-1.2.jar')
+    implementation files('libs/commons-logging-1.2-javadoc.jar')
+
 }
 //apply plugin: 'com.google.gms.google-services'
 

@@ -32,7 +32,7 @@ import com.mahesch.trymyui.model.AvailableTestModel
 import com.mahesch.trymyui.model.LoginResponseModel
 import com.mahesch.trymyui.model.PerformedTestModel
 import com.mahesch.trymyui.receivers.ConnectivityReceiver
-import com.mahesch.trymyui.services.NativeAppReccordingServices
+import com.mahesch.trymyui.services.NativeAppRecordingService
 import com.mahesch.trymyui.viewmodelfactory.TabActivityViewModelFactory
 import com.mahesch.trymyui.viewmodels.TabActivityViewModel
 import com.seattleapplab.trymyui.models.Tests
@@ -96,7 +96,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
         availableTestModelList = ArrayList<AvailableTestModel>()
 
-        if(Utils.isRecordingServiceRunning(NativeAppReccordingServices::class.java,TabActivity@this) && !isFinishing){
+        if(Utils.isRecordingServiceRunning(NativeAppRecordingService::class.java,TabActivity@this) && !isFinishing){
 
             displayAlertForServiceIsRunning()
 
@@ -511,11 +511,11 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
                 performed_tests_pages = tests?.data?.resultPage!!
 
-                val Identity_id: String = tests?.data?.identity_id!!
-                sharedPrefHelper?.setIdentityId(Identity_id)
+                    val Identity_id: String = tests?.data?.identity_id!!
+                    sharedPrefHelper?.setIdentityId(Identity_id)
 
-                val s3_bucket_name: String = tests?.data?.s3_bucket_name!!
-                sharedPrefHelper?.setS3Bucket(s3_bucket_name)
+                    val s3_bucket_name: String = tests?.data?.s3_bucket_name!!
+                    sharedPrefHelper?.setS3Bucket(s3_bucket_name)
                 val size_pendingtest: Int = tests?.data?.pendingTests?.size!!
 
                 isPendingTest = size_pendingtest > 0
@@ -600,7 +600,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
                     Log.e(TAG,"availableTestModelList size "+availableTestModelList.size)
 
 
-                    SharedPrefHelper(this).saveTestResultId("309545")
+                   // SharedPrefHelper(this).saveTestResultId("309545")
 
                     //ADD PERFORM TEST LIST
 
@@ -701,6 +701,12 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
         if(tests?.data?.myTests?.size!! > 0){
 
+            val Identity_id: String = tests?.data?.identity_id!!
+            sharedPrefHelper?.setIdentityId(Identity_id)
+
+            val s3_bucket_name: String = tests?.data?.s3_bucket_name!!
+            sharedPrefHelper?.setS3Bucket(s3_bucket_name)
+
             for (i in 0 until (tests?.data?.myTests?.size!!)) {
 
                 val availableTest = tests?.data?.myTests?.get(i)?.myTest
@@ -780,7 +786,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
             setUpViewPager(viewPager)
             tabs.setupWithViewPager(viewPager)
 
-            SharedPrefHelper(this).saveTestResultId("309545")
+           // SharedPrefHelper(this).saveTestResultId("309545")
         }
         else
         {

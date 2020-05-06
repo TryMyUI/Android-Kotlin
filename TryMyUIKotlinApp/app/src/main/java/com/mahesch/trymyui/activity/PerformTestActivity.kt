@@ -1,15 +1,15 @@
 package com.mahesch.trymyui.activity
 
+import android.annotation.TargetApi
 import android.app.Dialog
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
+import android.app.PendingIntent
+import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
+import android.os.IBinder
+import android.provider.Browser
 import android.provider.Settings
 import android.util.Log
 import android.view.View
@@ -18,16 +18,26 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import com.mahesch.trymyui.R
+import com.mahesch.trymyui.helpers.DownloadApkFile
 import com.mahesch.trymyui.helpers.ManageFlowAfterTest
-import com.mahesch.trymyui.helpers.ProgressDialog
+import com.mahesch.trymyui.helpers.Utils
 import com.mahesch.trymyui.helpers.YesNoAlertDialog
 import com.mahesch.trymyui.model.AvailableTestModel
+import com.mahesch.trymyui.receivers.BrowserIntentReceiver
+import com.mahesch.trymyui.services.NativeAppRecordingService
 import kotlinx.android.synthetic.main.perform_test_activity.*
+import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
 
 class PerformTestActivity : AppCompatActivity() {
+
+    companion object{
+        var app_package_name = ""
+
+    }
 
     private lateinit var availableTestModel: AvailableTestModel
 
@@ -37,7 +47,9 @@ class PerformTestActivity : AppCompatActivity() {
 
     private var isServiceStarted = false
 
-    private var app_package_name: String? = null
+    private var chatHeadService: NativeAppRecordingService? = null
+
+    private var bound = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,17 +69,17 @@ class PerformTestActivity : AppCompatActivity() {
 
         Log.e(TAG,"availableTestModel in perform test "+availableTestModel)
 
-      /*  manageFlowAfterTest = ManageFlowAfterTest(availableTestModel,this)
+        /*  manageFlowAfterTest = ManageFlowAfterTest(availableTestModel,this)
 
-        manageFlowAfterTest.moveToWhichActivity(this)*/
+          manageFlowAfterTest.moveToWhichActivity(this)*/
 
         textViewTitle.text = availableTestModel.title?.replace("\\n","\n",true)
 
-        if(availableTestModel.url?.isEmpty()!!){
+        if(availableTestModel.url != null){
             if (!availableTestModel.url?.startsWith("http")!! && availableTestModel.url != "No title set")
-            textViewURL.text = "http://$availableTestModel.url?"
+                textViewURL.text = "http://$availableTestModel.url?"
             else
-            textViewURL.text = availableTestModel.url
+                textViewURL.text = availableTestModel.url
         }
 
         textViewScenario.text = availableTestModel.scenario
@@ -83,11 +95,11 @@ class PerformTestActivity : AppCompatActivity() {
 
             Log.e(TAG,"chckForpermission "+checkForPermission())
 
-                if(checkForPermission()){
-                        startTest()
-                }else{
-                    requestMultiplePermissions()
-                }
+            if(checkForPermission()){
+                startTest()
+            }else{
+                requestMultiplePermissions()
+            }
         }
         else{
             //NO PERMISSION REQUIRED
@@ -186,7 +198,71 @@ class PerformTestActivity : AppCompatActivity() {
     }
 
     private fun startTest(){
-            Log.e(TAG,"start test")
+        Log.e(TAG,"start test")
+
+        var native_app_test = availableTestModel?.native_app_url
+
+        if(availableTestModel?.interface_type.equals("app",true)){
+
+            // new apk uploading code
+            if (native_app_test != null) {
+                if (!native_app_test.equals("", ignoreCase = true)) {
+                    val file = File(Utils.getNativeAppTestApkPath())
+                    Log.e(TAG, "file " + file.absolutePath)
+                    if (file.exists()) {
+
+                        //  file.delete();
+                        Log.e(TAG, "file exists")
+                        val isfileAvailable: Boolean = file.delete()
+                        Log.e(TAG, "isfileAvailable $isfileAvailable")
+                        Log.e(TAG, "file.exists " + file.exists())
+                        app_package_name = Utils.checkAppAlreadyInstall(this)
+
+                        // TODO else other regular url
+                        // start app test which apk is provided by url
+
+                        showConfirmationOfApk()
+                    } else {
+                        Log.e(TAG, "file doesnt exist")
+                        showConfirmationOfApk()
+                    }
+                } else {
+                    appSelection()
+                }
+            } else {
+                appSelection()
+            }
+        }
+        else{
+            if (native_app_test != null) {
+                if (!native_app_test.equals("", ignoreCase = true)) {
+
+                    val file = File(Utils.getNativeAppTestApkPath())
+
+                    if (file.exists()) {
+                        app_package_name = Utils.checkAppAlreadyInstall(this)
+
+                        // start app test which apk is provided by url
+                        startAppWithApk()
+                    } else {
+                        showConfirmationOfApk()
+                    }
+                } else {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        webSelection()
+                    } else {
+                        webSelectionForLessThanMarshMellows()
+                    }
+                }
+            } else {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    webSelection()
+                } else {
+                    webSelectionForLessThanMarshMellows()
+                }
+            }
+        }
+
     }
 
     private fun moveToHome(){
@@ -201,11 +277,11 @@ class PerformTestActivity : AppCompatActivity() {
         super.onResume()
 
         var intentFilter = IntentFilter()
-            intentFilter.addAction(Intent.ACTION_PACKAGE_CHANGED)
-            intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED)
-            intentFilter.addCategory(Intent.CATEGORY_DEFAULT)
-            intentFilter.addDataScheme("package")
-            registerReceiver(packageReceiver,intentFilter)
+        intentFilter.addAction(Intent.ACTION_PACKAGE_CHANGED)
+        intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED)
+        intentFilter.addCategory(Intent.CATEGORY_DEFAULT)
+        intentFilter.addDataScheme("package")
+        registerReceiver(packageReceiver,intentFilter)
     }
 
 
@@ -213,55 +289,257 @@ class PerformTestActivity : AppCompatActivity() {
         override fun onReceive(context: Context, intent: Intent) {
             // handle install event here
             Log.e(TAG+" package receiver ", "app install handling")
-            startNativeAppRecording(app_package_name, true)
+            startNativeAppRecording(PerformTestActivity.app_package_name!!, true)
         }
     }
 
+    private val serviceConnection = object : ServiceConnection {
 
-    private fun startNativeAppRecording(appPackageNAme: String,bol: Boolean){
+        override fun onServiceDisconnected(name: ComponentName?) { bound = false }
+
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+            var binder = service as NativeAppRecordingService.LocalBinder
+            chatHeadService = binder.getService()
+            bound = true
+        }
+    }
+
+    private fun startNativeAppRecording(appPackageNAme: String,launchApp: Boolean){
+
+        //STOP CURRENT ONGOING SERVICE IF IT IS ON
+            if(Utils.isMyServiceRunning(NativeAppRecordingService::class.java,this)){
+                    stopService(Intent(this,NativeAppRecordingService::class.java))
+            }
+
+            //DELETE PREVIOUS FOLDER AND ITS CONTENT
+            Utils.DeleteFolderOfRecording()
+            Utils.DeleteFaceRecordingFolder()
+
+
+            if(launchApp){
+                var intent = Intent(this,NativeAppRecordingService::class.java)
+                intent.putExtra("availableTestConstants",availableTestModel)
+                intent.putExtra("packageName", app_package_name)
+
+                try
+                {
+                    startService(intent)
+                }
+                catch (ise : IllegalStateException)
+                {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                    {
+                        startForegroundService(intent)
+                    }
+                }
+
+                bindService(intent,serviceConnection,Context.BIND_AUTO_CREATE)
+
+                unregisterReceiver(packageReceiver)
+
+                val launchIntent = packageManager.getLaunchIntentForPackage(appPackageNAme)
+
+                if(launchIntent != null){
+                    launchIntent.addCategory(Intent.CATEGORY_HOME)
+                    launchIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                    startActivity(launchIntent)
+                }
+
+                finish()
+
+            }
+            else
+            {
+                var intent = Intent(this,NativeAppRecordingService::class.java)
+                intent.putExtra("availableTestConstants",availableTestModel)
+                intent.putExtra("packageName", app_package_name)
+
+                try{
+                    startService(intent)
+                }
+
+                catch (ise : IllegalStateException ) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        startForegroundService(intent);
+                    }
+                }
+
+                bindService(intent,serviceConnection,Context.BIND_AUTO_CREATE)
+
+                var homeIntent = getIntent()
+                homeIntent.addCategory(Intent.CATEGORY_HOME)
+                homeIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
+                startActivity(homeIntent)
+                finish()
+                unregisterReceiver(packageReceiver)
+            }
+
+
+
 
     }
 
     private fun showConfirmationOfApk(){
-            var btn_array = YesNoAlertDialog.initYesNoDialogue(this)
+        var btn_array = YesNoAlertDialog.initYesNoDialogue(this)
 
-            btn_array!![0].setOnClickListener { downloadApk() }
+        btn_array!![0].setOnClickListener {
 
-            btn_array[1].setOnClickListener { YesNoAlertDialog.dismissYesNoDialogue() }
+            if(Utils.isInternetAvailable(this)){
+                YesNoAlertDialog.dismissYesNoDialogue()
+                downloadApk()
+            }
+            else
+            {
+                Utils.showInternetCheckToast(this)
+            }
+        }
 
-            YesNoAlertDialog.showYesNoDialogue(title = resources.getString(R.string.download_apk),msg = resources.getString(R.string.download_apk_msg),positiveButtonText = "Yes",negativeButtonText = "No")
+        btn_array[1].setOnClickListener { YesNoAlertDialog.dismissYesNoDialogue() }
+
+        YesNoAlertDialog.showYesNoDialogue(title = resources.getString(R.string.download_apk),msg = resources.getString(R.string.download_apk_msg),positiveButtonText = "Yes",negativeButtonText = "No")
     }
 
     private fun downloadApk(){
+        DownloadApkFile(this,availableTestModel?.native_app_url!!).execute()
+    }
+
+    @TargetApi(22)
+    private fun webSelection(){
+        if(!(availableTestModel?.url?.startsWith("http",true)!!) && !(availableTestModel?.url?.startsWith("https",true))!!){
+                availableTestModel?.url = "http"+availableTestModel?.url
+            }
+
+        if(!isServiceStarted){
+            var isService = Utils.isMyServiceRunning(NativeAppRecordingService::class.java,this)
+
+            //STOP IF SERVICE IS ALREADY RUNNING
+            if(isService){
+                stopService(Intent(this,NativeAppRecordingService::class.java))
+            }
+
+            //START A NEW SERVICE AND SEND ALL INFO
+            var intent = Intent(this,NativeAppRecordingService::class.java)
+            intent.putExtra("availableTestConstants",availableTestModel)
+            intent.putExtra("packageName", app_package_name)
+            startService(intent)
+
+            bindService(intent,serviceConnection,Context.BIND_AUTO_CREATE)
+
+            openBrowser()
+        }
 
     }
 
-   inner  class DownloadFileInAsync : AsyncTask<Void,String,String>(){
 
-        override fun onPreExecute() {
-            super.onPreExecute()
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
+    private fun openBrowser(){
+        var receiver = Intent(this,BrowserIntentReceiver::class.java)
 
-            ProgressDialog.initializeProgressDialogue(this@PerformTestActivity)
-            ProgressDialog.showProgressDialog()
+        var pendingIntent = PendingIntent.getBroadcast(this,0,receiver,PendingIntent.FLAG_UPDATE_CURRENT)
+        var intentBrowser = Intent(Intent.ACTION_VIEW)
+        intentBrowser.setData(Uri.parse(availableTestModel?.url))
+        intentBrowser.putExtra(Browser.EXTRA_APPLICATION_ID,this.packageName)
+        startActivity(Intent.createChooser(intentBrowser,"Choose browser",pendingIntent.intentSender))
+        finish()
 
+
+    }
+
+    private fun webSelectionForLessThanMarshMellows(){
+
+        if(!(availableTestModel?.url?.startsWith("http",true)!!) && !(availableTestModel?.url?.startsWith("https",true))!!){
+            availableTestModel?.url = "http"+availableTestModel?.url
         }
 
-        override fun onProgressUpdate(vararg values: String?) {
-            super.onProgressUpdate(*values)
-        }
+        if (!isServiceStarted) {
+            //check service already started
+            val isService: Boolean = Utils.isMyServiceRunning(NativeAppRecordingService::class.java,this)
 
-        override fun doInBackground(vararg params: Void?): String {
-            TODO("Not yet implemented")
-        }
+            if (isService)
+            {
+                val intent = Intent(this@PerformTestActivity, NativeAppRecordingService::class.java)
+                stopService(intent)
+            }
 
-        override fun onPostExecute(result: String?) {
-            super.onPostExecute(result)
-        }
+            //start new service and send all info
+            val intent = Intent(this@PerformTestActivity, NativeAppRecordingService::class.java)
+            intent.putExtra("availableTestConstants", availableTestModel)
 
-        override fun onCancelled() {
-            super.onCancelled()
+            startService(intent)
+            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
+
+            val intentBrowser = Intent(Intent.ACTION_VIEW)
+            intentBrowser.data = Uri.parse(availableTestModel?.url)
+            intentBrowser.putExtra(
+                Browser.EXTRA_APPLICATION_ID,
+                this@PerformTestActivity.packageName
+            )
+            startActivity(Intent.createChooser(intentBrowser, "Choose browser"))
+            finish()
         }
     }
+
+    private fun appSelection() {
+        val http_text: Int = availableTestModel?.url?.indexOf('/')!!
+        val packagename: String = availableTestModel?.url?.substring(http_text + 2)!!
+        val intentApp = packageManager.getLaunchIntentForPackage(packagename)
+
+        if (intentApp != null) {
+            startNativeAppRecording(packagename, false)
+            onGoToAnotherInAppStore(packagename)
+        }
+        else
+        {
+
+            // TODO else other regular url
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                webSelection()
+            } else {
+                webSelectionForLessThanMarshMellows()
+            }
+        }
+    }
+
+    private fun onGoToAnotherInAppStore(appPackageName: String) {
+        var intent: Intent
+        try {
+            intent = Intent(Intent.ACTION_VIEW)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.data = Uri.parse("market://details?id=$appPackageName")
+            startActivity(intent)
+        } catch (anfe: ActivityNotFoundException) {
+            intent = Intent(Intent.ACTION_VIEW)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            intent.data = Uri.parse("http://play.google.com/store/apps/details?id=$appPackageName")
+            startActivity(intent)
+        }
+    }
+
+
+    private fun startAppWithApk(){
+        var filePath = Utils.getNativeAppTestApkPath()
+
+        var mainFile = File(filePath)
+
+        app_package_name = Utils.checkAppAlreadyInstall(this)
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            var apkUri = FileProvider.getUriForFile(this,this.applicationContext.packageName+".provider",mainFile)
+
+            var installIntent = Intent(Intent.ACTION_INSTALL_PACKAGE)
+            installIntent.setData(apkUri)
+            installIntent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            startActivity(installIntent)
+        } else{
+            var apkUri = Uri.fromFile(mainFile)
+            var installIntent = Intent(Intent.ACTION_VIEW)
+            installIntent.setDataAndType(apkUri,"application/vnd.android.package-archive")
+          startActivity(installIntent)
+        }
+    }
+
+
+
 
 
 

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="100"
+    android:background="@color/white"
+    android:id="@+id/ll2">
+
+
+    <!--LAYOUT FOR TASK VIDEO UPLOAD-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="49.5"
+        android:id="@+id/ll_uploading_task_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:id="@+id/ll_uploading_task"
+            android:padding="@dimen/_10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_lbl_task_video_uploading"
+                android:text="@string/uploading_task_video"
+                android:gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/dark_slate_gray"
+                android:textSize="@dimen/_18sp"
+                android:layout_marginTop="@dimen/_30dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:lineSpacingExtra="@dimen/_5dp"/>
+
+            <pl.droidsonroids.gif.GifTextView
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/uploading_progress_image"
+                android:layout_gravity="center"
+                android:id="@+id/gifview_task"/>
+
+            <TextView
+                android:id="@+id/tv_task_video_pecentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|top"
+                android:text="0%"
+                android:textColor="@color/background_orange"
+                android:textSize="@dimen/_24sp"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/_20dp"/>
+
+            <ProgressBar
+                android:id="@+id/pb_task_video"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:fitsSystemWindows="true"
+                android:max="100"
+                android:padding="@dimen/_10dp"
+                android:progress="0"
+                android:scaleY="2" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/ll_task_failed">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10dp"
+                android:gravity="center|center_vertical"
+                android:text="Oops!"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_button_size"
+                android:textStyle="bold"
+                android:id="@+id/tv"/>
+
+
+            <TextView
+                android:id="@+id/tv_task_upload_failed_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|top"
+                android:paddingBottom="@dimen/_2dp"
+                android:paddingTop="@dimen/_2dp"
+                android:text="@string/upload_video_again"
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="normal"
+                android:layout_margin="@dimen/_10dp"/>
+
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120dp"
+                android:layout_gravity="center"
+                android:src="@drawable/fail_error_image"
+                android:visibility="gone"
+                android:id="@+id/iv_task_video_fail"
+                android:layout_margin="@dimen/_5dp"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120dp"
+                android:layout_gravity="center"
+                android:src="@drawable/network_fail_image"
+                android:visibility="gone"
+                android:id="@+id/iv_task_video_net_fail"/>
+
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/retry"
+                android:id="@+id/btn_task_video_retry"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_10dp"/>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/black_circle_faded_img"/>
+
+    <!--LAYOUT FOR FACE VIDEO UPLOAD-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="49.5"
+        android:id="@+id/ll_uploading_face_parent"
+        android:visibility="gone">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="visible"
+            android:id="@+id/ll_uploading_face">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_lbl_face_video_uploading"
+                android:text="@string/uploading_face_video"
+                android:gravity="center"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/dark_slate_gray"
+                android:textSize="@dimen/_18sp"
+                android:layout_marginTop="@dimen/_20dp"
+                android:layout_marginBottom="@dimen/_20dp"
+                android:lineSpacingExtra="@dimen/_3dp"/>
+
+            <pl.droidsonroids.gif.GifTextView
+                android:layout_width="55dp"
+                android:layout_height="55dp"
+                android:background="@drawable/uploading_progress_image"
+                android:layout_gravity="center"
+                android:id="@+id/gifview_face"/>
+
+            <TextView
+                android:id="@+id/tv_face_video_percentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|top"
+                android:text="0%"
+                android:textColor="@color/background_orange"
+                android:textSize="@dimen/_24sp"
+                android:textStyle="bold"
+                android:layout_margin="@dimen/_20dp"
+                android:fontFamily="sans-serif"/>
+
+            <ProgressBar
+                android:id="@+id/pb_face_video"
+                style="@style/Base.Widget.AppCompat.ProgressBar.Horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10dp"
+                android:layout_marginRight="@dimen/_10dp"
+                android:fitsSystemWindows="true"
+                android:max="100"
+                android:padding="@dimen/_10dp"
+                android:progress="0"
+                android:scaleY="2" />
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/ll_face_failed">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_10dp"
+                android:gravity="center|center_vertical"
+                android:text="Oops!"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/text_button_size"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/tv_face_video_failed_uploading_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center|top"
+                android:text="@string/upload_video_again"
+                android:textColor="@color/red"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="normal"
+                android:layout_margin="@dimen/_10dp"/>
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120dp"
+                android:layout_gravity="center"
+                android:src="@drawable/fail_error_image"
+                android:visibility="gone"
+                android:id="@+id/iv_face_video_fail"
+                android:layout_margin="@dimen/_5dp"/>
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120dp"
+                android:layout_gravity="center"
+                android:src="@drawable/network_fail_image"
+                android:visibility="gone"
+                android:id="@+id/iv_face_video_net_fail"/>
+
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/retry"
+                android:id="@+id/btn_face_video_retry"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_10dp"/>
+
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="@dimen/_10dp"
+            android:id="@+id/ll_uploading_face_transparent"
+            android:orientation="vertical"
+            android:layout_margin="@dimen/_10dp"
+            android:background="@drawable/transparent_background"
+            android:visibility="gone"/>
+
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

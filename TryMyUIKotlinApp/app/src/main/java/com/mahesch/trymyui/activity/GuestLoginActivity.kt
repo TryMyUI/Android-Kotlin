@@ -43,6 +43,28 @@ class GuestLoginActivity : AppCompatActivity() {
                 application
             )
         guestActivityViewModel = ViewModelProvider(this,factory).get(GuestActivityViewModel::class.java)
+
+        guestActivityViewModel.mutableLiveData?.observe(this,object : Observer<Tests>{
+            override fun onChanged(guestLoginResponseModel: Tests?) {
+                Log.e("GUEST LOGIN","CALLED")
+
+                dismissProgressDialog()
+
+                if(guestLoginResponseModel == null){
+                    showErrorDialog(guestLoginResponseModel)
+                }
+                else {
+                    if (guestLoginResponseModel.error == null) {
+                        guestLoginResponseHandling(guestLoginResponseModel)
+                    } else {
+                        var error: Throwable? = guestLoginResponseModel.error
+                        guestErrorHandling(error)
+                    }
+                }
+
+
+            }
+        })
     }
 
 
@@ -81,29 +103,8 @@ class GuestLoginActivity : AppCompatActivity() {
     }
 
     private fun guestLogin(){
+
         guestActivityViewModel.callGuestLogin(et_test_id.text.toString(),et_name.text.toString(),et_email.text.toString())
-            ?.observe(this,object : Observer<Tests>{
-
-                override fun onChanged(guestLoginResponseModel: Tests?) {
-                    Log.e("GUEST LOGIN","CALLED")
-
-                    dismissProgressDialog()
-
-                    if(guestLoginResponseModel == null){
-                        showErrorDialog(guestLoginResponseModel)
-                    }
-                    else {
-                        if (guestLoginResponseModel.error == null) {
-                            guestLoginResponseHandling(guestLoginResponseModel)
-                        } else {
-                            var error: Throwable? = guestLoginResponseModel.error
-                            guestErrorHandling(error)
-                        }
-                    }
-
-
-                }
-            })
     }
 
     private fun guestLoginResponseHandling(tests: Tests?) {

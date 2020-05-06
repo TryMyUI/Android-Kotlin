@@ -1,7 +1,6 @@
 package com.mahesch.trymyui.activity
 
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -78,7 +77,7 @@ class FeedbackActivity : AppCompatActivity() ,ConnectivityReceiver.ConnectivityR
                                      subject: String, device: String,apiInterface: ApiService.ApiInterface){
 
         ProgressDialog.dismissProgressDialog()
-       var call =  apiInterface.postFeedBack(username,email,channelTypeFeedback,message,subject,device)
+       var call =  apiInterface.postFeedBackGuest(username,email,channelTypeFeedback,message,subject,device)
 
         call.enqueue(object : Callback<CommonModel> {
 
@@ -112,7 +111,7 @@ class FeedbackActivity : AppCompatActivity() ,ConnectivityReceiver.ConnectivityR
     private fun sendFeedbackForWorkerAndCustomer(token: String?,channelTypeFeedback: String,message: String,
                                                  subject: String, device: String,apiInterface: ApiService.ApiInterface){
         ProgressDialog.dismissProgressDialog()
-        var call =  apiInterface.postFeedBack(token,channelTypeFeedback,message,subject,device)
+        var call =  apiInterface.postFeedBackWorker(token!!,channelTypeFeedback,message,subject,device)
 
         call.enqueue(object : Callback<CommonModel> {
 

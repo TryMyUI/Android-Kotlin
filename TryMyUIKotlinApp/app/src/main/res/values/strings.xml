@@ -15,7 +15,7 @@
     <string name="something_went_wrong">Something went wrong. \nPlease try again later.</string>
     <string name="download_apk">Download APK</string>
     <string name="download_apk_msg">You will be downloading client\'s native application. \nOnce download completes, install apk on to your device.</string>
-
+    <string name="downloading_apk_msg">Downloading APK</string>
     <!--OK_ALERT_WINDOW-->
     <string name="ok_alert">OK</string>
     <string name="alert">Alert!</string>
@@ -69,7 +69,7 @@
 
     <string name="gotoframeofmind"><u>Go to Frame of Mind </u></string>
 
-    <string name="returntotask"><u>Back to tasks</u></string>
+    <string name="returntotask"><t><u>Back to tasks</u></t>   </string>
     <string name="gotofirsttask">Go to first task &gt;</string>
     <string name="recordingtimeup">Your recording time limit has been reached. Do you want to upload video?</string>
     <string name="upload">Upload</string>
@@ -298,4 +298,6 @@
 
     <string name="pcmac_test">This test is not available for android. You can perform this test on Desktop.</string>
     <string name="ios_test">This test is not available for android. You can perform this test on iPhone/iPad.</string>
+    <string name="leave_test_question">Are you sure you want to leave this test?</string>
+    <string name="bubble_cancel_confirm">This will end your test and you will be redirected to your TryMyUI dashboard</string>
 </resources>

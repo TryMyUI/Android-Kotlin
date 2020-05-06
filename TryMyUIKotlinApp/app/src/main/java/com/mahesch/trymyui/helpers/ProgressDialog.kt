@@ -14,16 +14,40 @@ class ProgressDialog {
         fun initializeProgressDialogue(context: Context) : ProgressDialog {
 
             progressDialog = ProgressDialog(context)
-            progressDialog?.setMessage(context.resources.getString(R.string.loading_progress_dialog))
             progressDialog?.setCancelable(false)
-
             return progressDialog!!
 
+        }
+
+        fun initializeProgressDialogue(context: Context,style: Int): ProgressDialog{
+            progressDialog = ProgressDialog(context)
+            progressDialog?.setCancelable(false)
+            progressDialog?.setProgressStyle(style)
+            return progressDialog!!
+        }
+
+        fun setProgress(progress: Int){
+            progressDialog?.progress = progress
         }
 
         fun showProgressDialog(){
             if(progressDialog != null)
             {
+
+                progressDialog?.setMessage("Loading...")
+
+                if (!progressDialog?.isShowing!!)
+                    progressDialog?.show()
+            }
+
+        }
+
+        fun showProgressDialog(message: String){
+            if(progressDialog != null)
+            {
+
+                progressDialog?.setMessage(message)
+
                 if (!progressDialog?.isShowing!!)
                     progressDialog?.show()
             }

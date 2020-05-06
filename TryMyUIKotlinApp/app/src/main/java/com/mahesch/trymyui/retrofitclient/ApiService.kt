@@ -110,7 +110,7 @@ class ApiService{
         //GUEST
         @FormUrlEncoded
         @POST("/api/v2/feedback")
-        fun postFeedBack(
+        fun postFeedBackGuest(
             @Field("name") name: String?,
             @Field("email") email: String?,
             @Field("channel") channel: String,
@@ -123,8 +123,8 @@ class ApiService{
         //WORKER
         @FormUrlEncoded
         @POST("/api/v2/feedback")
-        fun postFeedBack(
-            @Field("at") accessToken: String?,
+        fun postFeedBackWorker(
+            @Field("at") accessToken: String,
             @Field("channel") channel: String,
             @Field("text") text: String,
             @Field("subject") subject: String,
@@ -183,6 +183,49 @@ class ApiService{
             @Field("sq_id") sq_id: Int,
             @Field("screener_option_ids") screener_option_ids: String?
         ): Call<ScreenerQuestionModel>
+
+        // TODO : terminate
+        @FormUrlEncoded
+        @POST("/api/v2/mobile_events/terminate")
+        fun terminate(
+            @Field("at") token: String,
+            @Field("test_result_id") test_result_id: String) : Call<CommonModel>
+
+
+        // TODO : guest login start recording
+        @Headers("Content-Type: application/json; charset=utf-8")
+        @POST("/api/v2/mobile_events/start_recording_anonymous")
+        fun checkTestAvailabilityForGuest(@Body body: JsonObject): Call<JsonObject>
+
+        // TODO : start_recording
+        @Headers("Content-Type: application/json; charset=utf-8")
+        @POST("/api/v2/mobile_events/start_recording")
+        fun checkTestAvailabilityForWorker(@Body body: JsonObject): Call<JsonObject>
+
+        // TODO : save task timing
+        @Headers("Content-Type: application/json; charset=utf-8")
+        @POST("/api/v2/mobile_events/save_task_timings")
+        fun saveTaskTime(@Body body: JsonObject): Call<JsonObject>
+
+        // TODO : feedback for carsh repoort
+        @FormUrlEncoded
+        @POST("/api/v2/feedback")
+        fun postCrashReport(
+            @Field("channel") channel: String,
+            @Field("text") text: String,
+            @Field("device") device: String,
+            @Field("subject") subject: String):
+                Call<CommonModel>
+
+
+        @Headers("Content-Type: application/json; charset=utf-8")
+        @POST("/api/v2/mobile_events/done_recording")
+        fun doneRecording(@Body body: JsonObject): Call<JsonObject>
+
+
+
+
+
 
     }
 

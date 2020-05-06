@@ -5,9 +5,12 @@ import com.mahesch.trymyui.receivers.ConnectivityReceiver
 
 class ApplicationClass : Application() {
 
+
+
     companion object{
 
-        private val mInstance: ApplicationClass? = null
+        var selectedBrowserName: String? = null
+        private var mInstance: ApplicationClass? = null
 
         @Synchronized
         fun getInstance(): ApplicationClass? {
@@ -19,6 +22,8 @@ class ApplicationClass : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
+        mInstance =  this
     }
 
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:dist="http://schemas.android.com/apk/distribution"
-    package="com.mahesch.trymyui"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.mahesch.trymyui">
 
     <dist:module dist:instant="true" />
 
@@ -11,10 +11,16 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera2.full"
-        android:required="false"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <!--<uses-library android:name ="org.apache.http.legacy" android:required ="false"
+        tools:ignore="WrongManifestParent" />-->
+
+
+    <uses-feature
+        android:name="android.hardware.camera2.full"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -51,7 +57,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity android:name=".activity.WrittenSummaryActivity"></activity>
+        <activity android:name=".activity.StartRecorderActivity"
+            android:launchMode="singleTop"
+            android:theme="@style/Theme.Transparent"
+            android:excludeFromRecents="true"
+            android:windowSoftInputMode="adjustNothing"></activity>
+        <activity android:name=".activity.UploadingVideoActivity" />
+        <activity android:name=".activity.WrittenSummaryActivity" />
         <activity android:name=".activity.ScreenerEligibilityActivity" />
         <activity android:name=".activity.HelperActivity4" />
         <activity android:name=".activity.HelperActivity3" />
@@ -78,8 +90,8 @@
         <activity android:name=".activity.FeedbackActivity" />
 
         <service
-            android:name=".services.NativeAppReccordingServices"
-            android:exported="false" />
+            android:name=".services.NativeAppRecordingService"
+            android:exported="true" />
 
         <activity android:name=".activity.VideoPlayerActivity" />
         <activity android:name=".activity.SusQuestionActivity" />
@@ -101,6 +113,43 @@
             android:noHistory="true"
             android:theme="@style/MyMaterialTheme"
             android:windowSoftInputMode="stateHidden" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.mahesch.trymyui.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <receiver
+            android:name=".receivers.ConnectivityReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+
+       <!-- <receiver android:name=".Service.ServiceReceiverPhoneState">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>-->
+
+        <receiver
+            android:name=".receivers.BrowserIntentReceiver"
+            android:exported="false" />
+
+        <service
+            android:name="com.amazonaws.mobileconnectors.s3.transferutility.TransferService"
+            android:enabled="true" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
     </application>
 
 </manifest>

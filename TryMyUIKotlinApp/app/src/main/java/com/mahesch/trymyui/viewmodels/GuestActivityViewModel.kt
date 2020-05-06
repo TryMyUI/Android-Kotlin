@@ -9,13 +9,17 @@ import com.seattleapplab.trymyui.models.Tests
 class GuestActivityViewModel(application: Application) : AndroidViewModel(application) {
 
     var guestLoginRepository : GuestLoginRepository? = null
+    var mutableLiveData : MutableLiveData<Tests>? = MutableLiveData<Tests>()
 
     init {
         guestLoginRepository = GuestLoginRepository(application)
     }
 
 
-    fun callGuestLogin(name: String,email: String,testId: String) : MutableLiveData<Tests>?{
-        return guestLoginRepository?.guestLoginMutableData(name,email,testId)
+    fun callGuestLogin(name: String,email: String,testId: String) {
+
+        mutableLiveData = guestLoginRepository?.guestLoginMutableData(name,email,testId,mutableLiveData)
+
+
     }
 }

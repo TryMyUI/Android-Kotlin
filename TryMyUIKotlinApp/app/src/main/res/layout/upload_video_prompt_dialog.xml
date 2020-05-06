@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_120dp"
+    android:background="@color/white"
+    android:visibility="visible"
+    android:id="@+id/rl_video_upload_prompt">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/do_you_want_to_upload"
+        android:textSize="@dimen/_20sp"
+        android:gravity="center"
+        android:textColor="@color/dark_slate_gray"
+        android:id="@+id/tv_lbl_want_to_upload"
+        android:fontFamily="sans-serif-condensed-light"
+        android:layout_marginTop="@dimen/_20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_lbl_want_to_upload"
+        android:text="@string/yes"
+        android:id="@+id/tv_yes"
+        android:textColor="@color/background_orange"
+        android:fontFamily="sans-serif-condensed-light"
+        android:layout_marginTop="@dimen/_20dp"
+        android:layout_marginRight="@dimen/_60dp"
+        android:layout_marginBottom="@dimen/_20dp"
+        android:layout_marginLeft="@dimen/_20dp"
+        android:textSize="@dimen/_20sp"
+        android:layout_alignParentRight="true"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_lbl_want_to_upload"
+        android:text="@string/no"
+        android:id="@+id/tv_cancel"
+        android:textColor="@color/dark_gray"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="@dimen/_20sp"
+        android:layout_toLeftOf="@+id/tv_yes"
+        android:layout_marginTop="@dimen/_20dp"
+        android:layout_marginRight="@dimen/_40dp"/>
+
+
+
+
+
+</RelativeLayout>
+
+

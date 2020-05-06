@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_120dp"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/are_you_sure_to_cancel_test"
+        android:textSize="@dimen/_20sp"
+        android:gravity="center"
+        android:textColor="@color/dark_slate_gray"
+        android:id="@+id/tv_lbl_sure_to_cancel"
+        android:fontFamily="sans-serif-condensed-light"
+        android:layout_marginTop="@dimen/_20dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_lbl_sure_to_cancel"
+        android:text="@string/yes"
+        android:id="@+id/tv_yes"
+        android:textColor="@color/background_orange"
+        android:fontFamily="sans-serif-condensed-light"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/_20dp"
+        android:layout_marginRight="@dimen/_70dp"
+        android:layout_marginBottom="@dimen/_20dp"
+        android:textSize="@dimen/_20sp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_lbl_sure_to_cancel"
+        android:text="@string/no"
+        android:id="@+id/tv_no"
+        android:textColor="@color/dark_gray"
+        android:fontFamily="sans-serif-condensed-light"
+        android:textSize="@dimen/_20sp"
+        android:layout_marginTop="@dimen/_20dp"
+        android:layout_marginBottom="@dimen/_20dp"
+        android:layout_marginRight="@dimen/_40dp"
+        android:layout_toLeftOf="@+id/tv_yes"/>
+
+
+
+
+</RelativeLayout>

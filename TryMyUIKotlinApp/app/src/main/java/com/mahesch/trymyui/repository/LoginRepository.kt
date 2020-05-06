@@ -13,7 +13,7 @@ class LoginRepository(application: Application) {
 
     private var apiInterface: ApiService.ApiInterface = RetrofitInstance.getService()
 
-    var mutableLiveData = MutableLiveData<LoginResponseModel>()
+ //   var mutableLiveData = MutableLiveData<LoginResponseModel>()
     var application: Application? = null
     private lateinit var call: Call<LoginResponseModel>
 
@@ -21,11 +21,11 @@ class LoginRepository(application: Application) {
         this.application = application
     }
 
-    fun loginMutableData(email: String,password: String): MutableLiveData<LoginResponseModel>? {
+    fun loginMutableData(email: String,password: String,callback: Callback<LoginResponseModel>) {
 
-        call = apiInterface.onLogin(email,password)
+         apiInterface.onLogin(email,password).enqueue(callback)
 
-        call.enqueue(object : Callback<LoginResponseModel> {
+      /*  call.enqueue(object : Callback<LoginResponseModel> {
 
             override fun onResponse(
                 call: Call<LoginResponseModel>,
@@ -35,21 +35,20 @@ class LoginRepository(application: Application) {
                 Log.e("LOGIN", "ONRESPONSE")
                 Log.e("LOGIN", "code " + response.code())
 
-                mutableLiveData?.value = response.body()
+              //  mutableLiveData?.value = response.body()
 
             }
 
             override fun onFailure(call: Call<LoginResponseModel>, t: Throwable) {
                 Log.e("LOGIN", "ONFAILURE")
 
-                mutableLiveData.value = LoginResponseModel()
+             //   mutableLiveData.value = LoginResponseModel()
 
               //  https://medium.com/@sriramr083/error-handling-in-retrofit2-in-mvvm-repository-pattern-a9c13c8f3995
             }
 
-        })
+        })*/
 
-        return mutableLiveData
 
     }
 

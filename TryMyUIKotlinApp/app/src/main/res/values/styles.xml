@@ -95,4 +95,21 @@
 
     <style name="AppTheme.MaterialDialogTheme" parent="android:Theme.Material.Light.Dialog"></style>
 
+    <style name="switchButtonStyle" parent="Theme.AppCompat.Light">
+        <item name="android:paddingLeft">1dp</item>
+        <item name="android:paddingRight">1dp</item>
+        <item name="android:paddingTop">1dp</item>
+        <item name="android:paddingBottom">1dp</item>
+        <item name="android:minHeight">2dp</item>></style>
+
+    <style name="Theme.Transparent" parent="Theme.AppCompat.Light.NoActionBar"><!--android:Theme-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+
 </resources>

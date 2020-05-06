@@ -56,6 +56,7 @@ class LoginActivity : AppCompatActivity(){
 
         loginActivityViewModel = ViewModelProvider(this,factory).get(LoginActivityViewModel ::class.java)
 
+        setObserver()
 
     }
 
@@ -63,10 +64,44 @@ class LoginActivity : AppCompatActivity(){
         ProgressDialog.initializeProgressDialogue(this)
     }
 
+    private fun setObserver(){
+        loginActivityViewModel.mutableLiveData?.observe(this, object : Observer<LoginResponseModel>{
+            override fun onChanged(loginResponseModel: LoginResponseModel?) {
+                Log.e(TAG,"seObserver onChaned")
+
+                dismissProgressDialog()
+
+                if(loginResponseModel == null){
+                    //SHOW SOMETHING WENT WRONG DIALOG
+                    showErrorDialog(loginResponseModel!!)
+                }
+                else{
+                    if(loginResponseModel.error == null){
+                        Log.e("LOGINACTIVITY","CHECK LOGIN CALLED")
+                        callLoginResponseHandling(loginResponseModel)
+                    }
+                    else{
+                        var error: Throwable? = loginResponseModel.error
+                        callLoginErrorHandling(error)
+                    }
+                }
+            }
+
+        })
+
+        loginActivityViewModel.mutableLiveData_dialog?.observe(this,object : Observer<LoginResponseModel>{
+            override fun onChanged(t: LoginResponseModel?) {
+                showErrorDialog(t!!)
+            }
+
+        })
+    }
+
+
 
     private fun login(){
 
-        loginActivityViewModel.callLogin(et_email_username.text.toString(),et_password.text.toString())?.observe(this,object : Observer<LoginResponseModel>{
+       /* loginActivityViewModel.callLogin(et_email_username.text.toString(),et_password.text.toString())?.observe(this,object : Observer<LoginResponseModel>{
             override fun onChanged(loginResponseModel: LoginResponseModel) {
 
                 dismissProgressDialog()
@@ -86,7 +121,9 @@ class LoginActivity : AppCompatActivity(){
                     }
                 }
             }
-        })
+        })*/
+
+        loginActivityViewModel.callLogin(et_email_username.text.toString(),et_password.text.toString())
     }
 
     private fun btnSignInOnClickEvent() {

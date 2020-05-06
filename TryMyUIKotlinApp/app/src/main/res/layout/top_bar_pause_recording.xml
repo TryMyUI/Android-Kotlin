@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_pause_recording"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_45dp"
+    android:background="@drawable/rectangle_rounded_shape_red"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:weightSum="2">
+
+    <LinearLayout
+        android:id="@+id/textview_click_open_test_website"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1.3"
+        android:clickable="true"
+        android:gravity="center_vertical|center">
+
+        <TextView
+            android:id="@+id/textview_open_test_website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="false"
+            android:padding="@dimen/_8dp"
+            android:text="Open test website"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sp"
+            android:textStyle="normal" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="0.5dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray">
+
+    </View>
+
+    <LinearLayout
+        android:id="@+id/button_pause"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.69"
+        android:clickable="true"
+        android:gravity="center_vertical|center"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:focusableInTouchMode="false"
+            android:src="@drawable/pause_icon_img" />
+
+    </LinearLayout>
+
+</LinearLayout>
