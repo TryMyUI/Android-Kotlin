@@ -46,9 +46,9 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
 
     private var availableTestList = availableTestList
 
-        init {
-            sharedPrefHelper = SharedPrefHelper(activity)
-        }
+    init {
+        sharedPrefHelper = SharedPrefHelper(activity)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,9 +86,9 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
             swipeRefreshLayout.visibility = View.VISIBLE
 
             swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-                            android.R.color.holo_green_light,
-                            android.R.color.holo_orange_light,
-                            android.R.color.holo_red_light)
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light)
 
             recyclerViewAdapter = AvailableTestListAdapter(availableTestList,this)
             recyclerView.adapter = recyclerViewAdapter
@@ -171,9 +171,10 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
     override fun takeTestClicked(availableTestModel: AvailableTestModel?) {
 
         Log.e(TAG,"takeTestClicked")
-Log.e(TAG,"model in fragment "+availableTestModel)
+        Log.e(TAG, "model in fragment $availableTestModel")
+
+        sharedPrefHelper.saveAvaliableTestId(availableTestModel?.id.toString())
         ManageFlowBeforeRecording(availableTestModel,activity).moveToWhichActivity(0)
-    //    temporaryFlow(availableTestModel)
 
     }
 
@@ -183,7 +184,7 @@ Log.e(TAG,"model in fragment "+availableTestModel)
         activity.finish()
     }
 
-     fun temporaryFlow(availableTestModel: AvailableTestModel?){
+    fun temporaryFlow(availableTestModel: AvailableTestModel?){
 
         Log.e(TAG, "availableTestModel $availableTestModel")
 
@@ -193,7 +194,7 @@ Log.e(TAG,"model in fragment "+availableTestModel)
 
         var intent = Intent(activity,SusQuestionActivity::class.java)
         intent.putExtra("availableTestConstants",availableTestModel)
-         intent.putExtra("susQuestion",availableTestModel?.susQuestion)
+        intent.putExtra("susQuestion",availableTestModel?.susQuestion)
         startActivity(intent)
         activity.finish()
     }

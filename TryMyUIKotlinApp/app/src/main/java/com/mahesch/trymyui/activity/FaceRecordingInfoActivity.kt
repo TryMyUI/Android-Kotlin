@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.mahesch.trymyui.R
 import com.mahesch.trymyui.helpers.ManageFlowBeforeRecording
+import com.mahesch.trymyui.helpers.YesNoAlertDialog
 import com.mahesch.trymyui.model.AvailableTestModel
 import kotlinx.android.synthetic.main.face_recording_info_activity.*
 
@@ -34,12 +35,12 @@ class FaceRecordingInfoActivity : AppCompatActivity() {
     }
 
     private fun onClickNo(){
-            startActivity(Intent(this,TabActivity::class.java))
-            finish()
+        startActivity(Intent(this,TabActivity::class.java))
+        finish()
     }
 
     private fun onClickYes(){
-        ManageFlowBeforeRecording(availableTestModel,FaceRecordingInfoActivity@this).moveToWhichActivity(3)
+        ManageFlowBeforeRecording(availableTestModel,FaceRecordingInfoActivity@this).moveToWhichActivity(4)
     }
 
     private fun moveToHome(){
@@ -48,7 +49,31 @@ class FaceRecordingInfoActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        ManageFlowBeforeRecording(availableTestModel,this).manageBackFlow(2)
+
+        if(availableTestModel?.screener_test_available!!){
+            showBackWarning()
+        }
+        else
+        {
+            ManageFlowBeforeRecording(availableTestModel,this).manageBackFlow(3)
+        }
+
+    }
+
+    private fun showBackWarning(){
+
+
+        var btn_array = YesNoAlertDialog.initYesNoDialogue(this)
+
+        var btn_yes = btn_array!![0]
+        var btn_no = btn_array!![1]
+
+        YesNoAlertDialog.showYesNoDialogue("",resources.getString(R.string.screener_back_warning),"Yes","No")
+
+        btn_no.setOnClickListener { YesNoAlertDialog.dismissYesNoDialogue() }
+
+        btn_yes.setOnClickListener { YesNoAlertDialog.dismissYesNoDialogue()
+            moveToHome()}
 
     }
 }

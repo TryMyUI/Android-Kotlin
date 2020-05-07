@@ -77,10 +77,10 @@ class GetScreenerQuestionRepository(application: Application) {
 
     private fun getScreenQuestMutableDataForWorker(sharedPrefHelper: SharedPrefHelper): MutableLiveData<ScreenerQuestionModel>{
 
-        var mutableLiveData : MutableLiveData<ScreenerQuestionModel>? = null
+        var mutableLiveData = MutableLiveData<ScreenerQuestionModel>()
 
-        var call  = apiInterface.getScreenerQuestionForWorker(sharedPrefHelper.getToken(),
-            sharedPrefHelper.getTestId()!!.toInt())
+
+        var call  = apiInterface.getScreenerQuestionForWorker(sharedPrefHelper.getToken(),sharedPrefHelper.getAvaliableTestId()!!.toInt())
 
         call.enqueue(object : Callback<ScreenerQuestionModel> {
             override fun onFailure(call: Call<ScreenerQuestionModel>, t: Throwable) {

@@ -35,7 +35,7 @@ class TechnicalQualificationActivity : AppCompatActivity() {
             moveToHome()
         }
 
-        ManageFlowBeforeRecording(availableTestModel,TechnicalQualificationActivity@this).isTechnicalQualificationVisited = true
+      //  ManageFlowBeforeRecording(availableTestModel,TechnicalQualificationActivity@this).isTechnicalQualificationVisited = true
 
 
         val factory =  TechnicalQualificationViewModelFactory(application)

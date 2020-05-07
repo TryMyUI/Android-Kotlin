@@ -14,10 +14,7 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
     val screenerEligibility: Boolean? = availableTestModel?.screener_test_available
     val faceRecording: Boolean? = availableTestModel?.opt_for_face_recording
 
-    var isSpecialQualificationVisited = false
-    var isTechnicalQualificationVisited = false
     val isScreenerEligibilityVisited = false
-    val isFaceRecordingVisited = false
     var context = context
     var availableTestModel = availableTestModel
 
@@ -35,8 +32,8 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
             0 -> postDashBoard()
             1 -> postSpecQual()
             2 -> postTechQual()
-            3 -> postFaceWarn()
-            4 -> postScreenEligibility()
+            3 -> postScreenerEligibility()
+            4 -> postFaceWarn()
             else -> {
                 Log.e(TAG,"else running")
                 callPerformTestActivity()
@@ -56,7 +53,7 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
 
     private fun postDashBoard()
     {
-        if(specialQualification != null && specialQualification.length > 0 && !isSpecialQualificationVisited)
+        if(specialQualification != null && specialQualification.length >0)
         {
             context.startActivity(Intent(context,SpecialQualificationActivity::class.java).putExtra("availableTestConstants",availableTestModel))
         }
@@ -68,7 +65,7 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
     private fun postSpecQual(){
 
 
-        if(technicalQualification != null && technicalQualification.length > 0 && !isTechnicalQualificationVisited){
+        if(technicalQualification != null && technicalQualification.length > 0){
             context.startActivity(Intent(context,TechnicalQualificationActivity::class.java).putExtra("availableTestConstants",availableTestModel))
         }
         else {
@@ -77,40 +74,42 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
     }
 
     private fun postTechQual(){
-        if(faceRecording != null && faceRecording && !isFaceRecordingVisited){
-            context.startActivity(Intent(context,FaceRecordingInfoActivity::class.java).putExtra("availableTestConstants",availableTestModel))
-        }
-        else {
-            postFaceWarn()
-        }
-    }
-
-    private fun postFaceWarn(){
-        if(screenerEligibility != null && screenerEligibility && !isScreenerEligibilityVisited){
+        if(screenerEligibility != null && screenerEligibility && !ApplicationClass.isScreenerVisited){
             context.startActivity(Intent(context,ScreenerEligibilityActivity::class.java).putExtra("availableTestConstants",availableTestModel))
         }
-        else
-        {
-            callPerformTestActivity()
+        else {
+            postScreenerEligibility()
         }
     }
 
-    private fun postScreenEligibility(){
+
+    private fun postFaceWarn(){
 
         callPerformTestActivity()
     }
 
+    private fun postScreenerEligibility(){
+
+        if(faceRecording != null && faceRecording ){
+            context.startActivity(Intent(context,FaceRecordingInfoActivity::class.java).putExtra("availableTestConstants",availableTestModel))
+        }else{
+            callPerformTestActivity()
+        }
+
+    }
+
 
     fun manageBackFlow(fromWhichActivity: Int){
-            when(fromWhichActivity){
+        when(fromWhichActivity){
 
-                0 -> onBackSpecial()
-                1 -> onBackTech()
-                2 -> onBackFaceRec()
-                else -> {
-                    onBackSpecial()
-                }
+            0 -> onBackSpecial()
+            1 -> onBackTech()
+            2 -> onBackScreener()
+            3 -> onBackFaceRec()
+            else -> {
+                onBackSpecial()
             }
+        }
     }
 
     private fun onBackSpecial(){
@@ -120,7 +119,7 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
     }
 
     private fun onBackTech(){
-        if(specialQualification != null && specialQualification.length.toString().isNotEmpty())
+        if(specialQualification != null && !(specialQualification.toString().equals("",true)))
         {
             context.startActivity(Intent(context,SpecialQualificationActivity::class.java).putExtra("availableTestConstants",availableTestModel))
             (context as Activity).finish()
@@ -130,8 +129,12 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
         }
     }
 
+    private fun onBackScreener(){
+
+    }
+
     private fun onBackFaceRec(){
-        if(technicalQualification != null && technicalQualification.length.toString().isNotEmpty())
+        if(technicalQualification != null && !(technicalQualification.toString().equals("",true)))
         {
             context.startActivity(Intent(context,TechnicalQualificationActivity::class.java).putExtra("availableTestConstants",availableTestModel))
             (context as Activity).finish()

@@ -12,6 +12,8 @@ class ApplicationClass : Application() {
         var selectedBrowserName: String? = null
         private var mInstance: ApplicationClass? = null
 
+        var isScreenerVisited = false
+
         @Synchronized
         fun getInstance(): ApplicationClass? {
             return mInstance

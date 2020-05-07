@@ -83,6 +83,7 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
         var goToFirstTaskTextSetting = false
         var recordingTimeUp = false
         var specialQualification = false
+        var special_qualification = ""
         var timerHasStarted = false
         var doImpressionTest = false
         var isKindTest = false
@@ -209,13 +210,15 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
         var backgroundHandler: Handler? = null
         var backgroundHandlerThread: HandlerThread? = null
         var face_media_recorder: MediaRecorder? = null
+
+         val interval: Long = 1000
+
     }
 
 
 
     lateinit var sharedPrefHelper : SharedPrefHelper
     val mBinder: IBinder = LocalBinder()
-    private val interval: Long = 1000
 
 
 
@@ -660,8 +663,7 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
         }
 
         //  set text for special criteria
-        tv_spec_criteria =
-            showTaskWindowLayout?.findViewById(R.id.textViewSpecialCriteria) as TextView
+        tv_spec_criteria = showTaskWindowLayout?.findViewById(R.id.textViewSpecialCriteria) as TextView
 
 
         tv_spec_criteria?.setText(Html.fromHtml(availableTestModel?.specialQalification))
@@ -746,12 +748,8 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                 // special qualification
                 if (ll_spec_qual?.isShown()!!) {
                     showTaskWindowLayout?.setVisibility(View.GONE)
-                    fl_start_recording?.setVisibility(
-                        View.GONE
-                    )
-                    ll_spec_qual?.setVisibility(
-                        View.GONE
-                    )
+                    fl_start_recording?.setVisibility(View.GONE)
+                    ll_spec_qual?.setVisibility(View.GONE)
                 }
 
                 // impression test
@@ -848,7 +846,7 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                                 val x_cord_remove =
                                     ((szWindow.x - remove_img_height * 1.5) / 2).toInt()
                                 val y_cord_remove =
-                                    (szWindow.y - (remove_img_width * 1.5 + Utils.getStatusBarHeight(this@NativeAppRecordingService))) as Int
+                                    (szWindow.y - (remove_img_width * 1.5 + Utils.getStatusBarHeight(this@NativeAppRecordingService))).toInt()
                                 if (removeImg!!.layoutParams.height == remove_img_height) {
                                     removeImg!!.layoutParams.height =
                                         (remove_img_height * 1.5).toInt()
@@ -2419,49 +2417,37 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                         Log.e(TAG,"availableTestModel "+availableTestModel)
                         Log.e(TAG,"is_kind_partial_site "+availableTestModel?.is_kind_partial_site)
 
-                        if (availableTestModel?.is_kind_partial_site!!) {
+                        if (availableTestModel?.is_kind_partial_site!!)
+                        {
                             btn_continue?.setText(R.string.continu)
-                        } else if (availableTestModel?.do_impression_test!!) {
+                        }
+                        else if (availableTestModel?.do_impression_test!!)
+                        {
                             btn_qualification?.setText(R.string.continue_with_impression_test)
-                        } else {
+                        }
+                        else
+                        {
                             btn_qualification?.setText(R.string.contiune_with_frame_of_mind)
                         }
 
-                        // String special_qulification_with_url = Utils.makeUrlInTextClickable(special_qulification);
-                        tv_spec_criteria?.setText(
-                            Html.fromHtml(
-                                availableTestModel?.specialQalification
-                            )
-                        )
-                        /*
-                        textViewSpecialCriteria.setMovementMethod(LinkMovementMethod.getInstance());*/
+                        tv_spec_criteria?.setText(Html.fromHtml(availableTestModel?.specialQalification))
 
                         tv_spec_criteria_sub?.setVisibility(View.VISIBLE)
                         tv_spec_criteria_title?.setText(R.string.special_criteria_title)
-                        if (ll_spec_qual?.isShown()!!) {
-                            Log.e(
-                                TAG,
-                                "linearlayout_special_qualification shown"
-                            )
+
+                        if (ll_spec_qual?.isShown!!)
+                        {
+                            Log.e(TAG, "linearlayout_special_qualification shown")
                             showTaskWindowLayout?.setVisibility(View.GONE)
-                            fl_start_recording?.setVisibility(
-                                View.GONE
-                            )
-                            ll_spec_qual?.setVisibility(
-                                View.GONE
-                            )
-                        } else {
-                            Log.e(
-                                TAG,
-                                "linearlayout_special_qualification not shown"
-                            )
+                            fl_start_recording?.setVisibility(View.GONE)
+                            ll_spec_qual?.setVisibility(View.GONE)
+                        }
+                        else
+                        {
+                            Log.e(TAG, "linearlayout_special_qualification not shown")
                             showTaskWindowLayout?.setVisibility(View.VISIBLE)
-                            fl_start_recording?.setVisibility(
-                                View.VISIBLE
-                            )
-                            ll_spec_qual?.setVisibility(
-                                View.VISIBLE
-                            )
+                            fl_start_recording?.setVisibility(View.VISIBLE)
+                            ll_spec_qual?.setVisibility(View.VISIBLE)
                         }
                     }
                     "ImpressionTestScreen" -> {
@@ -2756,19 +2742,54 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
 
     private fun showConfirmationOfTerminatingTest(x_cord_now: Int,bubble_reset_value : Boolean){
 
-        var btns_array = YesNoAlertDialog.initYesNoDialogue(this)
+        val dialogBuilder = AlertDialog.Builder(
+            this@NativeAppRecordingService,
+            R.style.AppTheme_MaterialDialogTheme
+        )
 
-        YesNoAlertDialog.showYesNoDialogue(resources.getString(R.string.leave_test_question),
-            resources.getString(R.string.bubble_cancel_confirm),"Yes","Cancel")
-
-
-        btns_array!![0]!!.setOnClickListener { yesClickOfTerminatingTest() }
-
-        btns_array[1].setOnClickListener {
-            YesNoAlertDialog.dismissYesNoDialogue()
-            if(bubble_reset_value)
+        dialogBuilder.setTitle("Are you sure you want to leave this test?")
+        dialogBuilder.setMessage("This will end your test and you will be redirected to your TryMyUI dashboard")
+        dialogBuilder.setNegativeButton(
+            R.string.cancel
+        ) { dialog, which ->
+            dialog.dismiss()
+            if (bubble_reset_value) {
                 resetPosition(x_cord_now)
+            }
         }
+
+
+        dialogBuilder.setPositiveButton(R.string.yes) { dialog, which ->
+
+            dialog.dismiss()
+            yesClickOfTerminatingTest()
+
+            }
+
+
+        var show_confirmation_dialog = dialogBuilder.create()
+        val dialogWindow: Window = show_confirmation_dialog.getWindow()
+        val dialogWindowAttributes = dialogWindow.attributes
+
+
+        val lp = WindowManager.LayoutParams()
+        lp.copyFrom(dialogWindowAttributes)
+        lp.width =
+            WindowManager.LayoutParams.MATCH_PARENT
+
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT
+        dialogWindow.attributes = lp
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            dialogWindow.setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY)
+        } else {
+            dialogWindow.setType(WindowManager.LayoutParams.TYPE_SYSTEM_ALERT)
+        }
+
+        dialogWindowAttributes.windowAnimations = R.style.DialogAnimation
+
+        show_confirmation_dialog.show()
 
     }
 
@@ -2935,6 +2956,11 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
         override fun onTick(millisUntilFinished: Long) {
             //here you can have your logic to set text to edittext
             timeElapsed = mStartTime - millisUntilFinished
+
+            Log.e(TAG,"timeElapsed "+timeElapsed)
+            Log.e(TAG,"mStartTime "+mStartTime)
+            Log.e(TAG,"mStartTime - millisUntilFinished "+(mStartTime - millisUntilFinished))
+
             val totalSecs = timeElapsed / 1000
             val minutes = totalSecs % 3600 / 60
             val seconds = totalSecs % 60
@@ -3059,10 +3085,8 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
 
 
     fun updatePreview() {
-        captureRequestBuilder?.set(
-            CaptureRequest.CONTROL_MODE,
-            CameraMetadata.CONTROL_MODE_AUTO
-        )
+        captureRequestBuilder?.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO)
+
         try {
             mCameraCaptureSession?.setRepeatingRequest(
                 captureRequestBuilder?.build(),

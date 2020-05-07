@@ -317,31 +317,40 @@ class StartRecorderActivity : AppCompatActivity(),
                 Log.e(TAG,"onActivityResult availableTestModel "+availableTestModel)
 
                 NativeAppRecordingService.isRecorderStarted = true
-                if (!NativeAppRecordingService.specialQualification.equals(""))
+
+                Log.e(TAG,"special qualification sccreen "+availableTestModel?.specialQalification)
+
+                if (!(availableTestModel?.specialQalification.equals("")))
                 {
+                    Log.e(TAG,"special qual")
                     NativeAppRecordingService.whichScreenedAlreadyOpened = SpecialQualificationScreen
 
                     nativeAppRecordingService?.whichScreenToDisplay(availableTestModel!!)
                 }
                 else if (availableTestModel?.is_kind_partial_site!!)
                 {
+                    Log.e(TAG,"is kind partial")
                     NativeAppRecordingService.isKindTest = true
                     NativeAppRecordingService.whichScreenedAlreadyOpened = WireFrameOrPrototype
                     nativeAppRecordingService?.whichScreenToDisplay(availableTestModel!!)                }
                 else if (availableTestModel?.do_impression_test!!)
                 {
+                    Log.e(TAG,"is impression test ")
                     NativeAppRecordingService.completeImpressionTest = true
                     NativeAppRecordingService.whichScreenedAlreadyOpened  = ImpressionTestScreen
-                    nativeAppRecordingService?.whichScreenToDisplay(availableTestModel!!)                } else
+                    nativeAppRecordingService?.whichScreenToDisplay(availableTestModel!!)
+                }
+                else
                 {
+                    Log.e(TAG,"is frame of mind ")
                     NativeAppRecordingService.whichScreenedAlreadyOpened  = FrameOfMindScreen
-                    nativeAppRecordingService?.whichScreenToDisplay(availableTestModel!!)                }
-                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1) {
-                    Settings.System.putInt(
-                        this@StartRecorderActivity.contentResolver,
-                        "show_touches",
-                        1
-                    )
+                    nativeAppRecordingService?.whichScreenToDisplay(availableTestModel!!)
+
+                }
+
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.LOLLIPOP_MR1)
+                {
+                    Settings.System.putInt(this@StartRecorderActivity.contentResolver, "show_touches", 1)
                 }
                 runOnUiThread { nativeAppRecordingService?.startFaceRecordingVideo() }
 

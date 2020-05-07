@@ -71,7 +71,7 @@ class ScreenerEligibilityActivity : AppCompatActivity(),CheckEligibilityPresente
         sharedPrefHelper = SharedPrefHelper(this)
 
         if(Utils.isInternetAvailable(this))
-        getFirstQuestion()
+            getFirstQuestion()
         else Utils.showInternetCheckToast(this)
 
         btn_question_continue.setOnClickListener { onClickQuestionContinue() }
@@ -83,25 +83,25 @@ class ScreenerEligibilityActivity : AppCompatActivity(),CheckEligibilityPresente
 
                 ProgressDialog.dismissProgressDialog()
 
-                    if(screenerQuestionModel == null){
+                if(screenerQuestionModel == null){
                     showWentWrongDialog()
-                    }
+                }
                 else{
-                        if(screenerQuestionModel.error == null){
-                            if(screenerQuestionModel.status_code?.toInt() == 200){
+                    if(screenerQuestionModel.error == null){
+                        if(screenerQuestionModel.status_code?.toInt() == 200){
 
-                                total_number_of_question_count = screenerQuestionModel.data!!.useTest!!.screener_questions_count
+                            total_number_of_question_count = screenerQuestionModel.data!!.useTest!!.screener_questions_count
 
-                                handleView(screenerQuestionModel)
+                            handleView(screenerQuestionModel)
 
-                            }else{
-                                showErrorDialog(screenerQuestionModel)
-                            }
-                        }
-                        else{
-                                showWentWrongDialog()
+                        }else{
+                            showErrorDialog(screenerQuestionModel)
                         }
                     }
+                    else{
+                        showWentWrongDialog()
+                    }
+                }
             }
 
         })
@@ -504,10 +504,10 @@ class ScreenerEligibilityActivity : AppCompatActivity(),CheckEligibilityPresente
                 arrayList_checkbox.add(checkBox)
 
                 checkboxButtonOptionModelArrayList.add(CheckboxButtonOptionModel(
-                        checkBox,
-                        checkBox.text.toString(),
-                        checkBox.id,
-                        false))
+                    checkBox,
+                    checkBox.text.toString(),
+                    checkBox.id,
+                    false))
 
                 checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
                     Log.e(TAG, "buttonview id " + buttonView.id)
@@ -569,7 +569,8 @@ class ScreenerEligibilityActivity : AppCompatActivity(),CheckEligibilityPresente
 
         btn_no.setOnClickListener {YesNoAlertDialog.dismissYesNoDialogue() }
 
-        btn_yes.setOnClickListener { YesNoAlertDialog.dismissYesNoDialogue() }
+        btn_yes.setOnClickListener { YesNoAlertDialog.dismissYesNoDialogue()
+            moveToHome()}
 
     }
 
@@ -616,12 +617,17 @@ class ScreenerEligibilityActivity : AppCompatActivity(),CheckEligibilityPresente
                     Log.e(TAG, "use test is null check for message")
 
                     if (screenerQuestionModel.data!!.isScreener_test_completed) {
-                        val intent = Intent(this, PerformTestActivity::class.java)
 
-                        intent.putExtra("availableTestConstants", availableTestModel)
-                        intent.putExtra("backfromScreener", "yes")
-                        startActivity(intent)
-                        finish()
+                        ApplicationClass.isScreenerVisited = true
+
+                        var manageFlowBeforeRecording = ManageFlowBeforeRecording(availableTestModel,this)
+                        manageFlowBeforeRecording.moveToWhichActivity(3)
+                        /*  val intent = Intent(this, PerformTestActivity::class.java)
+
+                          intent.putExtra("availableTestConstants", availableTestModel)
+                          intent.putExtra("backfromScreener", "yes")
+                          startActivity(intent)
+                          finish()*/
                     }
                     else
                     {
@@ -643,7 +649,7 @@ class ScreenerEligibilityActivity : AppCompatActivity(),CheckEligibilityPresente
 
     override fun onErrorCheckScreeningEligibility() {
         ProgressDialog.dismissProgressDialog()
-showWentWrongDialog()
+        showWentWrongDialog()
     }
 
     private fun dismissAllDialogIfOpen(){

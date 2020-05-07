@@ -266,12 +266,38 @@ class PerformTestActivity : AppCompatActivity() {
     }
 
     private fun moveToHome(){
+
         var intent = Intent(this,TabActivity::class.java)
         startActivity(intent)
         finish()
     }
 
-    override fun onBackPressed() { moveToHome() }
+    override fun onBackPressed() {
+        if(availableTestModel.screener_test_available!!){
+                showBackWarning()
+        }
+        else
+        {
+            moveToHome()
+        }
+    }
+
+    private fun showBackWarning(){
+
+
+        var btn_array = YesNoAlertDialog.initYesNoDialogue(this)
+
+        var btn_yes = btn_array!![0]
+        var btn_no = btn_array!![1]
+
+        YesNoAlertDialog.showYesNoDialogue("",resources.getString(R.string.screener_back_warning),"Yes","No")
+
+        btn_no.setOnClickListener { YesNoAlertDialog.dismissYesNoDialogue() }
+
+        btn_yes.setOnClickListener { YesNoAlertDialog.dismissYesNoDialogue()
+            moveToHome()}
+
+    }
 
     override fun onResume() {
         super.onResume()

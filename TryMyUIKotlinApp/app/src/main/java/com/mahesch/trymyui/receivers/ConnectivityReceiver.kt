@@ -12,11 +12,10 @@ class ConnectivityReceiver : BroadcastReceiver() {
         var connectivityReceiverListener: ConnectivityReceiverListener? = null
 
         fun isConnected(): Boolean {
-           /* val cm = ApplicationClass.getInstance()?.applicationContext?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val cm = ApplicationClass.getInstance()?.applicationContext?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork = cm.activeNetworkInfo
             return (activeNetwork != null
-                    && activeNetwork.isConnectedOrConnecting)*/
-            return true
+                    && activeNetwork.isConnectedOrConnecting)
         }
     }
 

@@ -36,7 +36,7 @@ class SpecialQualificationActivity : AppCompatActivity() {
             moveToHome()
         }
 
-        ManageFlowBeforeRecording(availableTestModel,SpecialQualificationActivity@this).isSpecialQualificationVisited = true
+      //  ManageFlowBeforeRecording(availableTestModel,SpecialQualificationActivity@this).isSpecialQualificationVisited = true
 
         val factory =  SpecialQualificationViewModelFactory(application)
 
