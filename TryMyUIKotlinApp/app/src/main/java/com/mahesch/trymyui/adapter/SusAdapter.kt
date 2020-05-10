@@ -69,7 +69,7 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
                 }
             }
 
-            rowView.tag = holder
+
 
 
         holder?.radioGroup?.setOnCheckedChangeListener { group, checkedId ->
@@ -82,10 +82,10 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
                 Log.e(TAG,"checkedID "+checkedId)
 
                 if(radioButton.text.toString().equals("NA",true)){
-                    checkvalues.put(susTestList[position].id.toString(),"0")
+                    checkvalues[susTestList[position].id.toString()] = "0"
                 }
                 else{
-                    checkvalues.put(susTestList[position].id.toString(),radioButton.text.toString())
+                    checkvalues[susTestList[position].id.toString()] = radioButton.text.toString()
                 }
                 if(mOnDataChangeListener != null){
                     mOnDataChangeListener?.onDataChanged(checkvalues.size)
@@ -97,6 +97,8 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
 
             }
         }
+
+        rowView.tag = holder
 
         return rowView
     }
@@ -122,7 +124,10 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
                 radioButton.setPadding(7, 5, 6, 5)
             }
 
+
+
             radioButton.isChecked = checkvalues[susQuestions.id.toString()]?.toInt() == i
+
 
             if(radioButton.isChecked)
                 radioButton.setTextColor(context.resources.getColor(R.color.white))
@@ -152,9 +157,9 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
     private fun displayViewForNotApplicable(susScales: SusScales,holder: Holder,context: Context,susQuestions: Tests.SusQuestions){
         for (i in susScales.min_scale .. susScales.max_scale+1) {
 
-            val radioButton = RadioButton(context)
+            var radioButton = RadioButton(context)
 
-            holder.radioGroup.addView(radioButton)
+            holder?.radioGroup.addView(radioButton)
 
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
@@ -177,30 +182,40 @@ class SusAdapter(susQuestionActivity: SusQuestionActivity,susTestsList: ArrayLis
                 radioButton.setPadding(7, 5, 6, 5)
             }
 
-         //   radioButton.isChecked = checkvalues[susQuestions.id.toString()]?.toInt() == i
 
-           /* if(radioButton.isChecked)
-                radioButton.setTextColor(context.resources.getColor(R.color.white))
-            else
-                radioButton.setTextColor(context.resources.getColor(R.color.black))*/
 
-            radioButton.gravity = Gravity.CENTER
 
-            radioButton.layoutParams = params
 
             val ll_rating_labels_params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
+
             ll_rating_labels_params.setMargins(0, 0, 175, 0)
             holder.llRatingLabels.setLayoutParams(ll_rating_labels_params)
+
             if (i == susScales.max_scale + 1) {
                 radioButton.text = "NA"
             } else {
                 radioButton.text = "" + i
             }
+
+            Log.e(TAG,"selected button "+checkvalues[susQuestions.id.toString()]?.toInt())
+            Log.e(TAG,"i "+i)
+
+            radioButton.isChecked = (checkvalues[susQuestions.id.toString()]?.toInt() == i || checkvalues[susQuestions.id.toString()]?.toInt() == 0)
+
+
+            if(radioButton.isChecked)
+                radioButton.setTextColor(context.resources.getColor(R.color.white))
+            else
+                radioButton.setTextColor(context.resources.getColor(R.color.black))
+
+            radioButton.gravity = Gravity.CENTER
+            radioButton.layoutParams = params
             radioButton.background = context.resources.getDrawable(R.drawable.radio_button_bg)
             radioButton.buttonDrawable = null
+
             radioButton.setOnCheckedChangeListener { buttonView, isChecked ->
                 Log.e("isChecked ", "" + isChecked)
                 if (isChecked) {

@@ -22,6 +22,7 @@ import com.mahesch.trymyui.activity.*
 import com.mahesch.trymyui.activity.TabActivity.Companion.isQualified
 import com.mahesch.trymyui.activity.TabActivity.Companion.qualification_message
 import com.mahesch.trymyui.adapter.AvailableTestListAdapter
+import com.mahesch.trymyui.helpers.ManageFlowAfterTest
 import com.mahesch.trymyui.helpers.ManageFlowBeforeRecording
 import com.mahesch.trymyui.helpers.SharedPrefHelper
 import com.mahesch.trymyui.helpers.Utils
@@ -173,10 +174,27 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
         Log.e(TAG,"takeTestClicked")
         Log.e(TAG, "model in fragment $availableTestModel")
 
-        sharedPrefHelper.saveAvaliableTestId(availableTestModel?.id.toString())
-        ManageFlowBeforeRecording(availableTestModel,activity).moveToWhichActivity(0)
+        if(TabActivity.isPendingTest){
+            Log.e(TAG,"pending test test result id "+availableTestModel?.id)
+            sharedPrefHelper.saveTestResultId(availableTestModel?.id.toString())
+
+        }
+        else{
+            sharedPrefHelper.saveAvaliableTestId(availableTestModel?.id.toString())
+        }
+
+
+        if(TabActivity.isPendingTest){
+            var manageFlowAfterTest = ManageFlowAfterTest(availableTestModel,activity)
+            manageFlowAfterTest.moveToWhichActivity(activity)
+        }
+        else{
+            ManageFlowBeforeRecording(availableTestModel,activity).moveToWhichActivity(0)
+
+        }
 
     }
+
 
     private fun moveToNextActivityAndFinishCurrent(){
         var intent = Intent(activity, PerformTestActivity::class.java)

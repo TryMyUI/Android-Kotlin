@@ -56,7 +56,9 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/MyMaterialTheme">
+        android:theme="@style/MyMaterialTheme"
+        android:name=".helpers.ApplicationClass">
+
         <activity android:name=".activity.StartRecorderActivity"
             android:launchMode="singleTop"
             android:theme="@style/Theme.Transparent"

@@ -223,6 +223,7 @@ class StartRecorderActivity : AppCompatActivity(),
         service.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         stopService(service)
         try {
+            if(availableTestModel?.opt_for_face_recording!!)
             nativeAppRecordingService?.stopFaceRecordingVideo()
         } catch (e: Exception) {
             Log.e(TAG, "StopService stopFaceRecordingVideo $e")

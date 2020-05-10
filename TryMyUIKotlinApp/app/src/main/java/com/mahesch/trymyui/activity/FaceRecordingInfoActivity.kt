@@ -41,6 +41,7 @@ class FaceRecordingInfoActivity : AppCompatActivity() {
 
     private fun onClickYes(){
         ManageFlowBeforeRecording(availableTestModel,FaceRecordingInfoActivity@this).moveToWhichActivity(4)
+        finish()
     }
 
     private fun moveToHome(){

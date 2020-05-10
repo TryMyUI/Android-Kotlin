@@ -47,11 +47,11 @@ class Utils {
 
             val isConnected: Boolean
 
-            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val connectivityManager = ApplicationClass.getInstance()?.applicationContext?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
             Log.e(TAG,"connectivityManager "+connectivityManager)
 
-            val networkInfo: NetworkInfo = connectivityManager.activeNetworkInfo
+            val networkInfo: NetworkInfo? = connectivityManager?.activeNetworkInfo
 
             Log.e(TAG,"activeNetworkInfo "+connectivityManager.activeNetworkInfo)
 

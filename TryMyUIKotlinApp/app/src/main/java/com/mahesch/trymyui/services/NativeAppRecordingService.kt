@@ -72,10 +72,14 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
 
 
     val TAG = NativeAppRecordingService::class.java.simpleName.toUpperCase()
-    var availableTestModel : AvailableTestModel? = null
 
 
     companion object{
+
+        var availableTestModel : AvailableTestModel? = null
+
+        var mStartTime: Long = 0
+
         var isServiceStarted = false
         var isTabHere = false
         var taskCount = 0
@@ -288,8 +292,7 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
 
             handleStart()
 
-
-
+            startBackgroundThread()
 
         }
         else{
@@ -567,11 +570,9 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
         btn_uploading?.setOnClickListener(this)
 
         //  add overlay on task popup on pause recording
-        rl_transparent_overlay =
-            showTaskWindowLayout?.findViewById(R.id.transparent_overlay) as RelativeLayout
+        rl_transparent_overlay = showTaskWindowLayout?.findViewById(R.id.transparent_overlay) as RelativeLayout
 
-        ll_btn_next_previous =
-            showTaskWindowLayout?.findViewById(R.id.linearlayout_button_next_previous) as LinearLayout
+        ll_btn_next_previous = showTaskWindowLayout?.findViewById(R.id.linearlayout_button_next_previous) as LinearLayout
 
 
         // play button
@@ -583,19 +584,15 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
         ll_btn_pause =  showTaskWindowLayout?.findViewById(R.id.button_pause) as LinearLayout
         ll_btn_pause?.setOnClickListener(this)
 
-        ll_tv_click_open_test_website =
-            showTaskWindowLayout?.findViewById(R.id.textview_click_open_test_website) as LinearLayout
+        ll_tv_click_open_test_website = showTaskWindowLayout?.findViewById(R.id.textview_click_open_test_website) as LinearLayout
         ll_tv_click_open_test_website?.setOnClickListener(this)
 
 
 
-        tv_open_test_website =
-            showTaskWindowLayout?.findViewById(R.id.textview_open_test_website) as TextView
-        tv_open_test_website_popup =
-            showTaskWindowLayout?.findViewById(R.id.textview_open_test_website) as TextView
+        tv_open_test_website = showTaskWindowLayout?.findViewById(R.id.textview_open_test_website) as TextView
+        tv_open_test_website_popup = showTaskWindowLayout?.findViewById(R.id.textview_open_test_website) as TextView
 
-        ll_btn_next =
-            showTaskWindowLayout?.findViewById(R.id.buttonNext) as LinearLayout
+        ll_btn_next = showTaskWindowLayout?.findViewById(R.id.buttonNext) as LinearLayout
         ll_btn_next?.setOnClickListener(this)
 
         ll_btn_previous = showTaskWindowLayout?.findViewById(R.id.buttonPrev) as LinearLayout
@@ -604,37 +601,28 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
         tv_next_done = showTaskWindowLayout?.findViewById(R.id.textViewNextDone) as TextView
 
 
-        ll_start_recording =
-            showTaskWindowLayout?.findViewById(R.id.linearlayout_startrecording_screen) as LinearLayout
-        ll_spec_qual =
-            showTaskWindowLayout?.findViewById(R.id.linearlayout_special_criteria) as LinearLayout
-        ll_frame_mind =
-            showTaskWindowLayout?.findViewById(R.id.linearlayout_frame_of_mind) as LinearLayout
+        ll_start_recording = showTaskWindowLayout?.findViewById(R.id.linearlayout_startrecording_screen) as LinearLayout
+        ll_spec_qual = showTaskWindowLayout?.findViewById(R.id.linearlayout_special_criteria) as LinearLayout
+        ll_frame_mind = showTaskWindowLayout?.findViewById(R.id.linearlayout_frame_of_mind) as LinearLayout
 
         //  linearlayout_frame_of_mind  frame of mind next button
-        btn_continue =
-            showTaskWindowLayout?.findViewById(R.id.button_continue) as Button
+        btn_continue = showTaskWindowLayout?.findViewById(R.id.button_continue) as Button
         btn_continue?.setVisibility(View.VISIBLE)
         btn_continue?.setOnClickListener(this)
 
         // back to frame of mind
 
         // back to frame of mind
-        tv_back_totask_from_frame =
-            showTaskWindowLayout?.findViewById(R.id.textview_back_to_task_from_frame_of_mind) as TextView
+        tv_back_totask_from_frame = showTaskWindowLayout?.findViewById(R.id.textview_back_to_task_from_frame_of_mind) as TextView
         tv_back_totask_from_frame?.setVisibility(View.GONE)
         tv_back_totask_from_frame?.setOnClickListener(this)
 
-        tv_back_totask_from_finish =
-            showTaskWindowLayout?.findViewById(R.id.textview_back_to_task_from_finish_recording) as TextView
+        tv_back_totask_from_finish = showTaskWindowLayout?.findViewById(R.id.textview_back_to_task_from_finish_recording) as TextView
         tv_back_totask_from_finish?.setVisibility(View.VISIBLE)
-        tv_back_totask_from_finish?.setOnClickListener(
-            this
-        )
+        tv_back_totask_from_finish?.setOnClickListener(this)
 
 
-        tv_scenario =
-            showTaskWindowLayout?.findViewById(R.id.textview_scenario_frame_of_mind) as TextView
+        tv_scenario = showTaskWindowLayout?.findViewById(R.id.textview_scenario_frame_of_mind) as TextView
 
         val urlsstring: String? = Utils.makeUrlInTextClickable(availableTestModel?.scenario)
 
@@ -670,16 +658,13 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
 
 
 
-        tv_read_frame_mind =
-            showTaskWindowLayout?.findViewById(R.id.textview_read_frame_of_mind) as TextView
+        tv_read_frame_mind = showTaskWindowLayout?.findViewById(R.id.textview_read_frame_of_mind) as TextView
 
 
-        tv_finish_rec_desc =
-            showTaskWindowLayout?.findViewById(R.id.textview_finishrecording_description) as TextView
+        tv_finish_rec_desc = showTaskWindowLayout?.findViewById(R.id.textview_finishrecording_description) as TextView
         tv_finish_rec_desc?.setMovementMethod(ScrollingMovementMethod())
 
         setUpTaskBar()
-
 
         ll_start_recording?.setVisibility(View.GONE)
         ll_spec_qual?.setVisibility(View.GONE)
@@ -690,8 +675,7 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
 
 
         if (!appPackageName.equals("", ignoreCase = true)) {
-            val content =
-                SpannableString(getString(R.string.link_to_open_app).toString() + "")
+            val content = SpannableString(getString(R.string.link_to_open_app).toString() + "")
             content.setSpan(UnderlineSpan(), 0, content.length, 0)
             tv_open_test_website?.setText(content)
             tv_open_test_website_popup?.setText(content)
@@ -1392,7 +1376,8 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                     timerTextview!!,
                     startTime,
                     interval,
-                    tvImpressionTimerTxt
+                    tvImpressionTimerTxt,
+                    availableTestModel
                 )
                 countDownTimer!!.start()
                 timerHasStarted = true
@@ -1671,8 +1656,7 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
             R.id.button_start_impression_test ->
             {
                 startImpressionTest = true
-                whichScreenedAlreadyOpened =
-                    ImpressionTestQuestionScreen
+                whichScreenedAlreadyOpened = ImpressionTestQuestionScreen
                 hideAllScreen()
             }
 
@@ -1834,14 +1818,17 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
 
                     if (Utils.isInternetAvailable(this)) {
 
-                        kotlin.run {  try {
-                            stopFaceRecordingVideo()
-                        } catch (e: java.lang.Exception) {
-                            Log.e(
-                                TAG,
-                                "stopFaceRecordingVideo e $e"
-                            )
-                        } }
+                        if(availableTestModel?.opt_for_face_recording!!){
+                            kotlin.run {  try {
+                                stopFaceRecordingVideo()
+                            } catch (e: java.lang.Exception) {
+                                Log.e(
+                                    TAG,
+                                    "stopFaceRecordingVideo e $e"
+                                )
+                            } }
+                        }
+
 
                         releaseRecorder()
                         hideAllScreen()
@@ -1863,6 +1850,7 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                         //   moveToUploadingVideoActivity();
                         (this@NativeAppRecordingService as Activity).runOnUiThread(Runnable {
                             try {
+                                if(availableTestModel?.opt_for_face_recording!!)
                                 stopFaceRecordingVideo()
                             } catch (e: java.lang.Exception) {
                                 Log.e(
@@ -1923,7 +1911,8 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
             countDownTimer = VideoRecordingCountDownTimer(
                 timerTextview!!,
                 milisecRemain,
-                interval
+                interval,
+                availableTestModel
             )
             countDownTimer?.start()
             timerHasStarted = true
@@ -2349,11 +2338,13 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                 when (whichScreenedAlreadyOpened)
                 {
                     "StartRecorderScreen" ->
-                        if (ll_start_recording?.isShown()!!)
+                        if (ll_start_recording?.isShown!!)
                         {
+                            Log.e(TAG,"yes start recording is shown")
                             showTaskWindowLayout?.setVisibility(View.GONE)
                             ll_start_recording?.setVisibility(View.GONE)
                         } else {
+                            Log.e(TAG,"yes start recording is not shown")
                             showTaskWindowLayout?.setVisibility(View.VISIBLE)
                             ll_start_recording?.setVisibility(View.VISIBLE)
                         }
@@ -2363,51 +2354,33 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                         ll_spec_qual?.setVisibility(View.GONE)
                         ll_start_recording?.setVisibility(View.GONE)
                         linearLayoutShowTask?.setVisibility(View.GONE)
+
                         if (ll_frame_mind?.isShown()!!) {
                             showTaskWindowLayout?.setVisibility(View.GONE)
-                            ll_frame_mind?.setVisibility(
-                                View.GONE
-                            )
-                            fl_start_recording?.setVisibility(
-                                View.GONE
-                            )
-                        } else {
-                            if (isButtonContinuePress) {
+                            ll_frame_mind?.setVisibility(View.GONE)
+                            fl_start_recording?.setVisibility(View.GONE)
+                        }
+                        else
+                        {
+                            if (isButtonContinuePress)
+                            {
                                 showTaskWindowLayout?.setVisibility(View.VISIBLE)
-                                fl_start_recording?.setVisibility(
-                                    View.VISIBLE
-                                )
-                                ll_pause_tab_bar?.setVisibility(
-                                    View.VISIBLE
-                                )
-                                ll_frame_mind?.setVisibility(
-                                    View.VISIBLE
-                                )
-                                tv_read_frame_mind?.setVisibility(
-                                    View.GONE
-                                )
-                                tv_back_totask_from_frame?.setVisibility(
-                                    View.VISIBLE
-                                )
+                                fl_start_recording?.setVisibility(View.VISIBLE)
+                                ll_pause_tab_bar?.setVisibility(View.VISIBLE)
+                                ll_frame_mind?.setVisibility(View.VISIBLE)
+                                tv_read_frame_mind?.setVisibility(View.GONE)
+                                tv_back_totask_from_frame?.setVisibility(View.VISIBLE)
                                 btn_continue?.setVisibility(View.GONE)
-                                ll_btn_next_previous?.setVisibility(
-                                    View.GONE
-                                )
-                            } else {
+                                ll_btn_next_previous?.setVisibility(View.GONE)
+                            }
+                            else
+                            {
                                 showTaskWindowLayout?.setVisibility(View.VISIBLE)
-                                fl_start_recording?.setVisibility(
-                                    View.VISIBLE
-                                )
-                                ll_pause_tab_bar?.setVisibility(
-                                    View.VISIBLE
-                                )
-                                ll_frame_mind?.setVisibility(
-                                    View.VISIBLE
-                                )
+                                fl_start_recording?.setVisibility(View.VISIBLE)
+                                ll_pause_tab_bar?.setVisibility(View.VISIBLE)
+                                ll_frame_mind?.setVisibility(View.VISIBLE)
                                 btn_continue?.setVisibility(View.VISIBLE)
-                                ll_btn_next_previous?.setVisibility(
-                                    View.GONE
-                                )
+                                ll_btn_next_previous?.setVisibility(View.GONE)
                             }
                         }
                     }
@@ -2452,33 +2425,21 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                     }
                     "ImpressionTestScreen" -> {
                         ll_start_recording?.setVisibility(View.GONE)
-                        ll_spec_qual?.setVisibility(
-                            View.GONE
-                        )
+                        ll_spec_qual?.setVisibility(View.GONE)
+
                         if (fl_impression_test?.isShown()!!) {
-                            Log.e(
-                                TAG,
-                                "framelayoutImpressionTest shown"
-                            )
+                            Log.e(TAG, "framelayoutImpressionTest shown")
                             showTaskWindowLayout?.setVisibility(View.GONE)
-                            fl_start_recording?.setVisibility(
-                                View.GONE
-                            )
-                            fl_impression_test?.setVisibility(
-                                View.GONE
-                            )
-                        } else {
-                            Log.e(
-                                TAG,
-                                "framelayoutImpressionTest not shown"
-                            )
+                            fl_start_recording?.setVisibility(View.GONE)
+                            fl_impression_test?.setVisibility(View.GONE)
+                        }
+                        else
+                        {
+                            Log.e(TAG, "framelayoutImpressionTest not shown")
+
                             showTaskWindowLayout?.setVisibility(View.VISIBLE)
-                            fl_start_recording?.setVisibility(
-                                View.VISIBLE
-                            )
-                            fl_impression_test?.setVisibility(
-                                View.VISIBLE
-                            )
+                            fl_start_recording?.setVisibility(View.VISIBLE)
+                            fl_impression_test?.setVisibility(View.VISIBLE)
                         }
                     }
                     "ImpressionTestQuestionScreen" -> {
@@ -2486,61 +2447,45 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                         fl_impression_test?.setVisibility(View.GONE)
                         if (fl_impression_test_question?.isShown()!!) {
                             showTaskWindowLayout?.setVisibility(View.GONE)
-                            fl_start_recording?.setVisibility(
-                                View.GONE
-                            )
-                            fl_impression_test_question?.setVisibility(
-                                View.GONE
-                            )
-                        } else {
-                            tvImpressionTimerTxt?.setVisibility(
-                                View.INVISIBLE
-                            )
+                            fl_start_recording?.setVisibility(View.GONE)
+                            fl_impression_test_question?.setVisibility(View.GONE)
+                        }
+                        else
+                        {
+                            tvImpressionTimerTxt?.setVisibility(View.INVISIBLE)
                             showTaskWindowLayout?.setVisibility(View.VISIBLE)
-                            fl_start_recording?.setVisibility(
-                                View.VISIBLE
-                            )
-                            fl_impression_test_question?.setVisibility(
-                                View.VISIBLE
-                            )
+                            fl_start_recording?.setVisibility(View.VISIBLE)
+                            fl_impression_test_question?.setVisibility(View.VISIBLE)
                         }
                     }
                     "ShowTaskScreen" -> {
-                        ll_spec_qual?.setVisibility(
-                            View.GONE
-                        )
+                        ll_spec_qual?.setVisibility(View.GONE)
                         ll_start_recording?.setVisibility(View.GONE)
                         ll_frame_mind?.setVisibility(View.GONE)
-                        ll_finish_recording?.setVisibility(
-                            View.GONE
-                        )
-                        if (linearLayoutShowTask?.isShown()!!) {
+                        ll_finish_recording?.setVisibility(View.GONE)
+
+                        if (linearLayoutShowTask?.isShown()!!)
+                        {
                             showTaskWindowLayout?.setVisibility(View.GONE)
-                            fl_start_recording?.setVisibility(
-                                View.GONE
-                            )
-                            ll_pause_tab_bar?.setVisibility(
-                                View.GONE
-                            )
+                            fl_start_recording?.setVisibility(View.GONE)
+                            ll_pause_tab_bar?.setVisibility(View.GONE)
                             linearLayoutShowTask?.setVisibility(View.GONE)
-                        } else {
+                        }
+                        else {
                             showTaskWindowLayout?.setVisibility(View.VISIBLE)
-                            fl_start_recording?.setVisibility(
-                                View.VISIBLE
-                            )
-                            ll_pause_tab_bar?.setVisibility(
-                                View.VISIBLE
-                            )
+                            fl_start_recording?.setVisibility(View.VISIBLE)
+                            ll_pause_tab_bar?.setVisibility(View.VISIBLE)
                             linearLayoutShowTask?.setVisibility(View.VISIBLE)
                             btn_continue?.setVisibility(View.GONE)
-                            ll_btn_next_previous?.setVisibility(
-                                View.VISIBLE
-                            )
+                            ll_btn_next_previous?.setVisibility(View.VISIBLE)
                             ll_btn_next?.setVisibility(View.VISIBLE)
-                            if (taskCount < 1) {
+
+                            if (taskCount < 1)
+                            {
                                 ll_btn_previous?.setEnabled(false)
                                 ll_btn_previous?.setVisibility(View.INVISIBLE)
-                            } else {
+                            }
+                            else {
                                 ll_btn_previous?.setVisibility(View.VISIBLE)
                             }
                         }
@@ -2917,26 +2862,21 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
         var timeElapsed: Long = 0
         var mCountText: TextView
         var impression_test_timer: TextView? = null
-        var mStartTime: Long = 0
+        var availableTestModel1 : AvailableTestModel? = null
 
-        constructor(
-            timerTextview: TextView,
-            startTime: Long,
-            interval: Long,
-            impression_test_counter_timer_text: TextView?
-        ) : super(startTime, interval) {
-            this.mStartTime = startTime
+
+        constructor(timerTextview: TextView, startTime: Long, interval: Long, impression_test_counter_timer_text: TextView?,availableTestModel: AvailableTestModel?) : super(startTime, interval)
+        {
+            mStartTime = startTime
             mCountText = timerTextview
             impression_test_timer = impression_test_counter_timer_text
             isNativeApp = true
+            this.availableTestModel1 = availableTestModel
         }
 
-        constructor(
-            timerTextview: TextView,
-            milisecRemain: Long,
-            interval: Long
-        ) : super(milisecRemain, interval) {
+        constructor(timerTextview: TextView, milisecRemain: Long, interval: Long,availableTestModel: AvailableTestModel?) : super(milisecRemain, interval) {
             mCountText = timerTextview
+            this.availableTestModel1 = availableTestModel
             isNativeApp = true
         }
 
@@ -2949,7 +2889,7 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                 startImpressionTest = false
                 releaseRecorder()
                 whichScreenedAlreadyOpened = RecordingTimeUpScreen
-                whichScreenToDisplay(availableTestModel!!)
+                whichScreenToDisplay(availableTestModel1!!)
             }
         }
 
@@ -2957,9 +2897,9 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
             //here you can have your logic to set text to edittext
             timeElapsed = mStartTime - millisUntilFinished
 
-            Log.e(TAG,"timeElapsed "+timeElapsed)
+         /*   Log.e(TAG,"timeElapsed "+timeElapsed)
             Log.e(TAG,"mStartTime "+mStartTime)
-            Log.e(TAG,"mStartTime - millisUntilFinished "+(mStartTime - millisUntilFinished))
+            Log.e(TAG,"mStartTime - millisUntilFinished "+(mStartTime - millisUntilFinished))*/
 
             val totalSecs = timeElapsed / 1000
             val minutes = totalSecs % 3600 / 60
@@ -2979,21 +2919,28 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
             val handler = Handler()
             Thread(Runnable {
                 val timeToBlink = 1000
-                try {
+                try
+                {
                     Thread.sleep(timeToBlink.toLong())
-                } catch (e: java.lang.Exception) {
                 }
+                catch (e: java.lang.Exception)
+                { }
                 handler.post {
-                    if (value == 0) {
+                    if (value == 0)
+                    {
                         startImpressionTest = false
-                        if (impression_test_timer != null) impression_test_timer!!.visibility =
-                            View.GONE
+
+                        if (impression_test_timer != null)
+                            impression_test_timer!!.visibility = View.GONE
                         ImpressionTestTimeRemaing = 0
-                        whichScreenedAlreadyOpened =
-                            ImpressionTestQuestionScreen
+                        whichScreenedAlreadyOpened = ImpressionTestQuestionScreen
+                        Log.e(TAG,"availableTestModel1 blink "+availableTestModel)
                         whichScreenToDisplay(availableTestModel!!)
-                    } else {
-                        if (impression_test_timer != null) {
+                    }
+                    else
+                    {
+                        if (impression_test_timer != null)
+                        {
                             impression_test_timer!!.visibility = View.VISIBLE
                             impression_test_timer!!.text = value.toString() + ""
                         }
@@ -3056,18 +3003,19 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
 
     private fun createCameraPreview() {
         try {
-            val surfaceTexture: SurfaceTexture =
-                face_recording_texture_view?.getSurfaceTexture()!!
+
+            val surfaceTexture: SurfaceTexture = face_recording_texture_view?.getSurfaceTexture()!!
+
             surfaceTexture.setDefaultBufferSize(100, 100)
             val surface = Surface(surfaceTexture)
-            captureRequestBuilder =
-                cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
+
+            captureRequestBuilder = cameraDevice?.createCaptureRequest(CameraDevice.TEMPLATE_PREVIEW)
             captureRequestBuilder?.addTarget(surface)
-            cameraDevice?.createCaptureSession(
-                Arrays.asList(
-                    surface
-                ), object : CameraCaptureSession.StateCallback() {
-                    override fun onConfigured(session: CameraCaptureSession) {
+
+            cameraDevice?.createCaptureSession(listOf(surface), object : CameraCaptureSession.StateCallback() {
+
+                    override fun onConfigured(session: CameraCaptureSession)
+                    {
                         Log.e(TAG, "onConfigured")
                         mCameraCaptureSession = session
                         updatePreview()

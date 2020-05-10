@@ -506,7 +506,8 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
         isQualified = tests?.data?.is_Qulified!!
         qualification_message = tests?.data?.qualification_message
 
-        if(isQualified){
+        if(isQualified)
+        {
             if(tests?.data != null){
 
                 performed_tests_pages = tests?.data?.resultPage!!
@@ -520,147 +521,207 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
                 isPendingTest = size_pendingtest > 0
 
-                if(tests?.data?.availableTests?.size!! > 0){
+                if(isPendingTest){
 
-                    for (i in 0..(tests?.data?.availableTests?.size!! -1)!!) {
-
-                        val availableTest = tests?.data?.availableTests?.get(i) ?.availableTest
+                    for (i in 0 until size_pendingtest!!){
+                        val availableTest = tests?.data?.pendingTests?.get(i) ?.pending_tests
 
                         val  pos = i
-                        val id: Int? = availableTest?.id
-                        val url: String? = availableTest?.url
-                        val title: String? = availableTest?.title
-                        val scenario: String? = availableTest?.scenario
-                        val recording_timeout_minutes: Int? = availableTest?.recording_timeout_minutes
-                        val special_qual: String? = availableTest?.special_qual
-                        val interface_type: String? = availableTest?.interface_type
-                        val is_kind_partial_site: Boolean? = availableTest?.is_kind_partial_site
-                        val is_kind_partial_site_text: String? = availableTest?.is_kind_partial_site_text
-                        val tasks: String? = gson.toJson(availableTest?.tasks)
-                        val title_with_id: String? = availableTest?.title_with_id
-                        val native_app_test: String? = availableTest?.native_app_url
+                        val id: Int? = availableTest!!.id
+                        val url: String? = availableTest?.url!!
+                        val title: String? = availableTest.title!!
+                        val scenario: String? = availableTest.scenario!!
+                        val title_with_id: String? = availableTest.title_with_id!!
 
-                        val surveyQuestions: String? = gson.toJson(availableTest?.surveyQuestions)
-                        val susQuestion: String? = gson.toJson(availableTest?.sus_questions)
-                        var uxCrowdSurvey: String? = gson.toJson(availableTest?.ux_crowd_questions)
-                        val npsQuestion: String? = gson.toJson(availableTest?.npsQuestion_list)
-                        val sus_scales: String? = gson.toJson(availableTest?.susScales)
+                        val surveyQuestions : String? = gson.toJson(availableTest!!.surveyQuestions)
+                        val susQuestion : String? = gson.toJson(availableTest!!.sus_questions)
 
-                        val tester_platform: String? = availableTest?.tester_platform
+                        var uxCrowdSurvey : String? = gson.toJson(availableTest!!.ux_crowd_questions)
 
-                        val isVoting: Boolean? = availableTest?.isVoting
-                        val response_type_list: java.util.ArrayList<String>? = availableTest?.response_type
+                        val npsQuestion : String? = gson.toJson(availableTest!!.npsQuestion)
+                        val sus_scales : String? = gson.toJson(availableTest!!.susScales)
+
+                        Log.e(TAG, "Pending sus_scales $sus_scales")
+
+                        val interface_type : String? = availableTest.interface_type!!
+                        val isVoting: Boolean? = availableTest!!.isVoting
+                        Log.e(TAG,"avaialable Test "+availableTest)
+                        Log.e(TAG,"availableTest.response_type!! "+availableTest.response_type)
+                        val response_type_list: java.util.ArrayList<String>? = availableTest.response_type
                         val good_question: String? = availableTest?.good_question
                         val bad_question: String? = availableTest?.bad_question
                         val suggestion_question: String? = availableTest?.suggestion_question
 
-                        val good_response_question_id: Int? = availableTest?.good_response_question_id
-                        val bad_response_question_id: Int? = availableTest?.bad_response_question_id
-                        val suggestion_response_question_id: Int? = availableTest?.suggestion_response_question_id
-                        val max_voting_limit: Int? = availableTest?.max_voting_limit
+                        val good_response_question_id: Int? = availableTest!!.good_response_question_id
+                        val bad_response_question_id: Int? = availableTest!!.bad_response_question_id
+                        val suggestion_response_question_id: Int? = availableTest!!.suggestion_response_question_id
+                        val max_voting_limit: Int? = availableTest!!.max_voting_limit
 
                         val goodResponsesArrayList: java.util.ArrayList<GoodResponses>? =
-                            availableTest?.goodResponsesArrayList
+                            availableTest.goodResponsesArrayList
                         val badResponsesArrayList: java.util.ArrayList<BadResponses>? =
-                            availableTest?.badResponsesArrayList
+                            availableTest.badResponsesArrayList
                         val suggestionResponsesArrayList: java.util.ArrayList<SuggestionResponses>? =
-                            availableTest?.suggestionResponsesArrayList
+                            availableTest.suggestionResponsesArrayList
 
-
-                        if (uxCrowdSurvey.equals("[]", ignoreCase = true)) {
+                        if (uxCrowdSurvey.equals("null", ignoreCase = true)) {
                             uxCrowdSurvey = "[]"
                         }
 
-                        val do_impression_test: Boolean? = availableTest?.do_impression_test
-                        val seq_task: Boolean? = availableTest?.getopt_for_seq()
-                        val task_complete: Boolean? = availableTest?.opt_for_task_completion
-
-                        val screener_test_avaialable: Boolean? = availableTest?.screener_test_available
-
-                        val opt_for_face_recording: Boolean? = availableTest?.opt_for_face_recording
-                        val recorder_orientation: String? = availableTest?.recorder_orientation
-                        val technical_qualification: String? = availableTest?.technical_qual
-
-                        var availableTestModel = AvailableTestModel(id, pos, title, url, tasks, scenario, surveyQuestions, special_qual,
-                            interface_type, susQuestion, tester_platform, uxCrowdSurvey, is_kind_partial_site_text, title_with_id,
-                            native_app_test, recording_timeout_minutes, seq_task , task_complete, do_impression_test,
-                            is_kind_partial_site, screener_test_avaialable, isVoting, response_type_list, good_question,
+                        var availableTestModel = AvailableTestModel(id, pos, title, url, null, scenario, surveyQuestions,null,
+                            interface_type, susQuestion, null, uxCrowdSurvey, null, title_with_id,
+                            null, null, null , null, null,
+                            null, null, isVoting, response_type_list, good_question,
                             bad_question, suggestion_question, good_response_question_id, bad_response_question_id,
                             suggestion_response_question_id, max_voting_limit, goodResponsesArrayList, badResponsesArrayList,
-                            suggestionResponsesArrayList, npsQuestion, sus_scales, opt_for_face_recording, recorder_orientation, technical_qualification)
+                            suggestionResponsesArrayList, npsQuestion, sus_scales, null, null, null)
 
                         availableTestModelList?.add(availableTestModel)
 
                     }
 
-                    //TO ADD VIDEO ROW
-                    var availableTestModel_video = AvailableTestModel()
-                    availableTestModelList?.add(availableTestModel_video)
+                }
+                else{
+                    if(tests?.data?.availableTests?.size!! > 0){
 
-                    Log.e(TAG,"availableTestModelList size "+availableTestModelList.size)
+                        for (i in 0..(tests?.data?.availableTests?.size!! -1)!!)
+                        {
+
+                            val availableTest = tests?.data?.availableTests?.get(i) ?.availableTest
+
+                            val  pos = i
+                            val id: Int? = availableTest?.id
+                            val url: String? = availableTest?.url
+                            val title: String? = availableTest?.title
+                            val scenario: String? = availableTest?.scenario
+                            val recording_timeout_minutes: Int? = availableTest?.recording_timeout_minutes
+                            val special_qual: String? = availableTest?.special_qual
+                            val interface_type: String? = availableTest?.interface_type
+                            val is_kind_partial_site: Boolean? = availableTest?.is_kind_partial_site
+                            val is_kind_partial_site_text: String? = availableTest?.is_kind_partial_site_text
+                            val tasks: String? = gson.toJson(availableTest?.tasks)
+                            val title_with_id: String? = availableTest?.title_with_id
+                            val native_app_test: String? = availableTest?.native_app_url
+
+                            val surveyQuestions: String? = gson.toJson(availableTest?.surveyQuestions)
+                            val susQuestion: String? = gson.toJson(availableTest?.sus_questions)
+                            var uxCrowdSurvey: String? = gson.toJson(availableTest?.ux_crowd_questions)
+                            val npsQuestion: String? = gson.toJson(availableTest?.npsQuestion_list)
+                            val sus_scales: String? = gson.toJson(availableTest?.susScales)
+
+                            val tester_platform: String? = availableTest?.tester_platform
+
+                            val isVoting: Boolean? = availableTest?.isVoting
+                            val response_type_list: java.util.ArrayList<String>? = availableTest?.response_type
+                            val good_question: String? = availableTest?.good_question
+                            val bad_question: String? = availableTest?.bad_question
+                            val suggestion_question: String? = availableTest?.suggestion_question
+
+                            val good_response_question_id: Int? = availableTest?.good_response_question_id
+                            val bad_response_question_id: Int? = availableTest?.bad_response_question_id
+                            val suggestion_response_question_id: Int? = availableTest?.suggestion_response_question_id
+                            val max_voting_limit: Int? = availableTest?.max_voting_limit
+
+                            val goodResponsesArrayList: java.util.ArrayList<GoodResponses>? =
+                                availableTest?.goodResponsesArrayList
+                            val badResponsesArrayList: java.util.ArrayList<BadResponses>? =
+                                availableTest?.badResponsesArrayList
+                            val suggestionResponsesArrayList: java.util.ArrayList<SuggestionResponses>? =
+                                availableTest?.suggestionResponsesArrayList
 
 
-                   // SharedPrefHelper(this).saveTestResultId("309545")
+                            if (uxCrowdSurvey.equals("[]", ignoreCase = true)) {
+                                uxCrowdSurvey = "[]"
+                            }
 
-                    //ADD PERFORM TEST LIST
+                            val do_impression_test: Boolean? = availableTest?.do_impression_test
+                            val seq_task: Boolean? = availableTest?.getopt_for_seq()
+                            val task_complete: Boolean? = availableTest?.opt_for_task_completion
+
+                            val screener_test_avaialable: Boolean? = availableTest?.screener_test_available
+
+                            val opt_for_face_recording: Boolean? = availableTest?.opt_for_face_recording
+                            val recorder_orientation: String? = availableTest?.recorder_orientation
+                            val technical_qualification: String? = availableTest?.technical_qual
+
+                            var availableTestModel = AvailableTestModel(id, pos, title, url, tasks, scenario, surveyQuestions, special_qual,
+                                interface_type, susQuestion, tester_platform, uxCrowdSurvey, is_kind_partial_site_text, title_with_id,
+                                native_app_test, recording_timeout_minutes, seq_task , task_complete, do_impression_test,
+                                is_kind_partial_site, screener_test_avaialable, isVoting, response_type_list, good_question,
+                                bad_question, suggestion_question, good_response_question_id, bad_response_question_id,
+                                suggestion_response_question_id, max_voting_limit, goodResponsesArrayList, badResponsesArrayList,
+                                suggestionResponsesArrayList, npsQuestion, sus_scales, opt_for_face_recording, recorder_orientation, technical_qualification)
+
+                            availableTestModelList?.add(availableTestModel)
+
+                        }
+
+                        //TO ADD VIDEO ROW
+                        var availableTestModel_video = AvailableTestModel()
+                        availableTestModelList?.add(availableTestModel_video)
+
+                        Log.e(TAG,"availableTestModelList size "+availableTestModelList.size)
 
 
-                    // Performed test fragment data
-                    val length: Int = tests?.data?.performedTests?.size!!
+                        //ADD PERFORM TEST LIST
+                        val length: Int = tests?.data?.performedTests?.size!!
 
-                    if (length > 0) {
-                        for (i in 0 until length) {
-                            val t: PerformedTest = tests?.data?.performedTests?.get(i)?.performedTest!!
-                            val id = t.id
-                            val status = t.status
-                            val date = t.date
-                            val test1 = t.test
-                            val url = t.url
-                 //           val video_url = t.videoUrl
-                            val scenario = t.scenario
-                            val title_with_id = t.title_with_id
-                            if (t.rating != null) {
-                                val score = t.rating!!.score
-                                val Comment = t.rating!!.comment
-                                val performTestConstant = PerformedTestModel(
-                                    id,
-                                    status!!,
-                                    date!!,
-                                    test1!!,
-                                    url!!,
-                                    "",
-                                    scenario!!,
-                                    scenario!!,
-                                    score,
-                                    Comment,
-                                    title_with_id!!
-                                )
-                                performTestList.add(i, performTestConstant)
-                            } else {
-                                val performTestConstant = PerformedTestModel(
-                                    id,
-                                    status!!,
-                                    date!!,
-                                    test1!!,
-                                    url!!,
-                                    "",
-                                    scenario!!,
-                                    scenario!!,
-                                    title_with_id!!
-                                )
-                                performTestList.add(i, performTestConstant)
+                        if (length > 0) {
+                            for (i in 0 until length) {
+                                val t: PerformedTest = tests?.data?.performedTests?.get(i)?.performedTest!!
+                                val id = t.id
+                                val status = t.status
+                                val date = t.date
+                                val test1 = t.test
+                                val url = t.url
+                                //           val video_url = t.videoUrl
+                                val scenario = t.scenario
+                                val title_with_id = t.title_with_id
+                                if (t.rating != null) {
+                                    val score = t.rating!!.score
+                                    val Comment = t.rating!!.comment
+                                    val performTestConstant = PerformedTestModel(
+                                        id,
+                                        status!!,
+                                        date!!,
+                                        test1!!,
+                                        url!!,
+                                        "",
+                                        scenario!!,
+                                        scenario!!,
+                                        score,
+                                        Comment,
+                                        title_with_id!!
+                                    )
+                                    performTestList.add(i, performTestConstant)
+                                } else {
+                                    val performTestConstant = PerformedTestModel(
+                                        id,
+                                        status!!,
+                                        date!!,
+                                        test1!!,
+                                        url!!,
+                                        "",
+                                        scenario!!,
+                                        scenario!!,
+                                        title_with_id!!
+                                    )
+                                    performTestList.add(i, performTestConstant)
+                                }
                             }
                         }
+
                     }
-
-                    setUpViewPager(viewPager)
-                    tabs.setupWithViewPager(viewPager)
-
+                    else
+                    {
+                        showErrorDialog(tests)
+                    }
                 }
-                else
-                {
-                    showErrorDialog(tests)
-                }
+
+                setUpViewPager(viewPager)
+                tabs.setupWithViewPager(viewPager)
+
+
             }
             else{
                 showErrorDialog(tests)

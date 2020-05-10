@@ -34,15 +34,13 @@ import com.mahesch.trymyui.retrofitclient.ApiService
 import com.mahesch.trymyui.retrofitclient.RetrofitInstance
 import com.mahesch.trymyui.services.NativeAppRecordingService
 import kotlinx.android.synthetic.main.uploading_video_activity.*
-import org.json.JSONException
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.io.File
 import java.util.*
 
-class UploadingVideoActivity : AppCompatActivity(),TransferListener {
+class UploadingVideoActivity : AppCompatActivity() {
 
     lateinit var sharedPrefHelper: SharedPrefHelper
     var testResultId : String? = null
@@ -152,6 +150,16 @@ class UploadingVideoActivity : AppCompatActivity(),TransferListener {
         }
 
         initAws()
+
+        btn_task_video_retry.setOnClickListener {
+            isTaskUploadRetry = true
+            retryTaskVideoUpload()
+        }
+
+        btn_face_video_retry.setOnClickListener {
+            isFaceUploadRetry = true
+            retryFaceVideoUpload()
+        }
     }
 
     private fun initAws(){
@@ -413,9 +421,6 @@ class UploadingVideoActivity : AppCompatActivity(),TransferListener {
     }
 
 
-
-
-
     private fun beginFaceVideoUpload() {
 
         if (!isFinishing)
@@ -461,6 +466,7 @@ class UploadingVideoActivity : AppCompatActivity(),TransferListener {
             }
         }
     }
+
 
     fun postFeedback(message: String) {
         if (!isFinishing) {
@@ -834,16 +840,6 @@ class UploadingVideoActivity : AppCompatActivity(),TransferListener {
         }
     }
 
-    override fun onProgressChanged(p0: Int, p1: Long, p2: Long) {
-        Log.e(TAG,"onProgress changed")
-    }
 
-    override fun onStateChanged(p0: Int, p1: TransferState?) {
-        Log.e(TAG,"onStateChanged")
-    }
-
-    override fun onError(p0: Int, p1: java.lang.Exception?) {
-        Log.e(TAG,"onError")
-    }
 
 }

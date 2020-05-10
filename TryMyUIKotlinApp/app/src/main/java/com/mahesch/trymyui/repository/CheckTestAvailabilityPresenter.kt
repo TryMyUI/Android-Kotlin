@@ -23,7 +23,6 @@ class CheckTestAvailabilityPresenter(iCheckTestAvailability: ICheckTestAvailabil
             }
 
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
-                TODO("Not yet implemented")
                 iCheckTestAvailability.onSuccessTestAvailability(response.body()!! as JsonObject)
             }
 

@@ -139,7 +139,7 @@ class SusQuestionActivity : AppCompatActivity() {
         joParent.addProperty("at",sharedPrefHelper.getToken())
         joParent.addProperty("test_result_id",sharedPrefHelper.getTestResultId())
         joParent.add("answers",jsonObjectCheckValues)
-        joParent.addProperty("isFinished",isFinish)
+        joParent.addProperty("is_finished",isFinish)
 
         return JsonParser().parse(joParent.toString()) as JsonObject
 
