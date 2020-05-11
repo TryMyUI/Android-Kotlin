@@ -23,15 +23,15 @@ class DownloadApkFile(context: Context,apkUrl: String) : AsyncTask<Void,String,S
     override fun onPreExecute() {
         super.onPreExecute()
 
-        ProgressDialog.initializeProgressDialogue(context,android.app.ProgressDialog.STYLE_HORIZONTAL)
-        ProgressDialog.showProgressDialog(context.resources.getString(R.string.downloading_apk_msg))
+  //      ProgressDialog.initializeProgressDialogue(context,android.app.ProgressDialog.STYLE_HORIZONTAL)
+  //      ProgressDialog.showProgressDialog(context.resources.getString(R.string.downloading_apk_msg))
 
     }
 
     override fun onProgressUpdate(vararg values: String?) {
         super.onProgressUpdate(*values)
 
-        ProgressDialog.setProgress(values[0]?.toInt()!!)
+   //     ProgressDialog.setProgress(values[0]?.toInt()!!)
 
     }
 
@@ -71,7 +71,7 @@ class DownloadApkFile(context: Context,apkUrl: String) : AsyncTask<Void,String,S
 
                     count = inputStream.read(dataByte)
 
-                    Log.e(TAG,"total $total")
+               //     Log.e(TAG,"total $total")
                 }
 
             Log.e(TAG,"count in end $count")
@@ -92,7 +92,7 @@ class DownloadApkFile(context: Context,apkUrl: String) : AsyncTask<Void,String,S
 
     override fun onPostExecute(result: String?) {
         super.onPostExecute(result)
-        ProgressDialog.dismissProgressDialog()
+       // ProgressDialog.dismissProgressDialog()
         startAppWithApk()
     }
 
@@ -104,11 +104,16 @@ class DownloadApkFile(context: Context,apkUrl: String) : AsyncTask<Void,String,S
         var filePath = Utils.getNativeAppTestApkPath()
 
         var mainFile = File(filePath)
+        Log.e(TAG,"mainFile "+mainFile)
 
         PerformTestActivity.app_package_name = Utils.checkAppAlreadyInstall(context)
+        Log.e(TAG,"PerformTestActivity.app_package_name "+PerformTestActivity.app_package_name)
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            Log.e(TAG,"provider "+context.applicationContext.packageName)
             var apkUri = FileProvider.getUriForFile(context,context.applicationContext.packageName+".provider",mainFile)
+
+            Log.e(TAG,"apkUri "+apkUri)
 
             var installIntent = Intent(Intent.ACTION_INSTALL_PACKAGE)
             installIntent.data = apkUri

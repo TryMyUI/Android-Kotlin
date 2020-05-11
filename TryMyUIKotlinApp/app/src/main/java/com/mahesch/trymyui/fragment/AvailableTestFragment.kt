@@ -45,6 +45,8 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
     private lateinit var ivRefreshButton: ImageView
     private lateinit var tvNoTestMessage: TextView
 
+
+
     private var availableTestList = availableTestList
 
     init {
@@ -187,9 +189,11 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
         if(TabActivity.isPendingTest){
             var manageFlowAfterTest = ManageFlowAfterTest(availableTestModel,activity)
             manageFlowAfterTest.moveToWhichActivity(activity)
+            activity.finish()
         }
         else{
             ManageFlowBeforeRecording(availableTestModel,activity).moveToWhichActivity(0)
+            activity.finish()
 
         }
 

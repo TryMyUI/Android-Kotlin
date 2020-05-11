@@ -64,6 +64,7 @@ import java.io.Serializable
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.security.auth.login.LoginException
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -989,8 +990,11 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
         Log.e(TAG, "strBuilder $strBuilder")
 
         val urls = strBuilder.getSpans(0, sequence.length, URLSpan::class.java)
+        Log.e(TAG,"urls size "+urls.size)
+        Log.e(TAG,"urls "+urls)
 
         for (span in urls) {
+            Log.e(TAG,"span "+span)
             makeLinkClickable(strBuilder, span)
         }
 
@@ -1103,7 +1107,7 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                 showTaskWindowLayout?.findViewById(R.id.linearLayoutShowTask_without_rating) as LinearLayout
             textViewTask =
                 showTaskWindowLayout?.findViewById(R.id.textViewTask_without_rating) as TextView
-            textViewTask?.setMovementMethod(LinkMovementMethod.getInstance())
+            textViewTask?.movementMethod = LinkMovementMethod.getInstance()
             textViewTaskTittle =
                 showTaskWindowLayout?.findViewById(R.id.textViewTaskTittle_without_rating) as TextView
             textViewgotoframe =
@@ -2647,23 +2651,24 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
         }
     }
 
-    private fun makeLinkClickable(
-        strBuilder: SpannableStringBuilder,
-        span: URLSpan) {
+    private fun makeLinkClickable(strBuilder: SpannableStringBuilder, span: URLSpan)
+    {
         val start = strBuilder.getSpanStart(span)
+        Log.e(TAG,"start "+start)
         val end = strBuilder.getSpanEnd(span)
+        Log.e(TAG,"end "+end)
         val flags = strBuilder.getSpanFlags(span)
+        Log.e(TAG,"flags "+flags)
         val clickable: ClickableSpan = object : ClickableSpan() {
             override fun onClick(view: View) {
                 // Do something with span.getURL() to handle the link click...
                 //Log.e("*********************** my click *************", " " + span.getURL().toString());
                 val myurl = span.url.toString()
+                Log.e(TAG,"myurl "+myurl)
                 val intentBrowser = Intent(Intent.ACTION_VIEW)
                 intentBrowser.data = Uri.parse(myurl)
                 intentBrowser.putExtra(
-                    Browser.EXTRA_APPLICATION_ID,
-                    appPackageName
-                )
+                    Browser.EXTRA_APPLICATION_ID, this@NativeAppRecordingService.packageName)
                 intentBrowser.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intentBrowser)
                 whichScreenToDisplay(availableTestModel!!)

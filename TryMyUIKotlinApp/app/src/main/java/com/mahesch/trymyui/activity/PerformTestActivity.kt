@@ -6,6 +6,7 @@ import android.app.PendingIntent
 import android.content.*
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.AsyncTask
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
@@ -20,17 +21,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.mahesch.trymyui.R
-import com.mahesch.trymyui.helpers.DownloadApkFile
-import com.mahesch.trymyui.helpers.ManageFlowAfterTest
-import com.mahesch.trymyui.helpers.Utils
-import com.mahesch.trymyui.helpers.YesNoAlertDialog
 import com.mahesch.trymyui.model.AvailableTestModel
 import com.mahesch.trymyui.receivers.BrowserIntentReceiver
 import com.mahesch.trymyui.services.NativeAppRecordingService
 import kotlinx.android.synthetic.main.perform_test_activity.*
-import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
+import android.content.Context
+import android.content.Intent
+import com.mahesch.trymyui.helpers.*
+import java.io.BufferedInputStream
+import java.io.File
+import java.io.FileOutputStream
+import java.net.URL
 
 class PerformTestActivity : AppCompatActivity() {
 
@@ -303,8 +306,8 @@ class PerformTestActivity : AppCompatActivity() {
         super.onResume()
 
         var intentFilter = IntentFilter()
-        intentFilter.addAction(Intent.ACTION_PACKAGE_CHANGED)
         intentFilter.addAction(Intent.ACTION_PACKAGE_ADDED)
+        intentFilter.addAction(Intent.ACTION_PACKAGE_CHANGED)
         intentFilter.addCategory(Intent.CATEGORY_DEFAULT)
         intentFilter.addDataScheme("package")
         registerReceiver(packageReceiver,intentFilter)
@@ -426,7 +429,121 @@ class PerformTestActivity : AppCompatActivity() {
     }
 
     private fun downloadApk(){
-        DownloadApkFile(this,availableTestModel?.native_app_url!!).execute()
+        DownloadApkFile(availableTestModel?.native_app_url!!).execute()
+    }
+
+    inner class DownloadApkFile(apkUrl: String) : AsyncTask<Void, String, String>(){
+
+        private var apkUrl = apkUrl
+        private var TAG = "DOWNLOADAPKFILE"
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+
+                  ProgressDialog.initializeProgressDialogue(this@PerformTestActivity,android.app.ProgressDialog.STYLE_HORIZONTAL)
+                  ProgressDialog.showProgressDialog(resources.getString(R.string.downloading_apk_msg))
+
+        }
+
+        override fun onProgressUpdate(vararg values: String?) {
+            super.onProgressUpdate(*values)
+
+                 ProgressDialog.setProgress(values[0]?.toInt()!!)
+
+        }
+
+        override fun doInBackground(vararg params: Void?): String? {
+
+            try{
+                var count  = 0
+
+                var url = URL(apkUrl)
+
+                var outputFile = Utils.getNativeAppTestApkPath()
+
+                var urlConnection = url.openConnection()
+
+                var lengthOfFile = urlConnection.contentLength
+                Log.e(TAG, "lengthOfFile $lengthOfFile")
+
+                var inputStream = BufferedInputStream(url.openStream())
+
+                var outputStream = FileOutputStream(outputFile)
+
+                var dataByte = ByteArray(1024)
+
+                var total: Long = 0
+
+                Log.e(TAG,"count $count")
+
+                count = inputStream.read(dataByte)
+
+                while ( count != -1)
+                {
+                    total += count
+
+                    publishProgress( ((total * 100 / lengthOfFile).toString()))
+
+                    outputStream.write(dataByte,0,count)
+
+                    count = inputStream.read(dataByte)
+
+                    //     Log.e(TAG,"total $total")
+                }
+
+                Log.e(TAG,"count in end $count")
+
+                outputStream.flush()
+                outputStream.close()
+                inputStream.close()
+
+
+            }
+            catch (e: Exception){
+                ProgressDialog.dismissProgressDialog()
+                Log.e(TAG,"doinBackground exception $e")
+            }
+            return null
+
+        }
+
+        override fun onPostExecute(result: String?) {
+            super.onPostExecute(result)
+             ProgressDialog.dismissProgressDialog()
+            startAppWithApk()
+        }
+
+        override fun onCancelled() {
+            super.onCancelled()
+        }
+
+        private fun startAppWithApk(){
+            var filePath = Utils.getNativeAppTestApkPath()
+
+            var mainFile = File(filePath)
+            Log.e(TAG,"mainFile "+mainFile)
+
+            PerformTestActivity.app_package_name = Utils.checkAppAlreadyInstall(this@PerformTestActivity)
+            Log.e(TAG,"PerformTestActivity.app_package_name "+PerformTestActivity.app_package_name)
+
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+                Log.e(TAG,"provider "+applicationContext.packageName)
+                var apkUri = FileProvider.getUriForFile(this@PerformTestActivity,applicationContext.packageName+".provider",mainFile)
+
+                Log.e(TAG,"apkUri "+apkUri)
+
+                var installIntent = Intent(Intent.ACTION_INSTALL_PACKAGE)
+                installIntent.data = apkUri
+                installIntent.flags = Intent.FLAG_GRANT_READ_URI_PERMISSION
+              startActivity(installIntent)
+            } else{
+                var apkUri = Uri.fromFile(mainFile)
+                var installIntent = Intent(Intent.ACTION_VIEW)
+                installIntent.setDataAndType(apkUri,"application/vnd.android.package-archive")
+               startActivity(installIntent)
+            }
+        }
+
     }
 
     @TargetApi(22)

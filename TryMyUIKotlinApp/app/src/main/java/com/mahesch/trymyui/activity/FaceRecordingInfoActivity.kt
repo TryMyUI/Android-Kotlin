@@ -57,6 +57,7 @@ class FaceRecordingInfoActivity : AppCompatActivity() {
         else
         {
             ManageFlowBeforeRecording(availableTestModel,this).manageBackFlow(3)
+            finish()
         }
 
     }

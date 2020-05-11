@@ -1,8 +1,9 @@
 package com.mahesch.trymyui.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mahesch.trymyui.R
@@ -42,7 +43,7 @@ class SpecialQualificationActivity : AppCompatActivity() {
 
         specQualViewModel = ViewModelProvider(this,factory).get(SpecialQualificationViewModel::class.java)
 
-        tv_spec_qual_data.text = availableTestModel.specialQalification
+        tv_spec_qual_data.text = Html.fromHtml(availableTestModel.specialQalification)
 
         btn_spec_qual_yes.setOnClickListener { onClickYes() }
 
@@ -51,6 +52,7 @@ class SpecialQualificationActivity : AppCompatActivity() {
 
     private fun onClickYes(){
             ManageFlowBeforeRecording(availableTestModel,SpecialQualificationActivity@this).moveToWhichActivity(1)
+        finish()
     }
 
     private fun onClickNo(){

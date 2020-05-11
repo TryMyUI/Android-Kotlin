@@ -3,6 +3,7 @@ package com.mahesch.trymyui.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Html
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mahesch.trymyui.R
@@ -42,7 +43,7 @@ class TechnicalQualificationActivity : AppCompatActivity() {
 
         techQualViewModel = ViewModelProvider(this,factory).get(TechnicalQualificationViewModel::class.java)
 
-        tv_tech_qual_data.text = availableTestModel.technicalQualification
+        tv_tech_qual_data.text = Html.fromHtml(availableTestModel.technicalQualification)
 
         btn_tech_qual_yes.setOnClickListener { onClickYes() }
 
@@ -52,6 +53,7 @@ class TechnicalQualificationActivity : AppCompatActivity() {
 
     private fun onClickYes(){
         ManageFlowBeforeRecording(availableTestModel,TechnicalQualificationActivity@this).moveToWhichActivity(2)
+        finish()
     }
 
     private fun onClickNo(){
