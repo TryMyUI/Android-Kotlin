@@ -3,6 +3,7 @@ package com.mahesch.trymyui.activity
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.os.StrictMode
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
@@ -51,23 +52,25 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun initSplashActivity(){
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+       /* val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
         val window = window
-        window.setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND)
+        window.setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND, WindowManager.LayoutParams.FLAG_BLUR_BEHIND)*/
 
-        callNewActivity()
+        sleep();
+
+    }
+
+    private fun sleep(){
+        Handler().postDelayed({
+            callNewActivity()
+            /* Create an Intent that will start the Menu-Activity. */
+        }, 3000)
     }
 
     private fun callNewActivity(){
 
-        // TODO Auto-generated method stub
-        try {
-            Thread.sleep(2000)
-        } catch (e: InterruptedException) {
-            e.printStackTrace()
-        }
 
         if(!sharedPrefHelper.getGuestTester())
         {
@@ -99,7 +102,7 @@ class SplashActivity : AppCompatActivity() {
             }
             else
             {
-                val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+                val intent = Intent(this@SplashActivity, WelcomeActivity::class.java)
                 startActivity(intent)
             }
 
@@ -108,7 +111,7 @@ class SplashActivity : AppCompatActivity() {
         else
         {
             sharedPrefHelper.clearSharedPreference()
-            val intent = Intent(this@SplashActivity, LoginActivity::class.java)
+            val intent = Intent(this@SplashActivity, WelcomeActivity::class.java)
             startActivity(intent)
             finish()
         }

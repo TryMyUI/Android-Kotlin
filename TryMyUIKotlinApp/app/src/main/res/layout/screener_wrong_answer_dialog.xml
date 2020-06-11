@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/white_fill_round_corner">
+
+    <TextView
+        android:id="@+id/tv_sry_not_eligible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:text="@string/sry_not_eligble"
+        android:textColor="@color/_444444"
+        android:textSize="@dimen/_20sp"
+        android:fontFamily="@font/helvitica_neue"
+        android:textStyle="normal"
+        android:textFontWeight="500"
+        android:letterSpacing="0.04"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/_14sp"
+        android:text="@string/need_help_gesture_recording"
+        android:layout_marginTop="@dimen/_20dp"
+        android:fontFamily="@font/helvitica_neue"
+        android:textStyle="normal"
+        android:textFontWeight="500"
+        android:letterSpacing="0.04"
+        android:gravity="center"
+        android:textColor="@color/_444444"
+        android:layout_marginLeft="@dimen/_25dp"
+        android:layout_below="@+id/tv_sry_not_eligible"
+        android:layout_centerHorizontal="true"
+        android:lineSpacingExtra="@dimen/_4dp"
+        android:id="@+id/tv_wrong_answer_message"/>
+
+    <TextView
+        android:id="@+id/tv_back_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40dp"
+        android:layout_marginTop="@dimen/_35dp"
+        android:gravity="center"
+        android:text="@string/back_bashboard"
+        android:textColor="@color/white"
+        android:layout_marginLeft="@dimen/_20dp"
+        android:layout_marginRight="@dimen/_20dp"
+        android:layout_below="@+id/tv_wrong_answer_message"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/_16sp"
+        android:background="@drawable/trymyuitester_btn_bg"
+        android:fontFamily="@font/helvitica_neue"
+        android:textStyle="normal"
+        android:textFontWeight="500"
+        android:letterSpacing="0.04"
+        android:layout_marginBottom="@dimen/_20dp"/>
+
+
+
+
+</RelativeLayout>

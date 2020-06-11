@@ -13,6 +13,8 @@
     <dimen name="test_title_text_size">21sp</dimen>
     <dimen name="text_button_size">20sp</dimen>
     <dimen name="text_button_size_small">19sp</dimen>
+    <dimen name="_160dp">160dp</dimen>
+    <dimen name="_135dp">135dp</dimen>
 
 
     <dimen name="my_seekbar_height">30dp</dimen>
@@ -29,6 +31,11 @@
 
     <string name="value_from">mdpi</string>
     <dimen name="ad">20dp</dimen>
+    <dimen name="_110dp">110dp</dimen>
+    <dimen name="_18dp">18dp</dimen>
+    <dimen name="_62dp">62dp</dimen>
+    <dimen name="_29dp">29dp</dimen>
+    <dimen name="_56dp">56dp</dimen>
 
 
     <!--activity_splash-->
@@ -38,6 +45,7 @@
     <dimen name="pd_10">10dp</dimen>
     <dimen name="_14dp">14dp</dimen><!--14dp-->
     <dimen name="pd_12">12dp</dimen>
+    <dimen name="_140dp">140dp</dimen>
 
     <dimen name="_10dp">10dp</dimen>
     <dimen name="_20dp">20dp</dimen>
@@ -47,7 +55,7 @@
     <dimen name="_60dp">60dp</dimen>
     <dimen name="_120dp">120dp</dimen>
 
-
+    <dimen name="_24dp">24dp</dimen>
     <dimen name="_1dp">1dp</dimen>
     <dimen name="_2dp">2dp</dimen>
     <dimen name="_3dp">3dp</dimen>
@@ -57,7 +65,7 @@
     <dimen name="_7dp">7dp</dimen>
     <dimen name="_8dp">8dp</dimen>
     <dimen name="_15dp">15dp</dimen>
-
+    <dimen name="_298dp">298dp</dimen>
     <dimen name="_25dp">25dp</dimen>
     <dimen name="_180dp">180dp</dimen>
     <dimen name="_100dp">100dp</dimen>
@@ -81,6 +89,7 @@
     <dimen name="_150dp">150dp</dimen>
 
     <dimen name="_220dp">220dp</dimen>
+    <dimen name="_320dp">320dp</dimen>
 
 
     <dimen name="_16sp">16sp</dimen>
@@ -109,4 +118,20 @@
     <dimen name="mr_l_tv_ws_question">10dp</dimen>
     <dimen name="mr_r_tv_ws_question">10dp</dimen>
     <dimen name="pd_tv_ws_question">10dp</dimen>
+
+<dimen name="_188px">188dp</dimen>
+    <dimen name="_70px">70dp</dimen>
+    <dimen name="_39px">39dp</dimen>
+    <dimen name="_255dp">255dp</dimen>
+    <dimen name="_25sp">25sp</dimen>
+    <dimen name="_32sp">32sp</dimen>
+    <dimen name="_145dp">145dp</dimen>
+    <dimen name="_44dp">44dp</dimen>
+    <dimen name="_36sp">36sp</dimen>
+    <dimen name="_272dp">272dp</dimen>
+    <dimen name="_362dp">362dp</dimen>
+    <dimen name="_325dp">325dp</dimen>
+    <dimen name="_602dp">602dp</dimen>
+    <dimen name="_677dp">677dp</dimen>
+    <dimen name="_155dp">155dp</dimen>
 </resources>

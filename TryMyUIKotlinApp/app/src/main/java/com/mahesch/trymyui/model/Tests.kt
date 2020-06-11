@@ -202,6 +202,7 @@ class Tests {
             var videoUrl: String? = null
             var scenario: String? = null
             var title_with_id: String? = null
+            var interface_type: String? = null
 
         }
     }

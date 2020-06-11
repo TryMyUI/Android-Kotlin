@@ -38,6 +38,8 @@ class GuestLoginActivity : AppCompatActivity() {
 
         btn_guest_signin.setOnClickListener { onClickGuestLogin()  }
 
+        tv_login.setOnClickListener { onClickLogin() }
+
         val factory =
             GuestLoginViewModelFactory(
                 application
@@ -100,6 +102,12 @@ class GuestLoginActivity : AppCompatActivity() {
             //PROMPT DIALOGUE
             Toast.makeText(this,"No Internet", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun onClickLogin(){
+        var intent = Intent(this,LoginActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     private fun guestLogin(){
@@ -285,7 +293,9 @@ class GuestLoginActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        var intent = Intent(this,WelcomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onStart() {

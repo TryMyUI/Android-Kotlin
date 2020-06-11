@@ -72,22 +72,8 @@ class PerformTestActivity : AppCompatActivity() {
 
         Log.e(TAG,"availableTestModel in perform test "+availableTestModel)
 
-        /*  manageFlowAfterTest = ManageFlowAfterTest(availableTestModel,this)
 
-          manageFlowAfterTest.moveToWhichActivity(this)*/
-
-        textViewTitle.text = availableTestModel.title?.replace("\\n","\n",true)
-
-        if(availableTestModel.url != null){
-            if (!availableTestModel.url?.startsWith("http")!! && availableTestModel.url != "No title set")
-                textViewURL.text = "http://$availableTestModel.url?"
-            else
-                textViewURL.text = availableTestModel.url
-        }
-
-        textViewScenario.text = availableTestModel.scenario
-
-        buttonStartTest.setOnClickListener { onClickStartTest() }
+        btn_start_test.setOnClickListener { onClickStartTest() }
 
 
     }

@@ -1,114 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/orange"
-    android:layout_margin="@dimen/_10dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
 
-    <Button
-        android:id="@+id/btn_question_continue"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/green_light"
-        android:padding="@dimen/_10dp"
-        android:layout_margin="@dimen/_10dp"
-        android:textColor="@color/white"
-        android:fontFamily="sans-serif-medium"
-        android:text="Continue"
-        android:textSize="@dimen/_16sp"
-        android:textAllCaps="false"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="@dimen/_110dp"
+        android:background="@color/white"
+        android:id="@+id/rl_testdetails"
+        android:layout_alignParentTop="true"
+        android:elevation="@dimen/_10dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test details"
+            android:textColor="@color/dark_slate_gray"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/_24sp"
+            android:textFontWeight="500"
+            android:textStyle="normal"
+            android:letterSpacing="0.04"
+            android:layout_marginTop="@dimen/_60dp"/>
 
+        <LinearLayout
+            android:layout_width="@dimen/_20dp"
+            android:layout_height="@dimen/_20dp"
+            android:orientation="vertical"
+            android:id="@+id/ll_three_dots"
+            android:layout_marginTop="@dimen/_60dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/_30dp"
+            android:layout_marginRight="@dimen/_30dp"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:layout_width="@dimen/_5dp"
+                android:layout_height="@dimen/_5dp"
+                android:src="@drawable/ic_grey_dot"
+                android:layout_marginBottom="@dimen/_3dp"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:layout_width="@dimen/_5dp"
+                android:layout_height="@dimen/_5dp"
+                android:src="@drawable/ic_grey_dot"
+                android:layout_marginBottom="@dimen/_3dp"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:layout_width="@dimen/_5dp"
+                android:layout_height="@dimen/_5dp"
+                android:src="@drawable/ic_grey_dot"
+                android:layout_marginBottom="@dimen/_3dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_above="@+id/btn_question_continue"
-        android:background="@color/white"
-        android:layout_marginLeft="@dimen/_10dp"
-        android:layout_marginRight="@dimen/_10dp"
-        android:layout_marginTop="@dimen/_10dp">
-
-        <TextView
-            android:id="@+id/textViewTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text=""
-            android:textColor="@color/dark_slate_gray"
-            android:textSize="@dimen/_16sp"
-            android:fontFamily="sans-serif-medium"
-            android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginLeft="@dimen/_20dp"
-            android:layout_marginRight="@dimen/_20dp"
-            android:layout_alignParentTop="true"
-            android:gravity="center"/>
-
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:layout_below="@+id/textViewTitle"
-            android:layout_marginLeft="@dimen/_20dp"
-            android:layout_marginRight="@dimen/_20dp"
-            android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginBottom="@dimen/_10dp"
-            android:id="@+id/tv_desc"
-            android:textColor="@color/dim_gray"
-            android:fontFamily="sans-serif"
-            android:textSize="@dimen/_14sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginBottom="@dimen/_10dp"
-            android:layout_below="@+id/tv_desc"
-            android:id="@+id/tv_no_of_q_attempted"
-            android:gravity="center_horizontal"
-            android:fontFamily="sans-serif"
-            android:textColor="@color/dark_slate_gray"
-            android:textSize="@dimen/_14sp"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tv_question_title"
-            android:layout_marginLeft="@dimen/_20dp"
-            android:layout_marginRight="@dimen/_20dp"
-            android:layout_marginTop="@dimen/_10dp"
-            android:layout_below="@+id/tv_no_of_q_attempted"
-            android:textColor="@color/dark_slate_gray"
-            android:fontFamily="sans-serif-medium"
-            android:textSize="@dimen/_16sp"/>
+        android:fitsSystemWindows="false"
+        android:layout_below="@id/rl_testdetails">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_question_title"
-            android:layout_marginTop="@dimen/_10dp"
-            android:layout_marginBottom="@dimen/_10dp"
-            android:layout_marginLeft="@dimen/_20dp"
-            android:layout_marginRight="@dimen/_20dp"
-            android:fadeScrollbars="false">
+            android:layout_height="match_parent"
+            android:id="@+id/parent_scrollview"
+            android:layout_alignParentTop="true"
+            android:fillViewport="true">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:id="@+id/ll_for_dynamic_rows">
+                android:fitsSystemWindows="true">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_16sp"
+                    android:letterSpacing="0.04"
+                    android:text="@string/answerthequestionbelow"
+                    android:textColor="@color/dark_slate_gray"
+                    android:layout_marginTop="@dimen/_30dp"
+                    android:layout_marginBottom="@dimen/_30dp"
+                    android:gravity="center"
+                    android:layout_alignParentTop="true"
+                    android:id="@+id/tv_pleaseanswer"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/_50dp"
+                    android:orientation="vertical"
+                    android:id="@+id/ll_questionlist"
+                    android:layout_marginBottom="@dimen/_20dp"
+
+                    android:layout_below="@+id/tv_pleaseanswer">
+
+
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_50dp"
+                    android:id="@+id/btn_continue"
+                    android:text="@string/continu"
+                    android:textSize="@dimen/_16sp"
+                    android:textFontWeight="500"
+                    android:letterSpacing="0.04"
+                    android:textColor="#AAAAAA"
+                    android:background="@drawable/diable_button_bg"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_20dp"
+                    android:layout_marginTop="@dimen/_20dp"
+                    android:layout_marginBottom="@dimen/_60dp"
+                    android:enabled="false"
+                    android:textAllCaps="false"
+                    android:layout_alignParentBottom="true"/>
+
+
 
             </LinearLayout>
 
         </ScrollView>
 
 
+
     </RelativeLayout>
+
+
+
+
+
+
+
+
 
 </RelativeLayout>

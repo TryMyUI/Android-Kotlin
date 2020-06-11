@@ -12,6 +12,7 @@ class PerformedTestModel {
     var mscore = 0
     var mcomment: String? = null
     var title_with_id: String
+    var interface_type: String? = null
 
     constructor(
         id: Int,
@@ -24,7 +25,8 @@ class PerformedTestModel {
         scenario1: String,
         score: Int,
         comment: String?,
-        title_with_id: String
+        title_with_id: String,
+        interface_type: String?
     ) {
         mid = id
         mstatus = status
@@ -37,6 +39,7 @@ class PerformedTestModel {
         mscore = score
         mcomment = comment
         this.title_with_id = title_with_id
+        this.interface_type = interface_type
     }
 
     constructor(
@@ -48,7 +51,8 @@ class PerformedTestModel {
         video_url: String,
         scenario: String,
         scenario1: String,
-        title_with_id: String
+        title_with_id: String,
+        interface_type: String?
     ) {
         mid = id
         mstatus = status
@@ -59,6 +63,7 @@ class PerformedTestModel {
         mscenario = scenario
         mscenario1 = scenario1
         this.title_with_id = title_with_id
+        this.interface_type = interface_type
     }
 
 }

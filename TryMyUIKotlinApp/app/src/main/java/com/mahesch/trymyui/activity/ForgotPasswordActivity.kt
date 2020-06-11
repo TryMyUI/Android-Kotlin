@@ -1,9 +1,10 @@
 package com.mahesch.trymyui.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.mahesch.trymyui.R
@@ -12,9 +13,9 @@ import com.mahesch.trymyui.helpers.ProgressDialog
 import com.mahesch.trymyui.helpers.ShowInternetAlert
 import com.mahesch.trymyui.helpers.Utils
 import com.mahesch.trymyui.model.FeedbackModel
-import com.mahesch.trymyui.viewmodels.ForgotPasswordActivityViewModel
 import com.mahesch.trymyui.receivers.ConnectivityReceiver
 import com.mahesch.trymyui.viewmodelfactory.ForgotPasswordViewModelFactory
+import com.mahesch.trymyui.viewmodels.ForgotPasswordActivityViewModel
 import kotlinx.android.synthetic.main.forgot_password_activity.*
 
 class ForgotPasswordActivity : AppCompatActivity(), ConnectivityReceiver.ConnectivityReceiverListener {
@@ -29,9 +30,9 @@ class ForgotPasswordActivity : AppCompatActivity(), ConnectivityReceiver.Connect
 
         initializeProgressDialog()
 
-        btn_reset_password.setOnClickListener(View.OnClickListener { onClickResetPassword() })
+        button_resetpassword.setOnClickListener(View.OnClickListener { onClickResetPassword() })
 
-        tv_return_to_sign_in.setOnClickListener { View.OnClickListener { onClickReturnToSignIn() } }
+        iv_back.setOnClickListener { onClickBackIcon() }
 
         val factory =
             ForgotPasswordViewModelFactory(
@@ -41,8 +42,16 @@ class ForgotPasswordActivity : AppCompatActivity(), ConnectivityReceiver.Connect
 
     }
 
+    private fun onClickBackIcon(){
+        var intent = Intent(this,LoginActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     override fun onBackPressed() {
-        super.onBackPressed()
+        //super.onBackPressed()
+
+        onClickBackIcon()
 
         dismissProgressDialog()
 
@@ -157,7 +166,7 @@ class ForgotPasswordActivity : AppCompatActivity(), ConnectivityReceiver.Connect
 
         if(feedbackModel == null){
 
-            OkAlertDialog.showOkAlert(this.resources.getString(R.string.something_went_wrong))
+            OkAlertDialog.showOkAlert(this.resources.getString(R.string.went_wrong))
         }
         else
         {
@@ -171,7 +180,7 @@ class ForgotPasswordActivity : AppCompatActivity(), ConnectivityReceiver.Connect
 
     fun forgotPasswordErrorHandling(error : Throwable?){
         var okBtn =  OkAlertDialog.initOkAlert(this)
-        OkAlertDialog.showOkAlert(this.resources.getString(R.string.something_went_wrong))
+        OkAlertDialog.showOkAlert(this.resources.getString(R.string.went_wrong))
         okBtn?.setOnClickListener { OkAlertDialog.dismissOkAlert() }
     }
 
@@ -180,6 +189,24 @@ class ForgotPasswordActivity : AppCompatActivity(), ConnectivityReceiver.Connect
 
         if(feedbackModel?.status_code == 200){
             Utils.showToast(this,"Email sent")
+
+
+            //Utils.showErrorDialog1(ForgotPasswordActivity.this, Utils.TAG_ERROR, "This is temporary dialog");
+
+                val statusCode: String = feedbackModel.status_code.toString()
+               var  message = feedbackModel.message
+                if (statusCode.equals("200", ignoreCase = true)) {
+                    rl_password_sent.visibility = View.VISIBLE
+                    findViewById<View>(R.id.tv_lvl_did_forgot_pass).visibility = View.GONE
+                    findViewById<View>(R.id.tv_forgetpassworddesc).visibility = View.GONE
+                    findViewById<View>(R.id.et_email).visibility = View.GONE
+                    findViewById<View>(R.id.button_resetpassword).visibility = View.GONE
+
+                } else {
+                    showErrorDialog(feedbackModel)
+                }
+
+
         }
         else{
             showErrorDialog(feedbackModel)

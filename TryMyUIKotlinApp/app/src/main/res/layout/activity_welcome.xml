@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <TextView
+            android:id="@+id/btn_testwithuniquecode"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55dp"
+            android:layout_marginLeft="@dimen/_25dp"
+            android:layout_marginRight="@dimen/_25dp"
+            android:layout_marginBottom="@dimen/_80dp"
+            android:background="@drawable/gray_border_background"
+            android:fontFamily="@font/helvitica_neue"
+            android:text="@string/testwithuniquecode"
+            android:textAllCaps="false"
+            android:textColor="@color/_5E5E5E"
+            android:textFontWeight="500"
+            android:textSize="@dimen/_16sp"
+            android:textStyle="normal"
+            android:gravity="center"
+            android:letterSpacing="0.04"
+            android:layout_alignParentBottom="true"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_55dp"
+            android:textColor="@color/white"
+            android:text="@string/trymyuiaccount"
+            android:layout_marginLeft="@dimen/_25dp"
+            android:layout_marginRight="@dimen/_25dp"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:textFontWeight="500"
+            android:fontFamily="@font/helvitica_neue"
+            android:textStyle="normal"
+            android:letterSpacing="0.04"
+            android:textAllCaps="false"
+            android:textSize="@dimen/_16sp"
+            android:background="@drawable/trymyuitester_btn_bg"
+            android:id="@+id/btn_tmy_tester"
+            android:gravity="center"
+            android:layout_above="@+id/btn_testwithuniquecode"
+           />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@string/select_opt_to_strt_test"
+            android:layout_marginLeft="@dimen/_25dp"
+            android:textSize="@dimen/_16sp"
+            android:textColor="@color/_7F8690"
+            android:textFontWeight="500"
+            android:fontFamily="@font/helvitica_neue"
+            android:letterSpacing="0.04"
+            android:textStyle="normal"
+            android:id="@+id/tv_lbl_select_opt"/>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/app_name"
+            android:layout_marginLeft="@dimen/_25dp"
+            android:layout_marginBottom="@dimen/_20dp"
+            android:layout_marginTop="@dimen/_4dp"
+            android:textSize="@dimen/_36sp"
+            android:textColor="@color/_88C149"
+            android:textFontWeight="500"
+            android:fontFamily="@font/helvitica_neue"
+            android:letterSpacing="0.04"
+            android:textStyle="normal"
+            android:id="@+id/tv_lbl_appname"
+            android:layout_above="@+id/tv_lbl_select_opt"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_lbl_welcome"
+            android:text="@string/welcome_to"
+            android:layout_marginLeft="@dimen/_25dp"
+            android:layout_marginBottom="@dimen/_4dp"
+            android:textSize="@dimen/_32sp"
+            android:fontFamily="@font/helvitica_neue"
+            android:textStyle="normal"
+            android:textColor="@color/_444444"
+            android:layout_above="@+id/tv_lbl_appname"/>
+
+        <ImageView
+            android:layout_width="@dimen/_70px"
+            android:layout_height="@dimen/_70px"
+            android:layout_marginLeft="@dimen/_25dp"
+            android:layout_marginBottom="@dimen/_35dp"
+            android:layout_above="@+id/tv_lbl_welcome"
+            android:src="@drawable/tmy_png"
+            android:id="@+id/iv_appicon"/>
+
+
+    </RelativeLayout>
+
+
+</ScrollView>
+

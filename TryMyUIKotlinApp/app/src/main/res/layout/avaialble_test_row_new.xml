@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/_160dp"
+    app:cardCornerRadius="@dimen/_4dp"
+    app:cardElevation="@dimen/_3dp"
+    android:layout_marginLeft="@dimen/_20dp"
+    android:layout_marginRight="@dimen/_20dp"
+    android:layout_marginTop="@dimen/_15dp"
+    android:layout_marginBottom="@dimen/_5dp">
+
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:background="@color/white"
+       android:id="@+id/ll_watch_video"
+       android:padding="@dimen/_20dp"
+       android:visibility="visible">
+       
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/testingamobileapp"
+           android:textSize="@dimen/_16sp"
+           android:textStyle="normal"
+           android:textColor="@color/dark_slate_gray"/>
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/tutorialvideodesc"
+           android:textSize="@dimen/_14sp"
+           android:textStyle="normal"
+           android:textColor="@color/_7F8690"
+           android:layout_marginTop="@dimen/_20dp"
+           android:layout_marginBottom="@dimen/_25dp"/>
+
+
+       <Button
+           android:layout_width="match_parent"
+           android:layout_height="@dimen/_40dp"
+           android:background="@drawable/blue_filled_round_border"
+           android:textColor="@color/white"
+           android:text="@string/watchvideo"
+           android:textSize="@dimen/_16sp"
+           android:textAllCaps="false"
+           android:textStyle="normal"
+           android:fontFamily="sans-serif"
+           android:id="@+id/btn_watch_video"/>
+   </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white"
+        android:id="@+id/ll_available_test_row"
+        android:padding="@dimen/_20dp"
+        android:visibility="visible" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rl_testtyp_testid"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mobilewebsitetest"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/tv_test_type"
+                android:textSize="@dimen/_16sp"
+                android:textColor="@color/dark_slate_gray"
+                android:fontFamily="@font/helvetica_neue_1"
+                android:textStyle="normal"
+                android:textFontWeight="500"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/test_id"
+                android:layout_alignParentRight="true"
+                android:id="@+id/tv_testid"
+                android:textSize="@dimen/_14sp"
+                android:textColor="@color/dark_slate_gray"
+                android:fontFamily="@font/helvetica_neue_1"
+                android:textStyle="normal"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_2dp"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TEST SCENARIO"
+            android:id="@+id/tv_test_title"
+            android:textSize="@dimen/_16sp"
+            android:textColor="@color/dark_slate_gray"
+            android:fontFamily="@font/helvetica_neue_1"
+            android:textStyle="normal"
+            android:textFontWeight="500"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/pretestscreenerquest"
+            android:id="@+id/tv_noofpretest"
+            android:textSize="@dimen/_14sp"
+            android:textColor="@color/_7F8690"
+            android:fontFamily="@font/helvetica_neue_1"
+            android:textStyle="normal"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/test_id"
+            android:id="@+id/tv_testid_cust_guest"
+            android:textSize="@dimen/_14sp"
+            android:textColor="@color/_7F8690"
+            android:fontFamily="@font/helvetica_neue_1"
+            android:textStyle="normal"
+            android:layout_marginTop="@dimen/_20dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/testduration"
+            android:id="@+id/tv_testduration"
+            android:textSize="@dimen/_14sp"
+            android:textColor="@color/_7F8690"
+            android:fontFamily="@font/helvetica_neue_1"
+            android:textStyle="normal"
+            android:layout_marginTop="@dimen/_20dp"/>
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40dp"
+            android:background="@drawable/trymyuitester_btn_bg"
+            android:textColor="@color/white"
+            android:text="@string/taketest"
+            android:textSize="@dimen/_16sp"
+            android:id="@+id/btn_taketest"
+            android:textAllCaps="false"
+            android:fontFamily="@font/helvetica_neue_1"
+            android:textStyle="normal"
+            android:layout_marginTop="@dimen/_20dp"/>
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

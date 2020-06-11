@@ -34,14 +34,14 @@ class LoginActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.login_activiy)
 
-        et_email_username.setText("Expert@trymyui.com")
-        et_password.setText("trymyui123")
+        editTextUsername.setText("Expert@trymyui.com")
+        editTextPassword.setText("trymyui123")
 
-        btn_sign_in.setOnClickListener { btnSignInOnClickEvent() }
+        btn_login.setOnClickListener { btnSignInOnClickEvent() }
 
-        tv_forgot_password.setOnClickListener { tvForgotPasswordOnClickEvent() }
+        textview_forget.setOnClickListener { tvForgotPasswordOnClickEvent() }
 
-        tv_guest_login.setOnClickListener { tvGuestLoginOnClickEvent() }
+        guest_testing_btn.setOnClickListener { tvGuestLoginOnClickEvent() }
 
         sharedPrefHelper = SharedPrefHelper(this)
         sharedPrefHelper.clearSharedPreference()
@@ -123,14 +123,14 @@ class LoginActivity : AppCompatActivity(){
             }
         })*/
 
-        loginActivityViewModel.callLogin(et_email_username.text.toString(),et_password.text.toString())
+        loginActivityViewModel.callLogin(editTextUsername.text.toString(),editTextPassword.text.toString())
     }
 
     private fun btnSignInOnClickEvent() {
         if(Utils.isInternetAvailable(this)) {
 
-            val isValidEmail = Utils.isValidEmail(et_email_username.text.toString())
-            val isValidPassword = Utils.isValidPassword(et_password.text.toString())
+            val isValidEmail = Utils.isValidEmail(editTextUsername.text.toString())
+            val isValidPassword = Utils.isValidPassword(editTextPassword.text.toString())
 
             if(isValidEmail && isValidPassword){
 
@@ -139,11 +139,11 @@ class LoginActivity : AppCompatActivity(){
             }
             else{
                 if(!isValidEmail){
-                    Utils.showToast(this,this.resources.getString(R.string.invalid_email))
+                    Utils.showToast(this,this.resources.getString(R.string.invalidemail))
                 }
 
                 if(!isValidPassword){
-                    Utils.showToast(this,this.resources.getString(R.string.invalid_password))
+                    Utils.showToast(this,this.resources.getString(R.string.invalidpass))
                 }
             }
 
@@ -152,25 +152,27 @@ class LoginActivity : AppCompatActivity(){
             Utils.showInternetCheckToast(this)
         }
 
-        Log.e(TAG,"btn_sign_in clicked")
+        Log.e(TAG,"btn_login clicked")
     }
 
     private fun tvForgotPasswordOnClickEvent() {
-        Log.e(TAG,"tv_forgot_password clicked")
+        Log.e(TAG,"textview_forget clicked")
 
         var intent = Intent(this,ForgotPasswordActivity::class.java)
         startActivity(intent)
     }
 
     private fun tvGuestLoginOnClickEvent() {
-        Log.e(TAG,"tv_guest_login clicked")
+        Log.e(TAG,"guest_testing_btn clicked")
 
         var intent = Intent(this,GuestLoginActivity::class.java)
         startActivity(intent)
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        var intent = Intent(this,WelcomeActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onStart() {
@@ -228,7 +230,7 @@ class LoginActivity : AppCompatActivity(){
 
                 sharedPrefHelper.setUserType(userType)
 
-                sharedPrefHelper.saveUserName(et_email_username.text.toString())
+                sharedPrefHelper.saveUserName(editTextUsername.text.toString())
 
               /*  if(userType.equals("worker",true))
                     getGcmToken()*/

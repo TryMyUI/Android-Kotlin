@@ -18,9 +18,11 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager.widget.ViewPager
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.mahesch.trymyui.R
@@ -39,6 +41,7 @@ import com.seattleapplab.trymyui.models.Tests
 import com.seattleapplab.trymyui.models.Tests.*
 import com.seattleapplab.trymyui.models.Tests.PerformedTests.PerformedTest
 import kotlinx.android.synthetic.main.force_update_dialog.*
+import kotlinx.android.synthetic.main.tab_activity.*
 import kotlinx.android.synthetic.main.tab_activity.view.*
 
 class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceiverListener {
@@ -64,6 +67,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
     private lateinit var toolbar: Toolbar
     private lateinit var viewPager: ViewPager
     private lateinit var tabs: TabLayout
+    private lateinit var appbarlayout: AppBarLayout
     private var popupWindow: PopupWindow? = null
     var performed_tests_pages = 0
 
@@ -80,6 +84,20 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
         toolbar = findViewById<Toolbar>(R.id.toolbar_tabactivity)
         viewPager = findViewById<ViewPager>(R.id.viewpager)
         tabs = findViewById<TabLayout>(R.id.tabs)
+        appbarlayout = findViewById<AppBarLayout>(R.id.appbarlayout)
+
+        val params: CoordinatorLayout.LayoutParams = appbarlayout.layoutParams as CoordinatorLayout.LayoutParams
+        Log.e(TAG,"params "+params)
+        val behavior: AppBarLayout.Behavior? = params.behavior as? AppBarLayout.Behavior
+
+        behavior?.setDragCallback(object : AppBarLayout.Behavior.DragCallback() {
+            override fun canDrag(p0: AppBarLayout): Boolean {
+               return false
+            }
+
+        })
+
+
 
         sharedPrefHelper = SharedPrefHelper(this@TabActivity)
 
@@ -115,7 +133,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
         toolbar.menu.clear()
 
-        toolbar.ll_menu.setOnClickListener { v ->
+        toolbar.iv_dashboard_main.setOnClickListener { v ->
             Log.e("TAG", "menuicon click")
             showPopUpMenu(v)
         }
@@ -220,6 +238,10 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
             showProgressDialog()
 
             if(sharedPrefHelper!!.getGuestTester()){
+
+                // TODO for Single available test it show using guest login
+                tabs.setVisibility(View.GONE)
+                tv_lbl_dashboard.text = resources.getString(R.string.trymyui)
                 displayGuestData()
             }
             else if(sharedPrefHelper?.getUserType().equals(sharedPrefHelper?.UserTypeWorker,true))
@@ -228,6 +250,8 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
             }
             else if(sharedPrefHelper?.getUserType().equals(sharedPrefHelper?.UserTypeCustomer,true))
             {
+                tabs.setVisibility(View.GONE)
+                tv_lbl_dashboard.text = resources.getString(R.string.mytests)
                 callCustomer()
             }
             else{
@@ -248,6 +272,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
     private fun displayGuestData(){
         dismissProgressDialog()
         var availableTestModel = intent.getSerializableExtra("availableTestConstant") as AvailableTestModel
+        tv_lbl_dashboard.text = resources.getString(R.string.trymyui)
 
         if(availableTestModel == null){
             OkAlertDialog.initOkAlert(TabActivity@this)?.setOnClickListener { finish() }
@@ -255,12 +280,10 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
         }
         else{
 
-            availableTestModelList.add(0,availableTestModel)
-
             //TO ADD VIDEO ROW
             var availableTestModel_video = AvailableTestModel()
-            availableTestModelList.add(1,availableTestModel_video)
-
+            availableTestModelList.add(0,availableTestModel_video)
+            availableTestModelList.add(1,availableTestModel)
         }
 
         setUpViewPager(viewPager)
@@ -276,12 +299,12 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
         if((userType.equals(sharedPrefHelper?.UserTypeWorker) && !isPendingTest) || sharedPrefHelper!!.getGuestTester()){
             adapter.addFragment(AvailableTestFragment(this,availableTestModelList),"Available Tests")
-            adapter.addFragment(PerformedTestFragment(this,performTestList,0),"Performed Tests")
+            adapter.addFragment(PerformedTestFragment(this,performTestList,0),"Completed Tests")
         }
         else if(userType.equals(sharedPrefHelper?.UserTypeWorker) && isPendingTest){
 
-            adapter.addFragment(AvailableTestFragment(this,availableTestModelList),"Available Tests")
-            adapter.addFragment(PerformedTestFragment(this,performTestList,0),"Performed Tests")
+            adapter.addFragment(AvailableTestFragment(this,availableTestModelList),"Pending Tests")
+            adapter.addFragment(PerformedTestFragment(this,performTestList,0),"Completed Tests")
         }
         else{
             adapter.addFragment(AvailableTestFragment(this,customerTestList),"My Tests")
@@ -656,15 +679,24 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
                         }
 
-                        //TO ADD VIDEO ROW
-                        var availableTestModel_video = AvailableTestModel()
-                        availableTestModelList?.add(availableTestModel_video)
-
-                        Log.e(TAG,"availableTestModelList size "+availableTestModelList.size)
 
 
                         //ADD PERFORM TEST LIST
                         val length: Int = tests?.data?.performedTests?.size!!
+
+                        //TO ADD VIDEO ROW
+                        var availableTestModel_video = AvailableTestModel()
+
+                        if(length>0){
+                            availableTestModelList?.add(availableTestModel_video)
+                        }else{
+                            availableTestModelList?.add(0,availableTestModel_video)
+                        }
+
+
+                        Log.e(TAG,"availableTestModelList size "+availableTestModelList.size)
+
+
 
                         if (length > 0) {
                             for (i in 0 until length) {
@@ -674,9 +706,10 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
                                 val date = t.date
                                 val test1 = t.test
                                 val url = t.url
-                                //           val video_url = t.videoUrl
                                 val scenario = t.scenario
                                 val title_with_id = t.title_with_id
+                                val interface_type = t.interface_type
+
                                 if (t.rating != null) {
                                     val score = t.rating!!.score
                                     val Comment = t.rating!!.comment
@@ -691,7 +724,8 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
                                         scenario!!,
                                         score,
                                         Comment,
-                                        title_with_id!!
+                                        title_with_id!!,
+                                        interface_type
                                     )
                                     performTestList.add(i, performTestConstant)
                                 } else {
@@ -704,8 +738,8 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
                                         "",
                                         scenario!!,
                                         scenario!!,
-                                        title_with_id!!
-                                    )
+                                        title_with_id!!,
+                                        interface_type)
                                     performTestList.add(i, performTestConstant)
                                 }
                             }
@@ -841,7 +875,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
 
             //TO ADD VIDEO ROW
             var availableTestModel_video = AvailableTestModel()
-            customerTestList?.add(availableTestModel_video)
+            customerTestList?.add(0,availableTestModel_video)
 
 
             setUpViewPager(viewPager)

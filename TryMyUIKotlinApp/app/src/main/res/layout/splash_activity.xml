@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_height="match_parent">
+
 
     <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="@dimen/_120dp"
+        android:layout_height="@dimen/_120dp"
         android:layout_centerInParent="true"
-        android:layout_margin="@dimen/mr_10"
-        android:contentDescription="@string/app_name"
-        android:src="@drawable/try_my_ui_logo" />
+        android:src="@drawable/tmy_png"/>
 
 </RelativeLayout>

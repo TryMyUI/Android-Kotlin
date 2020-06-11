@@ -3,18 +3,16 @@ package com.mahesch.trymyui.adapter
 import android.app.Dialog
 import android.content.Intent
 import android.net.Uri
-import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
-import android.view.animation.OvershootInterpolator
+import android.widget.Button
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatButton
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
-import at.blogc.android.views.ExpandableTextView
 import com.mahesch.trymyui.R
 import com.mahesch.trymyui.activity.TabActivity
 import com.mahesch.trymyui.activity.VideoPlayerActivity
@@ -23,14 +21,13 @@ import com.mahesch.trymyui.helpers.*
 import com.mahesch.trymyui.model.AvailableTestModel
 import com.mahesch.trymyui.repository.CheckUseTestAvailabilityRepository
 import com.mahesch.trymyui.retrofitclient.ApiService
-import com.mahesch.trymyui.retrofitclient.RetrofitInstance
 import com.seattleapplab.trymyui.models.TestAvailabilityModel
 import kotlinx.android.synthetic.main.show_gesture_dialog.*
 
 
 class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestModel>,availableTestFragment: AvailableTestFragment) :
     RecyclerView.Adapter<AvailableTestListAdapter.ViewHolder>(),
-    CheckUseTestAvailabilityRepository.ICheckUseTestAvailability{
+    CheckUseTestAvailabilityRepository.ICheckUseTestAvailability {
 
 
     private var availableTestFragment: AvailableTestFragment? = null
@@ -38,15 +35,14 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
     private var userType: String? = null
     private var availableTestList: ArrayList<AvailableTestModel>? = null
 
-    private val TAG: String = com.mahesch.trymyui.adapter.AvailableTestListAdapter::class.java.getSimpleName().toUpperCase()
+     val TAG: String = AvailableTestListAdapter::class.java.simpleName.toUpperCase()
 
-    init
-    {
+    init {
         this.availableTestList = availableTestModelList
         this.availableTestFragment = availableTestFragment
 
-        if(availableTestFragment.activity != null){
-            if(!availableTestFragment.activity!!.isFinishing){
+        if (availableTestFragment.activity != null) {
+            if (!availableTestFragment.activity!!.isFinishing) {
                 mSharedPrefHelper = SharedPrefHelper(availableTestFragment?.activity!!)
                 userType = mSharedPrefHelper?.getUserType()
             }
@@ -55,50 +51,44 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        var container: ConstraintLayout? = null
-        var demo_video_container:ConstraintLayout? = null
-        var TestTitle: TextView? = null
-        var TestURL:TextView? = null
-        var buttonToggle:TextView? = null
-        var TestID:TextView? = null
-        var expandableTextView: ExpandableTextView? = null
-        var button_take_test: AppCompatButton? = null
-        var button_watch_video:AppCompatButton? = null
+        var ll_available_test_row: LinearLayout
+        var ll_watch_video: LinearLayout
+        var rl_testtyp_testid: RelativeLayout
+        var tv_test_type: TextView
+        var tv_testid: TextView
+        var tv_test_title: TextView
+        var tv_noofpretest: TextView
+        var tv_testid_cust_guest: TextView
+        var tv_testduration: TextView
+        var btn_taketest: Button
+        var btn_watch_video: android.widget.Button
 
 
         init {
-            TestTitle = view.findViewById<View>(R.id.textViewTitle) as TextView
-            expandableTextView =
-                view.findViewById<View>(R.id.expandableTextView) as ExpandableTextView
-            buttonToggle = view.findViewById<View>(R.id.button_toggle) as TextView
-            TestURL = view.findViewById<View>(R.id.textViewURL) as TextView
-            TestID = view.findViewById<View>(R.id.textViewTestID) as TextView
-            button_take_test =
-                view.findViewById<View>(R.id.button_take_test) as AppCompatButton
-            container = view.findViewById<View>(R.id.container) as ConstraintLayout
-            demo_video_container =
-                view.findViewById<View>(R.id.demo_video_container) as ConstraintLayout
-            button_watch_video =
-                view.findViewById<View>(R.id.button_watch_video) as AppCompatButton
 
-            // set animation duration via code, but preferable in your layout-sw480dp files by using the animation_duration attribute
-            expandableTextView!!.setAnimationDuration(1000L)
+            Log.e("ViewHolder",""+view)
+            ll_available_test_row = view.findViewById<View>(R.id.ll_available_test_row) as LinearLayout
+            Log.e("ll_available_test_row ",""+ll_available_test_row)
+            ll_watch_video = view.findViewById<View>(R.id.ll_watch_video) as LinearLayout
+            rl_testtyp_testid = view.findViewById<View>(R.id.rl_testtyp_testid) as RelativeLayout
+            tv_test_type = view.findViewById<View>(R.id.tv_test_type) as TextView
+            tv_test_type = view.findViewById<View>(R.id.tv_test_type) as TextView
+            tv_testid = view.findViewById<View>(R.id.tv_testid) as TextView
+            tv_test_title = view.findViewById<View>(R.id.tv_test_title) as TextView
+            tv_noofpretest = view.findViewById<View>(R.id.tv_noofpretest) as TextView
+            tv_testid_cust_guest = view.findViewById<View>(R.id.tv_testid_cust_guest) as TextView
+            tv_testduration = view.findViewById<View>(R.id.tv_testduration) as TextView
+            btn_taketest = view.findViewById<View>(R.id.btn_taketest) as Button
+            btn_watch_video = view.findViewById<View>(R.id.btn_watch_video) as Button
 
-            // set interpolators for both expanding and collapsing animations
-            expandableTextView!!.setInterpolator(OvershootInterpolator())
-
-            // or set them separately
-            expandableTextView!!.setExpandInterpolator(OvershootInterpolator())
-            expandableTextView!!.setCollapseInterpolator(OvershootInterpolator())
         }
-
 
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = LayoutInflater.from(parent.context)
-            .inflate(R.layout.available_test_list_row, parent, false)
+            .inflate(R.layout.avaialble_test_row_new, parent, false)
 
         return AvailableTestListAdapter.ViewHolder(view)
     }
@@ -109,97 +99,93 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
 
     override fun onBindViewHolder(viewHolder: ViewHolder, i: Int) {
 
-        if(availableTestList?.get(i)?.id == 0)
-        {
+        var screenerCount = 0
+
+        if (availableTestList?.get(i)?.id == 0) {
             setVideoContainerVisible(viewHolder)
-        }
-        else
-        {
+        } else {
             setVideoContainerGone(viewHolder)
 
-            commonParametersForGuestWorkerCustomers(viewHolder,availableTestList?.get(i))
+            if (!userType.equals(mSharedPrefHelper!!.UserTypeCustomer, ignoreCase = true))
+                screenerCount = preTestCountDisplay(viewHolder, availableTestList?.get(i)!!, screenerCount)
+            else
+                viewHolder.tv_noofpretest!!.visibility = View.GONE
+
+
+            setButtonTextAndBackground(viewHolder, availableTestList?.get(i)!!, screenerCount, i)
 
             // FOR PENDING TEST (MEANS ONLY WORKER COZ GUEST AND CUSTOMER DOESN'T HAS PENDING STATE)
-            if(TabActivity.isPendingTest && userType.equals(mSharedPrefHelper?.UserTypeWorker)){
-
-                displayPendingRow(viewHolder,availableTestList?.get(i))
+            if (TabActivity.isPendingTest && userType.equals(mSharedPrefHelper?.UserTypeWorker))
+            {
+                displayPendingRow(viewHolder, availableTestList?.get(i))
             }
-            else if(mSharedPrefHelper!!.getGuestTester()){
-                displayGuestRows(viewHolder,availableTestList?.get(i))
+            else if (mSharedPrefHelper!!.getGuestTester())
+            {
+                displayGuestRows(viewHolder, availableTestList?.get(i))
             }
-            else if(userType.equals(mSharedPrefHelper?.UserTypeWorker,true)){
+            else if (userType.equals(mSharedPrefHelper?.UserTypeWorker, true))
+            {
 
-                Log.e(TAG,"model in adapter "+availableTestList?.get(i))
-                displayWorkerRows(viewHolder,availableTestList?.get(i))
+                Log.e(TAG, "model in adapter " + availableTestList?.get(i))
+                displayWorkerRows(viewHolder, availableTestList?.get(i))
             }
             else //USER IS CUSTOMER
             {
-                displayCustomerRows(viewHolder,availableTestList?.get(i))
+                displayCustomerRows(viewHolder, availableTestList?.get(i))
             }
         }
-
-
-
 
 
     }
 
 
-    interface TakeTestClickedListener{
+    interface TakeTestClickedListener {
 
         fun takeTestClicked(availableTestModel: AvailableTestModel?)
     }
 
 
-    private fun setVideoContainerVisible(viewHolder: ViewHolder){
-        viewHolder.container?.visibility = View.GONE
-        viewHolder.demo_video_container?.visibility = View.VISIBLE
+    private fun setVideoContainerVisible(viewHolder: ViewHolder) {
+        viewHolder.ll_available_test_row?.visibility = View.GONE
+        viewHolder.ll_watch_video?.visibility = View.VISIBLE
 
-        viewHolder.button_watch_video?.setOnClickListener(View.OnClickListener {
+        viewHolder.btn_watch_video?.setOnClickListener(View.OnClickListener {
 
-            availableTestFragment!!.activity!!.startActivity(Intent(availableTestFragment!!.activity, VideoPlayerActivity::class.java))
+            availableTestFragment!!.activity!!.startActivity(
+                Intent(
+                    availableTestFragment!!.activity,
+                    VideoPlayerActivity::class.java
+                )
+            )
 
             //availableTestFragment!!.activity!!.finish()
         })
     }
 
-    private fun setVideoContainerGone(viewHolder: ViewHolder){
-        viewHolder.container!!.visibility = View.VISIBLE
-        viewHolder.demo_video_container!!.visibility = View.GONE
+    private fun setVideoContainerGone(viewHolder: ViewHolder) {
+        viewHolder.ll_available_test_row!!.visibility = View.VISIBLE
+        viewHolder.ll_watch_video!!.visibility = View.GONE
     }
 
-    private fun commonParametersForGuestWorkerCustomers(viewHolder: ViewHolder,availableTestModel: AvailableTestModel?){
 
-        if (availableTestModel?.interface_type.equals("web",true)) {
-            viewHolder.TestTitle!!.text = "Mobile website test"
+    private fun displayPendingRow(viewHolder: ViewHolder, availableTestModel: AvailableTestModel?) {
+        viewHolder.btn_taketest?.text = "Resume test"
+        viewHolder.btn_taketest?.isClickable = true
+
+        viewHolder.rl_testtyp_testid?.visibility = View.VISIBLE
+        viewHolder.tv_testid!!.text = availableTestFragment!!.activity!!!!.resources.getString(R.string.test_id)
+                .toString() + "" + availableTestModel?.id
+
+        if (availableTestModel?.interface_type.equals("web", true)) {
+            viewHolder.tv_test_type!!.text = availableTestFragment!!.resources.getString(R.string.mobilewebsitetest)
         } else {
-            viewHolder.TestTitle!!.text = "Mobile app test"
+            viewHolder.tv_test_type!!.text = availableTestFragment!!.resources.getString(R.string.mobilewebsitetest)
         }
 
-        //  viewHolder.TestTitle.setText(availableTestConstants.get(i).getTitle());
-        viewHolder.expandableTextView!!.text = Html.fromHtml(availableTestModel?.scenario)
+        viewHolder.tv_test_title!!!!.visibility = View.GONE
+        viewHolder.tv_testid_cust_guest!!!!.visibility = View.GONE
 
-        viewHolder.expandableTextView!!.post { // Use lineCount here
-            val lineCount = viewHolder.expandableTextView!!.lineCount
-            if (lineCount > 2) {
-                Log.e(TAG, "Post")
-                viewHolder.buttonToggle!!.visibility = View.VISIBLE
-                viewHolder.expandableTextView!!.maxLines = 2
-            } else {
-                viewHolder.buttonToggle!!.visibility = View.INVISIBLE
-            }
-        }
-
-        viewHolder.TestURL?.text = ""+availableTestModel?.url
-
-        viewHolder.TestID?.text = "" + availableTestModel?.id
-    }
-
-    private fun displayPendingRow(viewHolder: ViewHolder,availableTestModel: AvailableTestModel?){
-        viewHolder.button_take_test?.text = "PROCEED TO SURVEY"
-        viewHolder.button_take_test?.isClickable = true
-
-        viewHolder.button_take_test!!.setOnClickListener {
+        viewHolder.btn_taketest!!.setOnClickListener {
 
             if(availableTestModel?.id == 0){
                 //SHOW TOAST
@@ -211,15 +197,24 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
             }
 
         }
+
+
     }
 
-    private fun displayGuestRows(viewHolder: ViewHolder,availableTestModel: AvailableTestModel?){
+    private fun displayGuestRows(viewHolder: AvailableTestListAdapter.ViewHolder, availableTestModel: AvailableTestModel?){
 
-        viewHolder.button_take_test?.isClickable = true
+        viewHolder.btn_taketest?.isClickable = true
 
         var testerPlatform = availableTestModel?.tester_platform
 
-        viewHolder.button_take_test?.setOnClickListener{
+        viewHolder.rl_testtyp_testid?.visibility = View.GONE
+        viewHolder.tv_noofpretest?.visibility = (View.GONE)
+        viewHolder.tv_test_title?.visibility = (View.VISIBLE)
+        viewHolder.tv_test_title?.text = (availableTestModel?.title)
+        viewHolder.tv_testid_cust_guest?.visibility = (View.VISIBLE)
+        viewHolder.tv_testid_cust_guest?.text = ("Test ID : " + availableTestModel?.id)
+
+        viewHolder.btn_taketest?.setOnClickListener{
 
             if(Utils.patternMatchForAndroid(testerPlatform))
             {
@@ -236,27 +231,43 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
 
     private fun displayWorkerRows(viewHolder: ViewHolder,availableTestModel: AvailableTestModel?){
 
-        viewHolder.button_take_test?.isClickable = true
+        viewHolder.btn_taketest?.isClickable = true
 
-        viewHolder.button_take_test?.setOnClickListener{
+        viewHolder.rl_testtyp_testid!!.visibility = View.VISIBLE
+        viewHolder.tv_testid!!.text = availableTestFragment!!.activity!!.resources.getString(R.string.test_id)
+                .toString() + "" + availableTestModel?.id
+
+        if (availableTestModel?.interface_type.equals("web",true))
+        {
+            viewHolder.tv_test_type!!.text = availableTestFragment!!.resources.getString(R.string.mobilewebsitetest)
+        }
+        else
+        {
+            viewHolder.tv_test_type!!.text = availableTestFragment!!.resources.getString(R.string.mobilewebsitetest)
+        }
+        viewHolder.tv_test_title!!.visibility = View.GONE
+        viewHolder.tv_testid_cust_guest!!.visibility = View.GONE
+
+        viewHolder.btn_taketest?.setOnClickListener{
             showGestureDialog(availableTestModel)
         }
     }
 
-    private fun displayCustomerRows(viewHolder: ViewHolder,availableTestModel: AvailableTestModel?){
+    private fun displayCustomerRows(viewHolder: AvailableTestListAdapter.ViewHolder, availableTestModel: AvailableTestModel?){
 
-        viewHolder.button_take_test?.isClickable = true
-        viewHolder.button_take_test?.text = "Preview test"
+        viewHolder.btn_taketest?.isClickable = true
+        viewHolder.btn_taketest?.text = "Preview test"
 
         var testerPlatform = availableTestModel?.tester_platform
 
-        if(Utils.patternMatchForAndroid(testerPlatform)){
-            viewHolder.button_take_test!!.setBackgroundResource(R.drawable.rounded_text_box_with_border)
-        }else{
-            viewHolder.button_take_test!!.setBackgroundResource(R.drawable.rounded_gray_filled)
-        }
+        viewHolder.rl_testtyp_testid?.visibility = View.GONE
+        viewHolder.tv_noofpretest?.visibility = (View.GONE)
+        viewHolder.tv_test_title?.visibility = (View.VISIBLE)
+        viewHolder.tv_test_title?.text = (availableTestModel?.title)
+        viewHolder.tv_testid_cust_guest?.visibility = (View.VISIBLE)
+        viewHolder.tv_testid_cust_guest?.text = ("Test ID : " + availableTestModel?.id)
 
-        viewHolder.button_take_test?.setOnClickListener{
+        viewHolder.btn_taketest?.setOnClickListener{
 
             if(Utils.patternMatchForAndroid(testerPlatform))
             {
@@ -270,7 +281,71 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
         }
     }
 
+    private fun setButtonTextAndBackground(viewHolder: AvailableTestListAdapter.ViewHolder, availableTestConstant: AvailableTestModel,
+                                           screenerCount: Int, i: Int) {
 
+        if (TabActivity.isPendingTest)
+        {
+            viewHolder.btn_taketest?.text = availableTestFragment!!.resources.getString(R.string.resume_test)
+            viewHolder.tv_testduration?.text = availableTestFragment!!.resources.getString(R.string.completepostsurvey)
+        }
+        else
+        {
+            viewHolder.tv_testduration?.text = availableTestFragment!!.activity!!.resources.getString(R.string.testduration)
+                .toString() + " " + availableTestList?.get(i)?.recording_timeout_minutes + " min"
+
+            if (userType.equals(mSharedPrefHelper!!.UserTypeCustomer, ignoreCase = true))
+            {
+                viewHolder.btn_taketest?.text = availableTestFragment!!.resources.getString(R.string.proceedtosurvey)
+            }
+            else {
+                if (screenerCount > 0) {
+                    viewHolder.btn_taketest?.text = availableTestFragment!!.resources.getString(R.string.checkeligibilty)
+                }
+                else
+                {
+                    viewHolder.btn_taketest?.text = availableTestFragment!!.resources.getString(R.string.taketest)
+                }
+            }
+        }
+    }
+
+    private fun preTestCountDisplay(
+        viewHolder: AvailableTestListAdapter.ViewHolder,
+        availableTestConstant: AvailableTestModel,
+        screenerCount: Int): Int {
+
+        var screenerCount = screenerCount
+
+        if (availableTestConstant.specialQalification != null)
+        {
+            if (availableTestConstant.specialQalification!!.length > 0)
+            {
+                screenerCount += 1
+            }
+        }
+        if (availableTestConstant.technicalQualification != null)
+        {
+            if (availableTestConstant.technicalQualification!!.length > 0)
+            {
+                screenerCount += 1
+            }
+        }
+        if (availableTestConstant.screener_test_available!!)
+        {
+            screenerCount += 1
+        }
+        if (screenerCount > 0)
+        {
+            viewHolder.tv_noofpretest?.visibility = View.VISIBLE
+            viewHolder.tv_noofpretest?.text = availableTestFragment!!.resources.getString(R.string.pretestsurvey)
+        }
+        else
+        {
+            viewHolder.tv_noofpretest?.setVisibility(View.GONE)
+        }
+        return screenerCount
+    }
 
     private fun showOkAlertForPcMacTestOrIos(testerPlatform : String?){
 
@@ -328,7 +403,7 @@ class AvailableTestListAdapter(availableTestModelList: ArrayList<AvailableTestMo
             else
             {
                 Log.e(TAG,"customer doesn't check for useTestAvailability")
-               // availableTestFragment?.temporaryFlow(availableTestModel)
+                // availableTestFragment?.temporaryFlow(availableTestModel)
                 ManageFlowBeforeRecording(availableTestModel,availableTestFragment?.context!!).moveToWhichActivity(0)
             }
 

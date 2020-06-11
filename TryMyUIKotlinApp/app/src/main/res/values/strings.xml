@@ -1,30 +1,32 @@
 <resources>
-
-    <string name="current_app_server_version_release">3.9</string>
+    <string name="app_name">TryMyUI</string>
+    <string name="alert">Alert</string>
     <string name="device">android</string>
-
-    <string name="app_name">TMULoginModule</string>
-
-    <string name="loading_progress_dialog">Loading...</string>
-    <string name="internet_check">Please check your internet connection and try again</string>
-    <string name="invalid_email">Invalid Email</string>
-    <string name="invalid_password">Invalid Password</string>
-    <string name="email_blank">Please enter your email Id</string>
-    <string name="password_blank">Please enter password</string>
-    <string name="test_id_blank">Please enter Test Id</string>
-    <string name="something_went_wrong">Something went wrong. \nPlease try again later.</string>
-    <string name="download_apk">Download APK</string>
-    <string name="download_apk_msg">You will be downloading client\'s native application. \nOnce download completes, install apk on to your device.</string>
-    <string name="downloading_apk_msg">Downloading APK</string>
-    <!--OK_ALERT_WINDOW-->
-    <string name="ok_alert">OK</string>
-    <string name="alert">Alert!</string>
-
+    <string name="didyouforgetpassword">Did you forget your password?</string>
+    <string name="forgotpassword">Forgot Password</string>
+    <string name="sendFeedback">Send feedback</string>
+    <string name="reportissue">Report an issue</string>
+    <string name="leavetest">Leave test</string>
+    <string name="forgetpassworddesc">Please submit the email address associated with your account and we will send you a password reset link.</string>
+    <string name="enteryourregisteredemail">Enter your registered email...</string>
+    <string name="submit">Submit</string>
+    <string name="typeyourfeedbackhere">Type your feedback here...</string>
+    <string name="sendFeedbackdesc">Please be specific to help us address your feeback. For exmample, If feedback concerns a test, please add the test ID. Thank you.</string>
+    <string name="howtotakeatesttrymyui">How to take a test with TryMyUI</string>
+    <string name="testingamobileapp">Example: Testing a Mobile App</string>
+    <string name="tutorialvideodesc">Watch this tutorial video to learn everything you need to know in order to be the best
+                                    tester</string>
+    <string name="watchvideo">Watch video</string>
+    <string name="ok_alert">Ok</string>d
+    <string name="something_went_wrong">Something went wrong. Please try again later.</string>
+    <string name="welcome_to">Welcome to</string>
     <string name="example_video">Example video:</string>
     <string name="how_to_test"><u>How to test</u></string>
     <string name="checkUpdates">Checking update.</string>
     <string name="are_you_sure_update_app">New version available.</string>
     <string name="yes">Yes</string>
+    <string name="yes_i_do">Yes, I do</string>
+    <string name="no_i_dont">No, I don\'t</string>
     <string name="no">No</string>
     <string name="later">Later</string>
     <string name="rating">Rate</string>
@@ -63,13 +65,27 @@
     </string>
     <string name="finish_recording">If you have completed this test, hit the Finish Recording button below.\n\nYour Recording will be auto-saved to your device, and you will be asked to confirm it for upload.
     </string>
+    <string name="haveauniquetestcode">Have a unique test code?</string>
+    <string name="pleaseeneterlogininformation">Please enter login information below</string>
+    <string name="pleaseentertestcodebasicinfo">Please enter test code and basic info</string>
+    <string name="areyouatrymyuitester">Are you a TryMyUI tester? </string>
+    <string name="fullname">Full name</string>
+    <string name="testcode">Test code</string>
+    <string name="special_requirements">Special requirements</string>
+    <string name="technical_requirements">Technical requirements</string>
+    <string name="no_available_test">There are currently no available tests. \n Please check back soon.</string>
+    <string name="non_disclosure_agreement">Non-disclosure agreement</string>
+    <string name="nda_checkbox_text">I have read, understand and agree</string>
 
+    <string name="clickHere">Click here</string>
     <string name="link_to_open_app"><u>Install app</u></string>
     <string name="link_to_open_web"><u>Open test website</u></string>
-
+    <string name="trymyuitester">TryMyUI Tester</string>
+    <string name="trymyuiaccount">TryMyUI account</string>
+    <string name="testwithuniquecode">Test with unique code</string>
     <string name="gotoframeofmind"><u>Go to Frame of Mind </u></string>
-
-    <string name="returntotask"><t><u>Back to tasks</u></t>   </string>
+    <string name="select_opt_to_strt_test">Select an option below to start testing</string>
+    <string name="returntotask"><u>Back to tasks</u></string>
     <string name="gotofirsttask">Go to first task &gt;</string>
     <string name="recordingtimeup">Your recording time limit has been reached. Do you want to upload video?</string>
     <string name="upload">Upload</string>
@@ -95,7 +111,10 @@
     <string name="no_ux_corwd_que">There are no UX Crowd questions available for this test.</string>
     <string name="name">Name:</string>
     <string name="test_id">Test ID:</string>
+    <string name="login">Log in</string>
+    <string name="forgotPass">Forgot password?</string>
     <string name="continu">Continue</string>
+    <string name="begin_test">Begin test</string>
     <string name="special_criteria_title">Special Criteria</string>
     <string name="technical_criteria_title">Technical Criteria</string>
     <string name="please_note">Please Note:</string>
@@ -117,6 +136,7 @@
         Please say what you are looking at and describe what you are seeing and thinking.
 
     </string>
+    <string name="questionshotformbold"><b>Q</b></string>
 
     <string name="impressiontest_message_landscape">
         When you hit "Start the Test" we will show you a website for 15 secounds.
@@ -146,7 +166,7 @@
     </string>
     <string name="singup">SIGN IN</string>
 
-    <string name="dnd_message">Testing sessions interrupted by texts, calls, or background noises may get rejected. Consider turning on Do Not Disturb mode.
+    <string name="dnd_message">Testing sessions interrupted by texts, calls, or background noises may get rejected. Consider turning on di mode.
        </string>
 
     <string name="dnd_permission_message">You can find this in
@@ -159,6 +179,7 @@
     <string name="title_for_bubble_permission">Turn on UI bubble permissions</string>
     <string name="message_for_bubble_permission">You must permit drawing over other apps in order to start this test.</string>
     <string name="update_app_message">Please update to latest version of the Android Mobile App. For any help using the Android app, please send an email to support@trymyui.com.</string>
+    <string name="guest_screener_fail">Unfortunately, you do not qualify to take this test based on the criteria set by the researchers. Thank you for your interest.</string>
 
     <!--  <string-array name="permission_list">
         <item>Manifest.permission.RECORD_AUDIO</item>
@@ -203,9 +224,11 @@
     <string name="ready_to_test">Ready to test!</string>
     <string name="finish">Finish</string>
     <string name="enabled_gesture">Have you enabled \"Show touches\" Gesture?</string>
-    <string name="assist_gesture_touch"><b>Turn on \"Show taps\" before you start!</b></string>
-    <string name="yes_take_to_link"><u>Yes, show me again</u></string>
-    <string name="no_already_enabled"><u>It\'s already enabled</u></string>
+    <string name="assist_gesture_touch"><b>Turn on \"Show taps\"</b></string>
+    <string name="yes_take_to_link">Yes, show me again</string>
+    <string name="back_bashboard">Back to dashboard</string>
+    <string name="sry_not_eligble">Sorry, you are not eligible</string>
+    <string name="no_already_enabled">Show taps already enabled</string>
     <string name="need_help_gesture_recording">Need help turning on gesture recording?</string>
     <string name="permission_denied_text">You must allow this permission in order to perform TryMyUI tests, or we will not be able to collect and share your complete feedback with the customer.</string>
     <string name="exit">Exit</string>
@@ -284,7 +307,6 @@
     <string name="uploading_face_video">Uploading Face recording video. \n Please wait</string>
     <string name="instruction_face_recording">Instruction for Face Recording</string>
 
-
     <string name="lorem_ipsum">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s
         standard dummy text ever since the 1500s,
         when an unknown printer took a galley of type and scrambled it to make a type specimen book.
@@ -293,11 +315,62 @@
         sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
         like Aldus PageMaker including versions of Lorem Ipsum.</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="taketest">Take test</string>
+    <string name="checkeligibilty">Check eligibility</string>
+    <string name="previewtest">Preview test</string>
+    <string name="ïpaprocessing">IPA processing</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="mytests">My tests</string>
+    <string name="trymyui">TryMyUI</string>
+    <string name="testid">Test ID: </string>
+    <string name="testduration">Test duration: </string>
+    <string name="mobilewebsitetest">Mobile website test</string>
+    <string name="mobileapptest">Mobile app test</string>
+    <string name="pretestscreenerquest">pre-test screener questions</string>
+    <string name="rejected">REJECTED</string>
+    <string name="abandoned">ABANDONED</string>
+    <string name="paid">PAID</string>
+    <string name="pending">PENDING</string>
+    <string name="pending_customer_approval">PENDING CUSTOMER APPROVAL</string>
+    <string name="accpeted">ACCEPTED</string>
+    <string name="proceedtosurvey">Proceed to survey</string>
+    <string name="answerthequestionbelow">Please answer the question below</string>
+    <string name="confirm">Confirm</string>
+    <string name="resume_test">Resume test</string>
+    <string name="completepostsurvey">Please complete the post test survey</string>
+    <string name="pretestsurvey">Includes pre-test screener survey</string>
+    <string name="youarenowreadytostarttest">You are now ready to start this test</string>
+    <string name="donotdisturbnew">Please turn on \"Do not disturb\" if you have \n not already. Remember to speak clearly.</string>
+    <string name="invalidemail">Email Address not valid</string>
+    <string name="invalidpass">Password invalid</string>
+    <string name="invalidtestid">Test id not valid</string>
+    <string name="invalidusername">Username not valid</string>
+    <string name="passwordresetemail">Please check your email for instructions to reset your password.</string>
+    <string name="feedbacksentmessage">Thank you for your feedback.\n We really appreciate it and will get back to you.</string>
+    <string name="starttestmsg">Tap "\Start test\" when you\'re ready to start recording</string>
 
-    <string name="pcmac_test">This test is not available for android. You can perform this test on Desktop.</string>
-    <string name="ios_test">This test is not available for android. You can perform this test on iPhone/iPad.</string>
-    <string name="leave_test_question">Are you sure you want to leave this test?</string>
-    <string name="bubble_cancel_confirm">This will end your test and you will be redirected to your TryMyUI dashboard</string>
+
+
+<string name="current_app_server_version_release">4.1</string>
+
+
+<string name="loading_progress_dialog">Loading...</string>
+<string name="internet_check">Please check your internet connection and try again</string>
+<string name="invalid_email">Invalid Email</string>
+<string name="invalid_password">Invalid Password</string>
+<string name="email_blank">Please enter your email Id</string>
+<string name="password_blank">Please enter password</string>
+<string name="test_id_blank">Please enter Test Id</string>
+<string name="download_apk">Download APK</string>
+<string name="download_apk_msg">You will be downloading client\'s native application. \nOnce download completes, install apk on to your device.</string>
+<string name="downloading_apk_msg">Downloading APK</string>
+
+
+<!-- TODO: Remove or change this placeholder text -->
+<string name="hello_blank_fragment">Hello blank fragment</string>
+
+<string name="pcmac_test">This test is not available for android. You can perform this test on Desktop.</string>
+<string name="ios_test">This test is not available for android. You can perform this test on iPhone/iPad.</string>
+<string name="leave_test_question">Are you sure you want to leave this test?</string>
+<string name="bubble_cancel_confirm">This will end your test and you will be redirected to your TryMyUI dashboard</string>
 </resources>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="@dimen/_10dp">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:cardCornerRadius="@dimen/_4dp"
+        app:cardBackgroundColor="@color/dark_slate_gray">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sendFeedback"
+                android:gravity="center"
+                android:id="@+id/tv_menu_feedback"
+                android:padding="@dimen/_15dp"
+                android:textSize="@dimen/_12sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/dark_slate_gray"
+                android:id="@+id/vw_sendfeedback"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/reportissue"
+                android:gravity="center"
+                android:id="@+id/tv_menu_reportissue"
+                android:padding="@dimen/_15dp"
+                android:textSize="@dimen/_12sp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/dark_slate_gray"
+                android:id="@+id/vw_reportissue"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/leavetest"
+                android:gravity="center"
+                android:id="@+id/tv_menu_leavetest"
+                android:padding="@dimen/_15dp"
+                android:textSize="@dimen/_12sp"/>
+
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="@color/dark_gray"
+                android:id="@+id/vw_leavtest"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Logout"
+                android:id="@+id/tv_menu_logout"
+                android:padding="@dimen/_15dp"
+                android:textSize="@dimen/_12sp"/>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

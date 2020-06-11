@@ -1,91 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/shadow_layout_orange"
-    android:orientation="vertical"
-    android:weightSum="1">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.85"
-        android:orientation="vertical"
-        android:padding="@dimen/_10dp">
+        android:layout_height="@dimen/_110dp"
+        android:background="@color/white">
 
+        <ImageView
+            android:layout_width="@dimen/_12dp"
+            android:layout_height="@dimen/_18dp"
+            android:src="@drawable/back_arrow_vector"
+            android:layout_marginLeft="@dimen/_25dp"
+            android:layout_marginTop="@dimen/_62dp"
+            android:layout_alignParentLeft="true"
+            android:id="@+id/iv_back" />
 
-        <RelativeLayout
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           android:layout_centerHorizontal="true"
+            android:text="@string/sendFeedback"
+            android:textStyle="normal"
+            android:fontFamily="@font/helvitica_neue"
+            android:textFontWeight="500"
+            android:letterSpacing="0.04"
+            android:textSize="@dimen/_24sp"
+            android:textColor="@color/dark_slate_gray"
+            android:layout_marginTop="@dimen/_56dp"/>
+
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/light_grey"
-            android:padding="@dimen/_10dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textview_feedback"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/feedback_text"
-                android:textColor="@color/textcolor_grey"
-                android:textSize="@dimen/text_size_semi_medium" />
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textStyle="normal"
+                android:text="@string/sendFeedbackdesc"
+                android:layout_marginLeft="@dimen/_25dp"
+                android:layout_marginRight="@dimen/_25dp"
+                android:layout_marginTop="@dimen/_70dp"
+                app:layout_constraintTop_toBottomOf="@+id/vw"
+                android:lineSpacingExtra="@dimen/_7dp"
+                android:textSize="@dimen/_16sp"
+                android:textColor="#7F8690"
+                android:id="@+id/tv_forgetpassworddesc"
+                android:fontFamily="@font/helvetica_neue_1"
+                android:textFontWeight="500"
+                android:letterSpacing="0.04"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_250dp"
+                android:layout_marginTop="@dimen/_50dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_forgetpassworddesc"
+                android:layout_marginLeft="@dimen/_25dp"
+                android:layout_marginRight="@dimen/_25dp"
+                android:background="@drawable/white_fill_round_corner"
+                android:hint="@string/typeyourfeedbackhere"
+                android:gravity="top"
+                android:paddingLeft="@dimen/_15dp"
+                android:paddingTop="@dimen/_10dp"
+                android:textColor="@color/_7F8690"
+                android:textStyle="normal"
+                android:fontFamily="@font/helvetica_neue_1"
+                android:textFontWeight="500"
+                android:letterSpacing="0.04"
+                android:textSize="@dimen/_16sp"
+                android:id="@+id/editTextFeedback"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_55dp"
+                android:background="@drawable/trymyuitester_btn_bg"
+                android:layout_marginLeft="@dimen/_25dp"
+                android:layout_marginRight="@dimen/_25dp"
+                android:layout_marginBottom="@dimen/_30dp"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:textSize="@dimen/_16sp"
+                android:text="@string/sendFeedback"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/editTextFeedback"
+                android:layout_marginTop="@dimen/_35dp"
+                android:textAllCaps="false"
+                android:id="@+id/buttonOk"
+                android:textStyle="normal"
+                android:fontFamily="@font/helvetica_neue_1"
+                android:textFontWeight="500"
+                android:letterSpacing="0.04"/>
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/textview_feedback"
-                android:layout_marginTop="@dimen/_10dp"
-                android:background="@drawable/rectangle_border"
-                android:paddingTop="@dimen/_5dp">
+                android:layout_height="@dimen/_200dp"
+                android:background="@color/white"
+                android:layout_margin="@dimen/_30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/rl_feedback_sent"
+                android:visibility="gone">
 
-                <EditText
-                    android:id="@+id/editTextFeedback"
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="left|top"
-                    android:hint="@string/feedback_hint"
-                    android:inputType="textMultiLine"
-                    android:scrollbars="vertical"
-                    android:digits="qwertyuiopasdfghjklzxcvbnm 1234567890 QWERTYUIOPASDFGHJKLZXCVBNM !@#$%^&amp;*()_-+=`~,.?/':;"
-                    android:textSize="@dimen/text_size_semi_medium">
+                    android:fontFamily="@font/helvitica_neue"
+                    android:textFontWeight="500"
+                    android:letterSpacing="0.04"
+                    android:layout_centerInParent="true"
+                    android:layout_marginBottom="@dimen/_50dp"
+                    android:layout_marginLeft="@dimen/_20dp"
+                    android:layout_marginRight="@dimen/_30dp"
+                    android:textColor="@color/_444444"
+                    android:textSize="@dimen/_16sp"
+                    android:text="@string/feedbacksentmessage"/>
 
-                    <requestFocus />
-                </EditText>
+
+
             </RelativeLayout>
-        </RelativeLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.15"
-        android:orientation="horizontal"
-        android:padding="@dimen/_10dp"
-        android:weightSum="2">
 
 
-        <Button
-            android:id="@+id/buttonCancel"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@color/light_grey"
-            android:text="@string/cancel"
-            android:textColor="@color/textcolor_grey"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/buttonOk"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/_10dp"
-            android:layout_weight="1"
-            android:background="@color/try_my_ui_green"
-            android:text="@string/send"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_25dp"
-            android:textStyle="bold" />
+    </androidx.core.widget.NestedScrollView>
 
 
-    </LinearLayout>
 </LinearLayout>
+
+

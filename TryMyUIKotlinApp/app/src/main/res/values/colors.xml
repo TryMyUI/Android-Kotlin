@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="try_my_ui_green">#6FA530</color>
+    <color name="try_my_ui_green">#6FA530</color><!---->
     <color name="trymyui_color_blackshade">#354f17</color>
     <color name="background_blue">#34D3D6</color>
     <color name="dark_blue">#2db5b7</color>
     <color name="white">#FFFFFF</color>
+    <color name="_AAAAAA">#AAAAAA</color>
     <color name="text_grey">#797979</color>
     <color name="text_list_text_color">#777777</color>
     <color name="darker_grey">#E7E6E7</color>
@@ -16,17 +17,19 @@
     <!-- 5 colors shades of radio button-->
     <color name="orange">#EA8F11</color>
     <color name="red">#F04124</color>
+    <color name="_F4523D">#f4523D</color>
     <color name="yellow">#F2FF06</color>
     <color name="light_green">#AAD522</color>
     <color name="green">#79AE37</color>
     <color name="textcolor_darkgrey">#6c6c6c</color>
     <color name="black">#000000</color>
-
+    <color name="_88C149">#88C149</color>
     <color name="edittext_background">#c8c8c8</color>
-
+    <color name="_444444">#444444</color>
     <!-- Compelte task -->
     <color name="yes_click">#006400</color>
     <color name="no_click">#851a07</color>
+    
 
     <!-- SEQ rating color-->
     <color name="rate1">#BB3B27</color>
@@ -41,6 +44,7 @@
     <color name="blue_tranparent">#8034D3D6</color>
     <color name="green_tranparent">#006400</color>
     <color name="try_my_ui_red_transparent">#90F04124</color>
+    <color name="_4A90E2">#4A90E2</color>
 
 
     <color name="dark_slate_gray">#444444</color>
@@ -50,11 +54,12 @@
     <color name="snow">#fbfbfb</color>
 
     <color name="transparent">#00000080</color>
-
-    <color name="colorPrimary">#a5a5a5</color>
-    <color name="colorPrimaryDark">#444444</color>
-    <color name="colorAccent">#d3d3d3</color>
-
+    <color name="_5E5E5E">#5e5e5e</color>
+    <color name="_C1C5C7">#C1C5C7</color>
+    <color name="_DEECFF">#DEECFF</color>
+    <color name="_008CBA">#008CBA</color>
+    <color name="_7F8690">#7F8690</color>
+    <color name="_EBEBEB">#EBEBEB</color>
 
 
 </resources>

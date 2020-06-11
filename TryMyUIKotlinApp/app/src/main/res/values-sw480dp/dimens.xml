@@ -54,4 +54,27 @@
 	<dimen name="button_for_task_recorder">49.5dp</dimen>
 	<dimen name="button_for_task_recorder_landscape">38.5dp</dimen>
 	<dimen name="_220dp">242dp</dimen>
+	<dimen name="_188px">225.6dp</dimen>
+	<dimen name="_70px">84dp</dimen>
+	<dimen name="_39px">46.8dp</dimen>
+	<dimen name="_255dp">306dp</dimen>
+	<dimen name="_32sp">38.4sp</dimen>
+	<dimen name="_145dp">174dp</dimen>
+	<dimen name="_44dp">52.8dp</dimen>
+	<dimen name="_298dp">357.6dp</dimen>
+	<dimen name="_36sp">43.2sp</dimen>
+	<dimen name="_272dp">326.4dp</dimen>
+	<dimen name="_24dp">28.8dp</dimen>
+	<dimen name="_362dp">434.4dp</dimen>
+	<dimen name="_325dp">390dp</dimen>
+	<dimen name="_602dp">722.4dp</dimen>
+	<dimen name="_677dp">812.4dp</dimen>
+	<dimen name="_155dp">186dp</dimen>
+	<dimen name="_110dp">132dp</dimen>
+	<dimen name="_18dp">21.6dp</dimen>
+	<dimen name="_62dp">74.4dp</dimen>
+	<dimen name="_29dp">34.8dp</dimen>
+	<dimen name="_56dp">67.2dp</dimen>
+	<dimen name="_140dp">168dp</dimen>
+	<dimen name="_320dp">384dp</dimen>
 </resources>
