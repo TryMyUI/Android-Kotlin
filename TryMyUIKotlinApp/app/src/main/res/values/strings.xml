@@ -350,27 +350,26 @@
     <string name="starttestmsg">Tap "\Start test\" when you\'re ready to start recording</string>
 
 
-
-<string name="current_app_server_version_release">4.1</string>
-
-
-<string name="loading_progress_dialog">Loading...</string>
-<string name="internet_check">Please check your internet connection and try again</string>
-<string name="invalid_email">Invalid Email</string>
-<string name="invalid_password">Invalid Password</string>
-<string name="email_blank">Please enter your email Id</string>
-<string name="password_blank">Please enter password</string>
-<string name="test_id_blank">Please enter Test Id</string>
-<string name="download_apk">Download APK</string>
-<string name="download_apk_msg">You will be downloading client\'s native application. \nOnce download completes, install apk on to your device.</string>
-<string name="downloading_apk_msg">Downloading APK</string>
+    <string name="current_app_server_version_release">4.1</string>
 
 
-<!-- TODO: Remove or change this placeholder text -->
-<string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="loading_progress_dialog">Loading...</string>
+    <string name="internet_check">Please check your internet connection and try again</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_password">Invalid Password</string>
+    <string name="email_blank">Please enter your email Id</string>
+    <string name="password_blank">Please enter password</string>
+    <string name="test_id_blank">Please enter Test Id</string>
+    <string name="download_apk">Download APK</string>
+    <string name="download_apk_msg">You will be downloading client\'s native application. \nOnce download completes, install apk on to your device.</string>
+    <string name="downloading_apk_msg">Downloading APK</string>
 
-<string name="pcmac_test">This test is not available for android. You can perform this test on Desktop.</string>
-<string name="ios_test">This test is not available for android. You can perform this test on iPhone/iPad.</string>
-<string name="leave_test_question">Are you sure you want to leave this test?</string>
-<string name="bubble_cancel_confirm">This will end your test and you will be redirected to your TryMyUI dashboard</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="pcmac_test">This test is not available for android. You can perform this test on Desktop.</string>
+    <string name="ios_test">This test is not available for android. You can perform this test on iPhone/iPad.</string>
+    <string name="leave_test_question">Are you sure you want to leave this test?</string>
+    <string name="bubble_cancel_confirm">This will end your test and you will be redirected to your TryMyUI dashboard</string>
 </resources>

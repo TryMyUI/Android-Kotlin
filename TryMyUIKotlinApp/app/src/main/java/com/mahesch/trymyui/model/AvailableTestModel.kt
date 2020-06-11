@@ -41,7 +41,9 @@ data class AvailableTestModel(  var id: Int? = 0,
                               var sus_scales: String? = null,
                               var opt_for_face_recording: Boolean? = false,
                               var recorder_orientation: String? = null,
-                              var technicalQualification: String? = null) : Serializable {
+                              var technicalQualification: String? = null,
+                                var nda_agreement_url: String? = null,
+                                var isNda: Boolean? = false) : Serializable {
 
 
 

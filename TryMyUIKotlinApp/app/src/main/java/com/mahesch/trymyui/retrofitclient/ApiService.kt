@@ -223,8 +223,15 @@ class ApiService{
         fun doneRecording(@Body body: JsonObject): Call<JsonObject>
 
 
+        @FormUrlEncoded
+        @POST("/api/v2/worker/save_nda_response")
+        fun submitNdaResponseForWorker(@Field("at") token: String?, @Field("test_id") testId: String?,
+            @Field("nda_response") nda_response: Boolean): Call<FeedbackModel>
 
-
+        @FormUrlEncoded
+        @POST("/api/v2/worker/save_nda_response")
+        fun submitNdaResponseForGuest(@Field("email") email: String?, @Field("test_id") testId: String?,
+            @Field("nda_response") nda_response: Boolean): Call<FeedbackModel>
 
 
     }

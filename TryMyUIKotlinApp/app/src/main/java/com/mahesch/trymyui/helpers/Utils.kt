@@ -19,6 +19,7 @@ import android.util.Log
 import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
 import com.amulyakhare.textdrawable.TextDrawable
 import com.google.android.gms.common.ConnectionResult
@@ -64,6 +65,20 @@ class Utils {
 
 
             return isConnected
+        }
+
+        fun getRootDirPath(context: Context): String? {
+            var str: String? = null
+            str = if (Environment.MEDIA_MOUNTED === Environment.getExternalStorageState()) {
+                val file = ContextCompat.getExternalFilesDirs(
+                    context.applicationContext,
+                    null
+                )[0]
+                file.absolutePath
+            } else {
+                context.applicationContext.filesDir.absolutePath
+            }
+            return str
         }
 
 

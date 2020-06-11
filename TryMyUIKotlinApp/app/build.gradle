@@ -83,6 +83,10 @@ dependencies {
     //FOR MARKET NAME
     implementation 'com.jaredrummler:android-device-names:1.1.8'
 
+    //PDFVIEWER
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+    implementation 'com.mindorks.android:prdownloader:0.6.0'
+
     implementation files('libs/aws-android-sdk-cognito-2.6.18.jar')
     implementation files('libs/aws-android-sdk-cognitoidentityprovider-2.6.18.jar')
     implementation files('libs/aws-android-sdk-core-2.6.18.jar')

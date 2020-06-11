@@ -5,7 +5,6 @@ import android.widget.TextView
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
-import kotlin.collections.ArrayList
 
 class Tests {
     var message: String? = null
@@ -36,7 +35,7 @@ class Tests {
                 private set
             var is_kind_partial_site_text: String? = null
             var opt_for_task_completion = false
-            private var opt_for_seq = false
+             var opt_for_seq = false
             var do_impression_test = false
             var tester_platform: String? = null
             var identity_id: String? = null
@@ -64,17 +63,13 @@ class Tests {
             var tasks: List<Tasks>? = null
             var ux_crowd_questions: List<UXCrowdSurvey>? = null
 
-            fun setopt_for_seq(seq: Boolean) {
-                opt_for_seq = seq
-            }
+            @Expose
+            @SerializedName("nda_agreement")
+             var isNda = false
 
-            fun getopt_for_seq(): Boolean {
-                return opt_for_seq
-            }
-
-            fun setIs_kind_partial_site(is_kind_partial_site: Boolean) {
-                this@MyTest.is_kind_partial_site = is_kind_partial_site
-            }
+            @Expose
+            @SerializedName("nda_agreement_url")
+             var nda_agreement_url: String? = null
 
         }
     }
@@ -101,7 +96,7 @@ class Tests {
                 private set
             var is_kind_partial_site_text: String? = null
             var opt_for_task_completion = false
-            private var opt_for_seq = false
+             var opt_for_seq = false
             var do_impression_test = false
             var tester_platform: String? = null
             var title_with_id: String? = null
@@ -163,18 +158,15 @@ class Tests {
             @Expose
             var susScales: SusScales? = null
 
-            fun setopt_for_seq(seq: Boolean) {
-                opt_for_seq = seq
-            }
 
-            fun getopt_for_seq(): Boolean {
-                return opt_for_seq
-            }
+            @SerializedName("nda_agreement")
+            @Expose
+             var isNda = false
 
-            fun setIs_kind_partial_site(is_kind_partial_site: Boolean) {
-                this@AvailableTest.is_kind_partial_site = is_kind_partial_site
-            }
 
+            @SerializedName("nda_agreement_url")
+            @Expose
+             var nda_agreement_url: String? = null
         }
     }
 

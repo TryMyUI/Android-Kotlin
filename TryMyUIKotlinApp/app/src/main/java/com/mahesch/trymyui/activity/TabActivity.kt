@@ -591,6 +591,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
                             uxCrowdSurvey = "[]"
                         }
 
+
                         var availableTestModel = AvailableTestModel(id, pos, title, url, null, scenario, surveyQuestions,null,
                             interface_type, susQuestion, null, uxCrowdSurvey, null, title_with_id,
                             null, null, null , null, null,
@@ -658,7 +659,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
                             }
 
                             val do_impression_test: Boolean? = availableTest?.do_impression_test
-                            val seq_task: Boolean? = availableTest?.getopt_for_seq()
+                            val seq_task: Boolean? = availableTest?.opt_for_seq
                             val task_complete: Boolean? = availableTest?.opt_for_task_completion
 
                             val screener_test_avaialable: Boolean? = availableTest?.screener_test_available
@@ -666,6 +667,8 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
                             val opt_for_face_recording: Boolean? = availableTest?.opt_for_face_recording
                             val recorder_orientation: String? = availableTest?.recorder_orientation
                             val technical_qualification: String? = availableTest?.technical_qual
+                            val nda_agreement_url = availableTest?.nda_agreement_url
+                            val isNda = availableTest?.isNda
 
                             var availableTestModel = AvailableTestModel(id, pos, title, url, tasks, scenario, surveyQuestions, special_qual,
                                 interface_type, susQuestion, tester_platform, uxCrowdSurvey, is_kind_partial_site_text, title_with_id,
@@ -673,7 +676,8 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
                                 is_kind_partial_site, screener_test_avaialable, isVoting, response_type_list, good_question,
                                 bad_question, suggestion_question, good_response_question_id, bad_response_question_id,
                                 suggestion_response_question_id, max_voting_limit, goodResponsesArrayList, badResponsesArrayList,
-                                suggestionResponsesArrayList, npsQuestion, sus_scales, opt_for_face_recording, recorder_orientation, technical_qualification)
+                                suggestionResponsesArrayList, npsQuestion, sus_scales, opt_for_face_recording,
+                                recorder_orientation, technical_qualification,nda_agreement_url,isNda)
 
                             availableTestModelList?.add(availableTestModel)
 
@@ -852,7 +856,7 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
                 }
 
                 val do_impression_test: Boolean? = availableTest?.do_impression_test
-                val seq_task: Boolean? = availableTest?.getopt_for_seq()
+                val seq_task: Boolean? = availableTest?.opt_for_seq
                 val task_complete: Boolean? = availableTest?.opt_for_task_completion
 
                 val screener_test_avaialable: Boolean? = false
@@ -860,6 +864,8 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
                 val opt_for_face_recording: Boolean? = availableTest?.opt_for_face_recording
                 val recorder_orientation: String? = availableTest?.recorder_orientation
                 val technical_qualification: String? = availableTest?.technical_qual
+                val nda_agreement_url : String? = availableTest?.nda_agreement_url
+                val isNda : Boolean? = availableTest?.isNda
 
                 var availableTestModel = AvailableTestModel(id, pos, title, url, tasks, scenario, surveyQuestions, special_qual,
                     interface_type, susQuestion, tester_platform, uxCrowdSurvey, is_kind_partial_site_text, title_with_id,
@@ -867,7 +873,9 @@ class TabActivity : AppCompatActivity(),ConnectivityReceiver.ConnectivityReceive
                     is_kind_partial_site, screener_test_avaialable, isVoting, response_type_list, good_question,
                     bad_question, suggestion_question, good_response_question_id, bad_response_question_id,
                     suggestion_response_question_id, max_voting_limit, goodResponsesArrayList, badResponsesArrayList,
-                    suggestionResponsesArrayList, npsQuestion, sus_scales, opt_for_face_recording, recorder_orientation, technical_qualification)
+                    suggestionResponsesArrayList, npsQuestion, sus_scales,
+                    opt_for_face_recording, recorder_orientation, technical_qualification,
+                    nda_agreement_url,isNda)
 
                 customerTestList?.add(availableTestModel)
 

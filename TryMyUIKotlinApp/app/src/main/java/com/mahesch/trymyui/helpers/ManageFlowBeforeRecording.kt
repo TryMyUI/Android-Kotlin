@@ -13,7 +13,7 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
     val technicalQualification: String? = availableTestModel?.technicalQualification
     val screenerEligibility: Boolean? = availableTestModel?.screener_test_available
     val faceRecording: Boolean? = availableTestModel?.opt_for_face_recording
-
+     val isNda =  availableTestModel?.isNda
     val isScreenerEligibilityVisited = false
     var context = context
     var availableTestModel = availableTestModel
@@ -53,11 +53,23 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
 
     private fun postDashBoard()
     {
-        if(specialQualification != null && specialQualification.length >0)
+        if(isNda!!)
         {
-            context.startActivity(Intent(context,SpecialQualificationActivity::class.java).putExtra("availableTestConstants",availableTestModel))
+            context.startActivity(Intent(context,NdaActivity::class.java).putExtra("availableTestConstants",availableTestModel))
         }
         else {
+            postNda()
+        }
+    }
+
+    private fun postNda() {
+        if (specialQualification != null && specialQualification.length > 0) {
+            Log.e(TAG, "special qual found")
+            context.startActivity(Intent(context, SpecialQualificationActivity::class.java)
+                .putExtra("availableTestConstants",availableTestModel)
+            )
+        } else {
+            Log.e(TAG, "post spec qual in nda")
             postSpecQual()
         }
     }

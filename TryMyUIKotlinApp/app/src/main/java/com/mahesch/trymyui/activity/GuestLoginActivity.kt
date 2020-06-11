@@ -182,7 +182,7 @@ class GuestLoginActivity : AppCompatActivity() {
                     }
 
                     val do_impression_test: Boolean? = availableTest?.do_impression_test
-                    val seq_task: Boolean? = availableTest?.getopt_for_seq()
+                    val seq_task: Boolean? = availableTest?.opt_for_seq
                     val task_complete: Boolean? = availableTest?.opt_for_task_completion
 
                     val screener_test_avaialable: Boolean? = availableTest?.screener_test_available
@@ -190,6 +190,8 @@ class GuestLoginActivity : AppCompatActivity() {
                     val opt_for_face_recording: Boolean? = availableTest?.opt_for_face_recording
                     val recorder_orientation: String? = availableTest?.recorder_orientation
                     val technical_qualification: String? = availableTest?.technical_qual
+                    val nda_agreement_url : String? = availableTest?.nda_agreement_url
+                    val isNda : Boolean? = availableTest?.isNda
 
                     availableTestModel = AvailableTestModel(
                         id,
@@ -229,8 +231,9 @@ class GuestLoginActivity : AppCompatActivity() {
                         sus_scales,
                         opt_for_face_recording,
                         recorder_orientation,
-                        technical_qualification
-                    )
+                        technical_qualification,
+                        nda_agreement_url,
+                    isNda)
 
 
                 }
