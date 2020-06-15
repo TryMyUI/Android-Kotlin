@@ -47,7 +47,9 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
     private fun callPerformTestActivity(){
 
         Log.e(TAG,"model before perform test "+availableTestModel)
-        context.startActivity(Intent(context,PerformTestActivity::class.java).putExtra("availableTestConstants",availableTestModel))
+        context.startActivity(Intent(context,PerformTestActivity::class.java)
+            .putExtra("availableTestConstants",availableTestModel))
+        (context as Activity).finish()
     }
 
 
@@ -56,6 +58,7 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
         if(isNda!!)
         {
             context.startActivity(Intent(context,NdaActivity::class.java).putExtra("availableTestConstants",availableTestModel))
+            (context as Activity).finish()
         }
         else {
             postNda()
@@ -65,9 +68,10 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
     private fun postNda() {
         if (specialQualification != null && specialQualification.length > 0) {
             Log.e(TAG, "special qual found")
-            context.startActivity(Intent(context, SpecialQualificationActivity::class.java)
-                .putExtra("availableTestConstants",availableTestModel)
-            )
+            context.startActivity(Intent(context, SpecialQualificationActivity::class.java).putExtra("availableTestConstants",availableTestModel))
+
+            (context as Activity).finish()
+
         } else {
             Log.e(TAG, "post spec qual in nda")
             postSpecQual()
@@ -79,6 +83,8 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
 
         if(technicalQualification != null && technicalQualification.length > 0){
             context.startActivity(Intent(context,TechnicalQualificationActivity::class.java).putExtra("availableTestConstants",availableTestModel))
+
+            (context as Activity).finish()
         }
         else {
             postTechQual()
@@ -88,6 +94,8 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
     private fun postTechQual(){
         if(screenerEligibility != null && screenerEligibility && !ApplicationClass.isScreenerVisited){
             context.startActivity(Intent(context,ScreenerEligibilityActivity::class.java).putExtra("availableTestConstants",availableTestModel))
+
+            (context as Activity).finish()
         }
         else {
             postScreenerEligibility()
@@ -97,6 +105,7 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
 
     private fun postFaceWarn(){
 
+
         callPerformTestActivity()
     }
 
@@ -104,6 +113,8 @@ class ManageFlowBeforeRecording(availableTestModel: AvailableTestModel?, context
 
         if(faceRecording != null && faceRecording ){
             context.startActivity(Intent(context,FaceRecordingInfoActivity::class.java).putExtra("availableTestConstants",availableTestModel))
+
+            (context as Activity).finish()
         }else{
             callPerformTestActivity()
         }

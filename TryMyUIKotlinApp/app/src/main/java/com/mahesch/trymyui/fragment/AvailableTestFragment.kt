@@ -194,6 +194,7 @@ class AvailableTestFragment(activity: Activity,availableTestList: ArrayList<Avai
         else{
             ManageFlowBeforeRecording(availableTestModel,activity).moveToWhichActivity(0)
             activity.finish()
+            context
 
         }
 
