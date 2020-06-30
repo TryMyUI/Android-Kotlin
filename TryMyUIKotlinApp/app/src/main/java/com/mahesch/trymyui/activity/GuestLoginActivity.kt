@@ -75,28 +75,51 @@ class GuestLoginActivity : AppCompatActivity() {
     }
 
 
+    private fun checkValidation(): Boolean {
+        val email: String = et_email.text.toString()
+        var isValid = true
+        Log.e(TAG, "valid email " + Utils.isValidEmail(email))
+        if (!Utils.isValidEmail(email)) {
+            isValid = false
+            et_email.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+            et_email.setHintTextColor(resources.getColor(R.color._F4523D))
+            if (et_email.getText().toString().length > 0) {
+                et_email.setText("")
+                et_email.hint = resources.getString(R.string.invalidemail)
+                et_email.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+                et_email.setHintTextColor(resources.getColor(R.color._F4523D))
+            } else {
+                et_email.hint = "Email"
+                et_email.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+                et_email.setHintTextColor(resources.getColor(R.color._F4523D))
+            }
+        }
+        if (et_name.getText().toString().trim({ it <= ' ' }).length <= 0) {
+            isValid = false
+            et_name.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+            et_name.setHintTextColor(resources.getColor(R.color._F4523D))
+            et_name.hint = "Username"
+        }
+        if (et_test_id.getText().toString().trim({ it <= ' ' }).length <= 0) {
+            isValid = false
+            et_test_id.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+            et_test_id.setHintTextColor(resources.getColor(R.color._F4523D))
+            et_test_id.hint = "Test Id"
+        }
+        return isValid
+    }
+    
     private fun onClickGuestLogin(){
 
         if(Utils.isInternetAvailable(this)){
 
-            if(Utils.isValidName(et_name.text.toString()) &&
-                Utils.isValidEmail(et_email.text.toString()) &&
-                Utils.isValidTestId(et_test_id.text.toString())){
+            if(checkValidation()){
 
                 showProgressDialog()
 
                 guestLogin()
             }
-            else{
-                if(!(Utils.isValidName(et_name.text.toString())))
-                    et_name.error = "Name"
 
-                if(!Utils.isValidEmail(et_email.text.toString()))
-                    et_email.error = "Email"
-
-                if(!Utils.isValidTestId(et_test_id.text.toString()))
-                    et_test_id.error = "Test id"
-            }
         }
         else{
             //PROMPT DIALOGUE

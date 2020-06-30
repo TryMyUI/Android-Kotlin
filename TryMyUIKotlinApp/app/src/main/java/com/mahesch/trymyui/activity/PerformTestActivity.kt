@@ -21,19 +21,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.FileProvider
 import com.mahesch.trymyui.R
+import com.mahesch.trymyui.helpers.ManageFlowAfterTest
+import com.mahesch.trymyui.helpers.ProgressDialog
+import com.mahesch.trymyui.helpers.Utils
+import com.mahesch.trymyui.helpers.YesNoAlertDialog
 import com.mahesch.trymyui.model.AvailableTestModel
 import com.mahesch.trymyui.receivers.BrowserIntentReceiver
 import com.mahesch.trymyui.services.NativeAppRecordingService
 import kotlinx.android.synthetic.main.perform_test_activity.*
-import java.util.*
-import kotlin.collections.ArrayList
-import android.content.Context
-import android.content.Intent
-import com.mahesch.trymyui.helpers.*
 import java.io.BufferedInputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.net.URL
+import java.util.*
+import kotlin.collections.ArrayList
 
 class PerformTestActivity : AppCompatActivity() {
 
@@ -70,6 +71,8 @@ class PerformTestActivity : AppCompatActivity() {
             moveToHome()
         }
 
+
+        isServiceStarted = false
         Log.e(TAG,"availableTestModel in perform test "+availableTestModel)
 
 
@@ -193,6 +196,8 @@ class PerformTestActivity : AppCompatActivity() {
 
         if(availableTestModel?.interface_type.equals("app",true)){
 
+        //    goToInstallAppActivity()
+
             // new apk uploading code
             if (native_app_test != null) {
                 if (!native_app_test.equals("", ignoreCase = true)) {
@@ -225,7 +230,7 @@ class PerformTestActivity : AppCompatActivity() {
         else{
             if (native_app_test != null) {
                 if (!native_app_test.equals("", ignoreCase = true)) {
-
+                //    goToInstallAppActivity()
                     val file = File(Utils.getNativeAppTestApkPath())
 
                     if (file.exists()) {
@@ -252,6 +257,13 @@ class PerformTestActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    private fun goToInstallAppActivity() {
+        val intent = Intent(this, InstallAppActivity::class.java)
+        intent.putExtra("availableTestConstants", availableTestModel)
+        startActivity(intent)
+        finish()
     }
 
     private fun moveToHome(){
@@ -543,7 +555,12 @@ class PerformTestActivity : AppCompatActivity() {
 
             //STOP IF SERVICE IS ALREADY RUNNING
             if(isService){
+                Log.e(TAG,"isService $isService")
                 stopService(Intent(this,NativeAppRecordingService::class.java))
+            }
+            else
+            {
+                Log.e(TAG,"isServiceStarted is true")
             }
 
             //START A NEW SERVICE AND SEND ALL INFO
@@ -555,6 +572,11 @@ class PerformTestActivity : AppCompatActivity() {
             bindService(intent,serviceConnection,Context.BIND_AUTO_CREATE)
 
             openBrowser()
+
+          //  finish()
+        }
+        else{
+            Log.e(TAG,"isServiceStarted False")
         }
 
     }
@@ -566,7 +588,7 @@ class PerformTestActivity : AppCompatActivity() {
 
         var pendingIntent = PendingIntent.getBroadcast(this,0,receiver,PendingIntent.FLAG_UPDATE_CURRENT)
         var intentBrowser = Intent(Intent.ACTION_VIEW)
-        intentBrowser.setData(Uri.parse(availableTestModel?.url))
+        intentBrowser.data = Uri.parse(availableTestModel?.url)
         intentBrowser.putExtra(Browser.EXTRA_APPLICATION_ID,this.packageName)
         startActivity(Intent.createChooser(intentBrowser,"Choose browser",pendingIntent.intentSender))
         finish()
@@ -593,6 +615,7 @@ class PerformTestActivity : AppCompatActivity() {
             //start new service and send all info
             val intent = Intent(this@PerformTestActivity, NativeAppRecordingService::class.java)
             intent.putExtra("availableTestConstants", availableTestModel)
+            intent.putExtra("packageName", app_package_name)
 
             startService(intent)
             bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
@@ -667,7 +690,23 @@ class PerformTestActivity : AppCompatActivity() {
         }
     }
 
+    override fun onPause() {
+        super.onPause()
 
+
+       if (bound) {
+            unbindService(serviceConnection)
+        }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        if (bound) {
+            unbindService(serviceConnection)
+        }
+    }
 
 
 

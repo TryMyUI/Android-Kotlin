@@ -351,7 +351,8 @@
 
 
     <string name="current_app_server_version_release">4.1</string>
-
+    <string name="installapptext">To take this test please\ninstall the customers app \n on your device</string>
+    <string name="installapp">Install App</string>
 
     <string name="loading_progress_dialog">Loading...</string>
     <string name="internet_check">Please check your internet connection and try again</string>

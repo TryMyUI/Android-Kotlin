@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fl_perform_test_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_110dp"
+        android:background="@color/white"
+        android:id="@+id/rl_testdetails"
+        android:layout_alignParentTop="true"
+        android:elevation="@dimen/_10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Test details"
+            android:textColor="@color/dark_slate_gray"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/_24sp"
+            android:textFontWeight="500"
+            android:textStyle="normal"
+            android:letterSpacing="0.04"
+            android:layout_marginTop="@dimen/_60dp"/>
+
+        <LinearLayout
+            android:layout_width="@dimen/_20dp"
+            android:layout_height="@dimen/_20dp"
+            android:orientation="vertical"
+            android:id="@+id/ll_three_dots"
+            android:layout_marginTop="@dimen/_60dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/_30dp"
+            android:layout_marginRight="@dimen/_30dp"
+            android:layout_centerHorizontal="true">
+
+            <ImageView
+                android:layout_width="@dimen/_5dp"
+                android:layout_height="@dimen/_5dp"
+                android:src="@drawable/ic_grey_dot"
+                android:layout_marginBottom="@dimen/_3dp"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:layout_width="@dimen/_5dp"
+                android:layout_height="@dimen/_5dp"
+                android:src="@drawable/ic_grey_dot"
+                android:layout_marginBottom="@dimen/_3dp"
+                android:layout_gravity="center"/>
+
+            <ImageView
+                android:layout_width="@dimen/_5dp"
+                android:layout_height="@dimen/_5dp"
+                android:src="@drawable/ic_grey_dot"
+                android:layout_marginBottom="@dimen/_3dp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_lbl_youarenowready"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_testdetails"
+        android:layout_marginTop="@dimen/_50dp"
+        android:layout_marginLeft="@dimen/_40dp"
+        android:layout_marginRight="@dimen/_40dp"
+        android:fontFamily="@font/helvitica_neue"
+        android:gravity="center"
+        android:text="@string/installapptext"
+        android:textColor="@color/_444444"
+        android:textSize="@dimen/_24sp"
+        android:textStyle="normal"
+        android:letterSpacing="0.04"
+        android:lineSpacingExtra="@dimen/_10dp"/>
+
+
+
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/leavetest"
+        android:textFontWeight="500"
+        android:fontFamily="@font/helvitica_neue"
+        android:layout_alignParentBottom="true"
+        android:textStyle="normal"
+        android:textColor="@color/_008CBA"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/_50dp"
+        android:id="@+id/tv_leave_test"
+        android:letterSpacing="0.04"
+        android:textSize="@dimen/_16sp"/>
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_55dp"
+        android:layout_marginLeft="@dimen/_20dp"
+        android:layout_marginRight="@dimen/_20dp"
+        android:layout_marginBottom="@dimen/_20dp"
+        android:background="@drawable/trymyuitester_btn_bg"
+        android:textStyle="normal"
+        android:textFontWeight="500"
+        android:letterSpacing="0.04"
+        android:fontFamily="@font/helvitica_neue"
+        android:text="@string/installapp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:id="@+id/btn_install_app"
+        android:textSize="@dimen/_16sp"
+        android:layout_above="@+id/tv_leave_test"/>
+
+
+
+
+
+
+
+
+</RelativeLayout>
+
+

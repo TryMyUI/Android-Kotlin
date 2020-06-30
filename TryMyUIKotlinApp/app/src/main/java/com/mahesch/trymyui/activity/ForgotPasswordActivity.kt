@@ -102,7 +102,19 @@ class ForgotPasswordActivity : AppCompatActivity(), ConnectivityReceiver.Connect
                 resetPassword()
             }
             else {
-                et_email.error = "Email"
+                et_email.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+                et_email.setHintTextColor(resources.getColor(R.color._F4523D))
+
+                if (et_email.getText().toString().length > 0) {
+                    et_email.setText("")
+                    et_email.hint = resources.getString(R.string.invalidemail)
+                    et_email.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+                    et_email.setHintTextColor(resources.getColor(R.color._F4523D))
+                } else {
+                    et_email.hint = "Email"
+                    et_email.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+                    et_email.setHintTextColor(resources.getColor(R.color._F4523D))
+                }
             }
         }
         else

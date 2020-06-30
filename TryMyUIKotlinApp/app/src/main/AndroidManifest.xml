@@ -58,7 +58,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme">
-        <activity android:name=".activity.NdaActivity"></activity>
+        <activity android:name=".activity.InstallAppActivity"></activity>
+        <activity android:name=".activity.NdaActivity" />
         <activity
             android:name=".activity.StartRecorderActivity"
             android:excludeFromRecents="true"

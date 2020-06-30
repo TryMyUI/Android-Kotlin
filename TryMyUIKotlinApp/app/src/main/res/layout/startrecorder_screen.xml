@@ -34,7 +34,7 @@
                 android:paddingTop="@dimen/_15dp"
                 android:paddingRight="@dimen/_10dp"
                 android:paddingBottom="@dimen/_15dp"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:id="@+id/textview_dnd_title"
@@ -922,7 +922,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_420dp"
                     android:background="@drawable/transparent_background"
-                    android:visibility="visible">
+                    android:visibility="gone">
 
 
                     <ImageView

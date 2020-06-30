@@ -100,52 +100,70 @@ class LoginActivity : AppCompatActivity(){
 
 
     private fun login(){
-
-       /* loginActivityViewModel.callLogin(et_email_username.text.toString(),et_password.text.toString())?.observe(this,object : Observer<LoginResponseModel>{
-            override fun onChanged(loginResponseModel: LoginResponseModel) {
-
-                dismissProgressDialog()
-
-                if(loginResponseModel == null){
-                    //SHOW SOMETHING WENT WRONG DIALOG
-                    showErrorDialog(loginResponseModel)
-                }
-                else{
-                    if(loginResponseModel.error == null){
-                        Log.e("LOGINACTIVITY","CHECK LOGIN CALLED")
-                        callLoginResponseHandling(loginResponseModel)
-                    }
-                    else{
-                        var error: Throwable? = loginResponseModel.error
-                        callLoginErrorHandling(error)
-                    }
-                }
-            }
-        })*/
-
         loginActivityViewModel.callLogin(editTextUsername.text.toString(),editTextPassword.text.toString())
+    }
+
+    fun checkValidation(): Boolean {
+        val username = editTextUsername.text.toString()
+        val password = editTextPassword.text.toString()
+        var isValid = true
+
+        if (!Utils.isValidEmail(username))
+        {
+            isValid = false
+            editTextUsername.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+            editTextUsername.setHintTextColor(resources.getColor(R.color._F4523D))
+
+            if (editTextUsername.text.toString().length > 0)
+            {
+                editTextUsername.setText("")
+                editTextUsername.hint = resources.getString(R.string.invalidemail)
+                editTextUsername.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+                editTextUsername.setHintTextColor(resources.getColor(R.color._F4523D))
+            }
+            else
+            {
+                editTextUsername.hint = "Email"
+                editTextUsername.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+                editTextUsername.setHintTextColor(resources.getColor(R.color._F4523D))
+            }
+        }
+
+
+        if (password.trim { it <= ' ' }.length <= 3)
+        {
+            isValid = false
+            editTextPassword.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+            editTextPassword.setHintTextColor(resources.getColor(R.color._F4523D))
+
+            if (editTextPassword.text.toString().length > 0)
+            {
+                editTextPassword.setText("")
+                editTextPassword.hint = resources.getString(R.string.invalidpass)
+                editTextPassword.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+                editTextPassword.setHintTextColor(resources.getColor(R.color._F4523D))
+            }
+            else
+            {
+                editTextPassword.hint = "Password"
+                editTextPassword.background = resources.getDrawable(R.drawable.red_round_border_white_fill)
+                editTextPassword.setHintTextColor(resources.getColor(R.color._F4523D))
+            }
+        }
+        return isValid
     }
 
     private fun btnSignInOnClickEvent() {
         if(Utils.isInternetAvailable(this)) {
 
-            val isValidEmail = Utils.isValidEmail(editTextUsername.text.toString())
-            val isValidPassword = Utils.isValidPassword(editTextPassword.text.toString())
 
-            if(isValidEmail && isValidPassword){
+
+            if(checkValidation()){
 
                 showProgressDialog()
                 login()
             }
-            else{
-                if(!isValidEmail){
-                    Utils.showToast(this,this.resources.getString(R.string.invalidemail))
-                }
 
-                if(!isValidPassword){
-                    Utils.showToast(this,this.resources.getString(R.string.invalidpass))
-                }
-            }
 
         } else {
             //PROMPT DIALOGUE

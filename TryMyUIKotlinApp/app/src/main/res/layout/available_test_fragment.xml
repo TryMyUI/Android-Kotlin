@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/rl_for_video"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_margin="@dimen/_20dp"
         android:background="@drawable/rect_grey_round_border_grey_fill"
         android:padding="@dimen/_10dp">

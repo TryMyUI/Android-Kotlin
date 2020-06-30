@@ -64,7 +64,6 @@ import java.io.Serializable
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.security.auth.login.LoginException
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
 
@@ -253,6 +252,8 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
 
     override fun onDestroy() {
         super.onDestroy()
+
+        Log.e(TAG,"onDestroy");
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -312,8 +313,64 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
     private fun init(){
 
 
+        isServiceStarted = true
+        isTabHere = false
+        taskCount = 0
+        doneTask = false
+        goToFirstTaskTextSetting = false
+        recordingTimeUp = false
+        specialQualification  = false
+        timerHasStarted = false
+        doImpressionTest = false
+        isKindTest = false
+        completeImpressionTest = false
+        doneFirstClick = false
+
+        // recorder started or not
+        isRecorderStarted = false
+
+        countForTryAgainVideoUpload = 0
+        countForTryAgainFaceVideoUpload = 0
+
+        taskTimings = HashMap<String,String>()
+        seqRatings  = java.util.HashMap<String, String>()
+        completeTaskRating =  java.util.HashMap<String, String>()
+
+        // todo PauseRecording
+
+        // todo PauseRecording
+        isRecording = false
+
+        allSubVideoFiles = Collections.synchronizedList(java.util.ArrayList<Any?>())
+        allFaceRecordingVideoFiles = Collections.synchronizedList(java.util.ArrayList<Any>())
+
+        fileNameTemp = ""
+        milisecRemain = 0
+        faceRecordingFileNameTemp = ""
+        startRecordingCheckTestAvailableAPI = false
+
+        // TODO : initialisation of recorder
+        /// media recorder created here to keep single global object for native app recorder in StartNativeAppRecorder class
+
+        // TODO : initialisation of recorder
+        /// media recorder created here to keep single global object for native app recorder in StartNativeAppRecorder class
+        recorder = MediaRecorder()
+
+        ImpressionTestTimeRemaing = 0
+        startImpressionTest = false
+        impressionTestQuestion = false
+
+        taskTimingCounter = 1
+        recordingPausedState = false
+        whichScreenedAlreadyOpened = ""
+        isButtonContinuePress = false
+
         Utils.DeleteFolderOfRecording()
         Utils.DeleteFaceRecordingFolder()
+
+
+        testAPKFile = ""
+
 
         recorder = MediaRecorder()
         mediaProjectionManager = getSystemService(MEDIA_PROJECTION_SERVICE) as MediaProjectionManager
@@ -710,8 +767,8 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
             face_recording_texture_view?.setVisibility(View.GONE)
             uiImage?.setVisibility(View.GONE)
             timerTextview?.setVisibility(View.GONE)
-            tapHere?.setVisibility(View.VISIBLE)
-            ll_dnd_screen?.setVisibility(View.VISIBLE)
+            ll_dnd_screen?.visibility = View.VISIBLE
+
         }
 
         showTaskWindowLayout?.setOnTouchListener(OnTouchListener { view, motionEvent ->
@@ -2066,24 +2123,34 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
     }
 
     private fun addTaskTiming(){
-        val keyValue: String = taskTimingCounter.toString() + ""
 
-        val ifExistKey: Boolean =
-            taskTimings.containsKey(keyValue)
+        try{
+            val keyValue: String = taskTimingCounter.toString() + ""
 
-        if (!ifExistKey) { // if not exist
-            val time_value: String =
-                timerTextview?.getText().toString()
-            //we get time_value in min and secounds eg: 00:00
-            val separated = time_value.split(":").toTypedArray()
-            val min_ = separated[0].toInt()
-            val sec_ = separated[1].toInt()
-            val minToSec = min_ * 60 // converting min into sec
-            val total_secounds = sec_ + minToSec // only sec total
-            // No such key
-            taskTimings.put(keyValue, total_secounds.toString() + "")
-            taskTimingCounter++
+            val ifExistKey: Boolean =
+                taskTimings.containsKey(keyValue)
+
+            if (!ifExistKey) { // if not exist
+                val time_value: String =
+                    timerTextview?.getText().toString()
+                //we get time_value in min and secounds eg: 00:00
+                val separated = time_value.split(":").toTypedArray()
+                val min_ = separated[0].toInt()
+                val sec_ = separated[1].toInt()
+                val minToSec = min_ * 60 // converting min into sec
+                val total_secounds = sec_ + minToSec // only sec total
+                // No such key
+                taskTimings.put(keyValue, total_secounds.toString() + "")
+                taskTimingCounter++
+            }
         }
+        catch (nfe : NumberFormatException){
+            Log.e(TAG, "NumberFormatException ne $nfe")
+           hideAllScreen()
+             StopService()
+            moveToDashBoard()
+        }
+
     }
 
     @TargetApi(22)
@@ -2751,8 +2818,9 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
         else{
             YesNoAlertDialog.dismissYesNoDialogue()
 
-            Utils.DeleteFaceRecordingFolder()
             Utils.DeleteFolderOfRecording()
+            Utils.DeleteFaceRecordingFolder()
+
 
             stopService(Intent(this,NativeAppRecordingService::class.java))
             stopSelf()
@@ -2761,9 +2829,70 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
 
             makeAppPortrait()
 
-            releaseRecorder()
+            releaseRecorderForCancelTest()
 
             terminatingTest()
+        }
+    }
+
+    private fun releaseRecorderForCancelTest(){
+        try {
+            if (recorder != null) {
+                recorder?.stop()
+                recorder?.reset()
+                recorder?.release()
+                recorder = null
+            }
+            if (face_media_recorder != null) {
+                face_media_recorder?.stop()
+                face_media_recorder?.reset()
+                face_media_recorder?.reset()
+                face_media_recorder = null
+            }
+            if (countDownTimer != null) {
+                countDownTimer?.cancel()
+                countDownTimer = null
+            } else {
+                countDownTimer = null
+            }
+            if (projection != null) {
+                projection?.stop()
+                projection = null
+            }
+            if (virtualDisplay != null) {
+                virtualDisplay?.release()
+                virtualDisplay = null
+            }
+
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+
+            Log.e(TAG, "catch releaseRecorderForCancelTest $e")
+            Log.e(TAG,"msg "+e.message)
+
+            if (countDownTimer != null) {
+                countDownTimer?.cancel()
+                countDownTimer = null
+            } else {
+                countDownTimer = null
+            }
+            if (!fileNameTemp.equals("", ignoreCase = true)) {
+                val tempFile = File(fileNameTemp)
+                if (tempFile != null && tempFile.exists()) {
+                    tempFile.delete()
+                }
+            }
+            if (!faceRecordingFileNameTemp.equals(
+                    "",
+                    ignoreCase = true
+                )
+            ) {
+                //handle cleanup here
+                val tempFile = File(faceRecordingFileNameTemp)
+                if (tempFile != null && tempFile.exists()) {
+                    tempFile.delete()
+                }
+            }
         }
     }
 
@@ -2782,7 +2911,7 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
                 face_media_recorder?.reset()
                 face_media_recorder = null
             }
-            if (timerHasStarted) {
+            if (countDownTimer != null) {
                 countDownTimer?.cancel()
                 countDownTimer = null
             } else {
@@ -2811,6 +2940,9 @@ class NativeAppRecordingService  : Service(), View.OnClickListener,TerminateTest
             }
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
+
+            Log.e(TAG, "catch releaseRecorder $e")
+
             if (countDownTimer != null) {
                 countDownTimer?.cancel()
                 countDownTimer = null
